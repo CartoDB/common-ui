@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import CatalogHome from "../views/CatalogHome.vue";
+import DOCatalog from "../views/CatalogHome.vue";
 
 Vue.use(VueRouter);
 
@@ -8,7 +8,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: CatalogHome
+    component: DOCatalog
   },
   {
     path: "/summary",
