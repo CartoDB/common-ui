@@ -1,8 +1,8 @@
 {
-  "name": "do-catalog",
+  "name": "common-ui",
   "version": "0.1.0",
   "private": true,
-  "main": "do-catalog/src/index.js",
+  "main": "index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
