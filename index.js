@@ -1,5 +1,3 @@
-import DOCatalog from ".do-catalog/src/views/CatalogHome.vue";
+import DOCatalog from "./do-catalog/src/views/CatalogHome.vue";
 
-export {
-  DOCatalog
-};
+export { DOCatalog };

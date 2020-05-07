@@ -1,1 +1,1 @@
-declare module 'do-catalog';
+declare module 'common-ui';
