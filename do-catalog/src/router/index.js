@@ -6,13 +6,13 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
+    path: "",
+    name: "do-catalog",
     component: DOCatalog
   },
   {
-    path: "/summary",
-    name: "Summary",
+    path: "summary",
+    name: "do-summary",
     component: () =>
       import(/* webpackChunkName: "summary" */ "../views/DatasetSummary.vue")
   }
@@ -25,3 +25,4 @@ const router = new VueRouter({
 });
 
 export default router;
+export { routes };

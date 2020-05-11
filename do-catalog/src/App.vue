@@ -1,12 +1,18 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Catalog</router-link> |
-      <router-link to="/summary">Summary</router-link>
+      <router-link :to="{ name: 'do-catalog' }">Catalog</router-link> |
+      <router-link :to="{ name: 'do-summary' }">Summary</router-link>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  name: "DOCatalogHome"
+};
+</script>
 
 <style lang="scss">
 #app {
