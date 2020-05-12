@@ -3,7 +3,7 @@
     <DatasetHeader></DatasetHeader>
     <div class="grid grid-cell u-flex__justify--center">
       <NavigationTabs class="grid-cell--col10">
-        <router-link :to="{name: 'Summary'}">Summary</router-link>
+        <router-link :to="{name: 'Default'}">Summary</router-link>
         <router-link :to="{name: 'Data'}">Data</router-link>
         <router-link to="/">Map</router-link>
         <router-link to="/">Use it</router-link>

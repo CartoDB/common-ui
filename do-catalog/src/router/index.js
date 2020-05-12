@@ -23,12 +23,6 @@ const routes = [
           import(/* webpackChunkName: "summary" */ "../views/DatasetSummary.vue")
       },
       {
-        path: "summary",
-        name: "Summary",
-        component: () =>
-          import(/* webpackChunkName: "summary" */ "../views/DatasetSummary.vue")
-      },
-      {
         path: "data",
         name: "Data",
         component: () =>
