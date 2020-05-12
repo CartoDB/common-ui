@@ -5,7 +5,7 @@ const catalog = {
   namespaced: true,
   state: {
     isFetching: false,
-    isErrored: false,
+    hasError: false,
     dataset: {}
   },
   computed: {},

@@ -28,11 +28,6 @@ export default {
     DatasetHeader,
     NavigationTabs
   },
-  computed: {
-    ...mapState({
-      dataset: state => state.catalog.dataset
-    })
-  },
   methods: {
     fetchDataset () {
       this.$store.dispatch('catalog/fetchDataset', this.$route.params.dataset_id)

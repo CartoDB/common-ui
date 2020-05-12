@@ -4,12 +4,12 @@
       <div class="map-header">
         <img class="" src="../assets/map-samples.jpg" alt="map-sample">
       </div>
-      <p class="text is-caption is-txtNavyBlue u-mt--32">
+      <p class="text is-caption is-txtMainTextColor u-mt--32">
         {{dataset.description}}
       </p>
 
       <div class="key-variables u-mt--32">
-        <h5 class="title is-caption is-txtNavyBlue">Key variables <a href="#" class="is-small">(View all)</a></h5>
+        <h5 class="title is-caption is-txtMainTextColor">Key variables <a href="#" class="is-small">(View all)</a></h5>
         <ul class="grid text is-caption bullet-list u-mt--24">
           <li class="grid-cell grid-cell--col6">Households by age of reference person</li>
           <li class="grid-cell grid-cell--col6">Households by number of dependant children</li>
@@ -27,27 +27,27 @@
       <ul class="side-characteristics">
         <li class="u-mb--32">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Licence</h4>
-          <p class="text is-caption is-txtNavyBlue">{{dataset_privacy}}</p>
+          <p class="text is-caption is-txtMainTextColor">{{dataset_privacy}}</p>
         </li>
         <li class="u-mb--32">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Country</h4>
-          <p class="text is-caption is-txtNavyBlue">{{dataset.country_name}}</p>
+          <p class="text is-caption is-txtMainTextColor">{{dataset.country_name}}</p>
         </li>
         <li class="u-mb--32">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Source</h4>
-          <p class="text is-caption is-txtNavyBlue">{{dataset.provider_name}}</p>
+          <p class="text is-caption is-txtMainTextColor">{{dataset.provider_name}}</p>
         </li>
         <li class="u-mb--32">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Geography</h4>
-          <p class="text is-caption is-txtNavyBlue">{{dataset.geography_name}}</p>
+          <p class="text is-caption is-txtMainTextColor">{{dataset.geography_name}}</p>
         </li>
         <li class="u-mb--32">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Temporal aggregation</h4>
-          <p class="text is-caption is-txtNavyBlue">{{temporal_aggregation}}</p>
+          <p class="text is-caption is-txtMainTextColor">{{temporal_aggregation}}</p>
         </li>
         <li class="u-mb--32">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Update Frequency</h4>
-          <p class="text is-caption is-txtNavyBlue">{{update_frequency}}</p>
+          <p class="text is-caption is-txtMainTextColor">{{update_frequency}}</p>
         </li>
       </ul>
     </div>

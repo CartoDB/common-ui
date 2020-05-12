@@ -7,7 +7,8 @@ $colors: (
   'SoftBlue': $color-primary--soft,
   'DarkBlue': $blue--900,
   'NavyBlue': $navy-blue,
-  'BaseGrey': $neutral--800
+  'BaseGrey': $neutral--800,
+  'MainTextColor': $navy-blue
 );
 
 @each $name, $color in $colors {

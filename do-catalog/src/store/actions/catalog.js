@@ -1,9 +1,11 @@
 export function fetchDataset (context, datasetId) {
   context.commit('setFetchingState');
 
-  var baseUrl = "https://public.carto.com";
+  // var baseUrl = "https://public.carto.com";
+  var baseUrl = "https://cmonteserin-do-st.carto-staging.com";
   var apiPath = "/api/v4/data/observatory/metadata/datasets/";
   var url = baseUrl + apiPath + datasetId;
+  console.log(url);
   var req = new XMLHttpRequest();
   req.open('GET', url, true);
   req.onreadystatechange = function () {
