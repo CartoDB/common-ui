@@ -6,16 +6,19 @@ const catalog = {
   state: {
     isFetching: false,
     hasError: false,
-    dataset: {}
+    dataset: {},
+    key_variables: {}
   },
   computed: {},
   getters: {},
   mutations: {
     setFetchingState: CatalogMutations.setFetchingState,
     setDataset: CatalogMutations.setDataset,
+    setKeyVariables: CatalogMutations.setKeyVariables
   },
   actions: {
     fetchDataset: CatalogActions.fetchDataset,
+    fetchKeyVariables: CatalogActions.fetchKeyVariables
   }
 };
 

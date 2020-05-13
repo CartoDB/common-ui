@@ -2,6 +2,7 @@ import { createLocalVue, shallowMount } from "@vue/test-utils";
 import Vuex from 'vuex';
 import DatasetSummary from "@/views/DatasetSummary";
 import dataset from '../fixtures/dataset';
+import keyVariables from '../fixtures/key_variables';
 
 
 const localVue = createLocalVue();
@@ -72,10 +73,12 @@ describe("DatasetSummary.vue", () => {
 });
 
 function createStore(data = dataset.dataset_samples[0]) {
+  const keyVariablesSample = keyVariables.key_variable_samples[0];
   const store = new Vuex.Store({
     state: {
       catalog: {
-        dataset: data
+        dataset: data,
+        key_variables: keyVariablesSample
       }
     },
   });

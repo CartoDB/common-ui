@@ -7,7 +7,7 @@ exports[`DatasetHeader.vue Renders view properly 1`] = `
       <p class="text is-caption is-txtMainTextColor"><a class="title is-txtMainTextColor">Demographics</a> /
         <a class="text is-txtMainTextColor">Retail Centrality</a></p>
     </nav>
-    <h2 class="title is-subheader is-txtMainTextColor u-mt--4">Retail Centrality at PC 5-digit (postal) level for USA</h2>
+    <h1 class="title is-subheader is-txtMainTextColor u-mt--4">Retail Centrality at PC 5-digit (postal) level for USA</h1>
   </div>
   <div class="grid-cell--col1"></div>
   <div class="grid-cell--col2">

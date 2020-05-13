@@ -10,15 +10,10 @@
 
       <div class="key-variables u-mt--32">
         <h5 class="title is-caption is-txtMainTextColor">Key variables <a href="#" class="is-small">(View all)</a></h5>
-        <ul class="grid text is-caption bullet-list u-mt--24">
-          <li class="grid-cell grid-cell--col6">Households by age of reference person</li>
-          <li class="grid-cell grid-cell--col6">Households by number of dependant children</li>
-          <li class="grid-cell grid-cell--col6">Households by dwelling type</li>
-          <li class="grid-cell grid-cell--col6">Households by number of rooms</li>
-          <li class="grid-cell grid-cell--col6">Households by economic activity</li>
-          <li class="grid-cell grid-cell--col6">Households by size</li>
-          <li class="grid-cell grid-cell--col6">Households by ethnic groups</li>
-          <li class="grid-cell grid-cell--col6">Households by tenure</li>
+        <ul class="text is-caption column-list u-mt--24">
+          <li v-for="variable in key_variables" :key="variable.id">
+            <span>{{variable.name}}</span>
+          </li>
         </ul>
       </div>
     </div>
@@ -62,7 +57,8 @@ export default {
   name: "DatasetSummary",
   computed: {
     ...mapState({
-      dataset: state => state.catalog.dataset
+      dataset: state => state.catalog.dataset,
+      key_variables: state => state.catalog.key_variables
     }),
     temporal_aggregation () {
       return temporalAggregationName(this.dataset.temporal_aggregation)
@@ -88,10 +84,20 @@ export default {
   }
 }
 
-.bullet-list {
+.column-list {
+  padding-left: 32px;
+  column-gap: 48px;
+  column-count: 2;
+  column-width: 50%;
+
   li {
     margin-bottom: 12px;
-    list-style: inside;
+    list-style: disc;
+
+    span {
+      display: inline-block;
+      vertical-align: text-top;
+    }
   }
 }
 </style>

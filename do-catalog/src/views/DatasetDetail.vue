@@ -23,6 +23,7 @@ export default {
   name: 'App',
   mounted () {
     this.fetchDataset();
+    this.fetchKeyVariables();
   },
   components: {
     DatasetHeader,
@@ -31,6 +32,9 @@ export default {
   methods: {
     fetchDataset () {
       this.$store.dispatch('catalog/fetchDataset', this.$route.params.dataset_id)
+    },
+    fetchKeyVariables () {
+      this.$store.dispatch('catalog/fetchKeyVariables', this.$route.params.dataset_id)
     }
   }
 }

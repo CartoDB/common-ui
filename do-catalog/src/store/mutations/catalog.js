@@ -8,3 +8,9 @@ export function setDataset (state, data) {
   state.isFetching = false;
   state.hasError = false;
 }
+
+export function setKeyVariables (state, data) {
+  state.key_variables = data;
+  state.isFetching = false;
+  state.hasError = false;
+}

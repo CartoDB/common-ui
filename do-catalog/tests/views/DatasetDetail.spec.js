@@ -14,7 +14,8 @@ describe("DatasetDetail.vue", () => {
 
   beforeEach(() => {
     actions = {
-      "catalog/fetchDataset": jest.fn()
+      "catalog/fetchDataset": jest.fn(),
+      "catalog/fetchKeyVariables": jest.fn()
     };
     store = new Vuex.Store({
       state: {},
@@ -38,5 +39,6 @@ describe("DatasetDetail.vue", () => {
       store
     });
     expect(actions["catalog/fetchDataset"]).toHaveBeenCalled();
+    expect(actions["catalog/fetchKeyVariables"]).toHaveBeenCalled();
   });
 });

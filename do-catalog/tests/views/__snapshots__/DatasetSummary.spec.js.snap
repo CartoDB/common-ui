@@ -9,15 +9,35 @@ exports[`DatasetSummary.vue Renders view properly 1`] = `
     </p>
     <div class="key-variables u-mt--32">
       <h5 class="title is-caption is-txtMainTextColor">Key variables <a href="#" class="is-small">(View all)</a></h5>
-      <ul class="grid text is-caption bullet-list u-mt--24">
-        <li class="grid-cell grid-cell--col6">Households by age of reference person</li>
-        <li class="grid-cell grid-cell--col6">Households by number of dependant children</li>
-        <li class="grid-cell grid-cell--col6">Households by dwelling type</li>
-        <li class="grid-cell grid-cell--col6">Households by number of rooms</li>
-        <li class="grid-cell grid-cell--col6">Households by economic activity</li>
-        <li class="grid-cell grid-cell--col6">Households by size</li>
-        <li class="grid-cell grid-cell--col6">Households by ethnic groups</li>
-        <li class="grid-cell grid-cell--col6">Households by tenure</li>
+      <ul class="text is-caption column-list u-mt--24">
+        <li><span>Total Population</span></li>
+        <li><span>Number of households</span></li>
+        <li><span>Population by gender</span></li>
+        <li><span>Median age</span></li>
+        <li><span>Population by age and gender</span></li>
+        <li><span>Population by race</span></li>
+        <li><span>Population by age</span></li>
+        <li><span>Population by marital status</span></li>
+        <li><span>Population by US citizenship</span></li>
+        <li><span>Median Income</span></li>
+        <li><span>Income per capita</span></li>
+        <li><span>Households by income</span></li>
+        <li><span>Poverty status</span></li>
+        <li><span>Inequality index</span></li>
+        <li><span>Housing units</span></li>
+        <li><span>Housing units by type of occupancy</span></li>
+        <li><span>Dwellings by type</span></li>
+        <li><span>Housing units by construction year</span></li>
+        <li><span>Households by family type</span></li>
+        <li><span>Median rent</span></li>
+        <li><span>Housing units by rent burden</span></li>
+        <li><span>Families by type</span></li>
+        <li><span>Commuting patterns</span></li>
+        <li><span>Car ownership</span></li>
+        <li><span>Population by eduaction level</span></li>
+        <li><span>Occupations</span></li>
+        <li><span>Students by grade</span></li>
+        <li><span>Population by language at home</span></li>
       </ul>
     </div>
   </div>
