@@ -1,12 +1,20 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import Vue from 'vue';
+import DOCatalogHome from './App.vue';
+import createRouter from './router';
+import store from './store';
 
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount("#app");
+class DOCatalogStandalone {
+  constructor(el) {
+    new Vue({
+      router: createRouter(),
+      store,
+      render: h => h(DOCatalogHome)
+    }).$mount(el);
+  }
+}
+
+new DOCatalogStandalone('#app');
+
+export default DOCatalogStandalone;

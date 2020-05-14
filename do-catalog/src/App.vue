@@ -9,8 +9,13 @@
 </template>
 
 <script>
+import store from './store';
+import createRouter from './router';
+
 export default {
-  name: "DOCatalogHome"
+  store,
+  router: createRouter(),
+  name: 'DOCatalogHome'
 };
 </script>
 

@@ -7,6 +7,6 @@
 
 <script>
 export default {
-  name: "DOCatalog"
+  name: 'DOCatalog'
 };
 </script>
