@@ -11,11 +11,25 @@ const routes = [
     component: CatalogHome
   },
   {
-    path: "/summary",
-    name: "Summary",
+    path: "/datasets/:dataset_id",
+    name: "Dataset",
     component: () =>
-      import(/* webpackChunkName: "summary" */ "../views/DatasetSummary.vue")
-  }
+      import(/* webpackChunkName: "summary" */ "../views/DatasetDetail.vue"),
+    children: [
+      {
+        path: "",
+        name: "Default",
+        component: () =>
+          import(/* webpackChunkName: "summary" */ "../views/DatasetSummary.vue")
+      },
+      {
+        path: "data",
+        name: "Data",
+        component: () =>
+          import(/* webpackChunkName: "summary" */ "../views/DatasetData.vue")
+      }
+    ]
+  },
 ];
 
 const router = new VueRouter({
