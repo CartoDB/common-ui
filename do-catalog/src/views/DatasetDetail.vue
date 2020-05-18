@@ -10,7 +10,7 @@
         <router-link to="/">Catalog</router-link>
       </NavigationTabs>
     </div>
-    <router-view />
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ import DatasetHeader from '../components/datasetDetail/DatasetHeader';
 import NavigationTabs from '../components/datasetDetail/NavigationTabs';
 
 export default {
-  name: 'App',
+  name: 'DatasetDetail',
   mounted() {
     this.fetchDataset();
     this.fetchKeyVariables();

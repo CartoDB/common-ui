@@ -5,16 +5,8 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
-class DOCatalogStandalone {
-  constructor(el) {
-    new Vue({
-      router: createRouter(),
-      store,
-      render: h => h(DOCatalogHome)
-    }).$mount(el);
-  }
-}
-
-new DOCatalogStandalone('#app');
-
-export default DOCatalogStandalone;
+new Vue({
+  router: createRouter(),
+  store,
+  render: h => h(DOCatalogHome)
+}).$mount('#app');
