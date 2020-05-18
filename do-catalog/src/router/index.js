@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import DOCatalog from '../views/CatalogHome.vue';
-import Summary from '../views/DatasetSummary.vue';
 
 Vue.use(VueRouter);
 
@@ -12,9 +11,26 @@ const routes = [
     component: DOCatalog
   },
   {
-    path: 'summary',
+    path: '/datasets/:dataset_id',
     name: 'do-summary',
-    component: Summary
+    component: () =>
+      import(/* webpackChunkName: "summary" */ '../views/DatasetDetail.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Default',
+        component: () =>
+          import(
+            /* webpackChunkName: "summary" */ '../views/DatasetSummary.vue'
+          )
+      },
+      {
+        path: 'data',
+        name: 'Data',
+        component: () =>
+          import(/* webpackChunkName: "summary" */ '../views/DatasetData.vue')
+      }
+    ]
   }
 ];
 
