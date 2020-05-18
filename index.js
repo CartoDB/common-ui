@@ -1,8 +1,9 @@
-import { routes as DOCatalogRoutes } from './do-catalog/src/router';
+import { routes as doCatalogRoutes } from './do-catalog/src/router';
+import doCatalogStoreModule from './do-catalog/src/store/modules/data/catalog';
 
 import DOCatalogComponent from './do-catalog/dist/do-catalog.umd';
 
-const CreateDOCatalogComponent = function(options = {}) {
+const createDOCatalogComponent = function(options = {}) {
   const { baseUrl = '/' } = options;
   DOCatalogComponent.router.options.base = baseUrl;
   DOCatalogComponent.router.history.base = baseUrl;
@@ -10,4 +11,4 @@ const CreateDOCatalogComponent = function(options = {}) {
   return DOCatalogComponent;
 };
 
-export { DOCatalogRoutes, CreateDOCatalogComponent };
+export { doCatalogRoutes, doCatalogStoreModule, createDOCatalogComponent };

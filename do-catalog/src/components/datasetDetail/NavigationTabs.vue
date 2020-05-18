@@ -6,12 +6,12 @@
 
 <script>
 export default {
-  name: "NavigationTabs"
-}
+  name: 'NavigationTabs'
+};
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 .nav-tabs {
   border-bottom: 1px solid $neutral--300;

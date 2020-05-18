@@ -1,17 +1,16 @@
-import { createLocalVue, shallowMount } from "@vue/test-utils";
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
-import DatasetSummary from "@/views/DatasetSummary";
+import DatasetSummary from '@/views/DatasetSummary';
 import dataset from '../fixtures/dataset';
 import keyVariables from '../fixtures/key_variables';
-
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe("DatasetSummary.vue", () => {
+describe('DatasetSummary.vue', () => {
   const store = createStore();
 
-  it("Renders view properly", () => {
+  it('Renders view properly', () => {
     const datasetSummary = shallowMount(DatasetSummary, {
       localVue,
       store
@@ -19,10 +18,8 @@ describe("DatasetSummary.vue", () => {
     expect(datasetSummary).toMatchSnapshot();
   });
 
-
-  describe("computed", () => {
-
-    it("Renders view properly", () => {
+  describe('computed', () => {
+    it('Renders view properly', () => {
       const datasetSummary = shallowMount(DatasetSummary, {
         localVue,
         store
@@ -40,8 +37,8 @@ describe("DatasetSummary.vue", () => {
       expect(updateFrequency).toBe('None');
     });
 
-    it("Keeps original update frequency when the update frequency is set", () => {
-      let altStore = createStore(dataset.dataset_samples[1])
+    it('Keeps original update frequency when the update frequency is set', () => {
+      let altStore = createStore(dataset.dataset_samples[1]);
       const datasetSummary = shallowMount(DatasetSummary, {
         localVue,
         store: altStore
@@ -50,24 +47,24 @@ describe("DatasetSummary.vue", () => {
       expect(updateFrequency).toBe(dataset.dataset_samples[1].update_frequency);
     });
 
-    it("Returns premium data when is not public data", () => {
+    it('Returns premium data when is not public data', () => {
       // let altStore = createStore(dataset.dataset_samples[1])
       const datasetSummary = shallowMount(DatasetSummary, {
         localVue,
         store
       });
       const dataPrivacy = datasetSummary.vm.dataset_privacy;
-      expect(dataPrivacy).toBe("Premium Data");
+      expect(dataPrivacy).toBe('Premium Data');
     });
 
-    it("Returns public data when is not public data", () => {
-      let altStore = createStore(dataset.dataset_samples[1])
+    it('Returns public data when is not public data', () => {
+      let altStore = createStore(dataset.dataset_samples[1]);
       const datasetSummary = shallowMount(DatasetSummary, {
         localVue,
         store: altStore
       });
       const dataPrivacy = datasetSummary.vm.dataset_privacy;
-      expect(dataPrivacy).toBe("Public Data");
+      expect(dataPrivacy).toBe('Public Data');
     });
   });
 });
@@ -80,7 +77,7 @@ function createStore(data = dataset.dataset_samples[0]) {
         dataset: data,
         key_variables: keyVariablesSample
       }
-    },
+    }
   });
   return store;
 }

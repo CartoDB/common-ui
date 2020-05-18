@@ -1,34 +1,32 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import DOCatalog from '../views/CatalogHome.vue';
+import DatasetDetail from '../views/DatasetDetail.vue';
+import DatasetSummary from '../views/DatasetSummary.vue';
+import DatasetData from '../views/DatasetData.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '',
+    path: '/',
     name: 'do-catalog',
     component: DOCatalog
   },
   {
-    path: '/datasets/:dataset_id',
-    name: 'do-summary',
-    component: () =>
-      import(/* webpackChunkName: "summary" */ '../views/DatasetDetail.vue'),
+    path: '/datasets/:datasetId',
+    component: DatasetDetail,
+    name: 'do-dataset',
     children: [
       {
-        path: '',
-        name: 'Default',
-        component: () =>
-          import(
-            /* webpackChunkName: "summary" */ '../views/DatasetSummary.vue'
-          )
+        path: 'data',
+        name: 'do-dataset-data',
+        component: DatasetData
       },
       {
-        path: 'data',
-        name: 'Data',
-        component: () =>
-          import(/* webpackChunkName: "summary" */ '../views/DatasetData.vue')
+        path: 'summary',
+        name: 'do-dataset-summary',
+        component: DatasetSummary
       }
     ]
   }
