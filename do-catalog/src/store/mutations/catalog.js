@@ -14,3 +14,9 @@ export function setKeyVariables (state, data) {
   state.isFetching = false;
   state.hasError = false;
 }
+
+export function setVariables (state, data) {
+  state.variables = data;
+  state.isFetching = false;
+  state.hasError = false;
+}
