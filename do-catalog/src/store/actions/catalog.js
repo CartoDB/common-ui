@@ -18,7 +18,7 @@ export function fetchDataset(context, datasetId) {
   req.send(null);
 }
 
-export function fetchKeyVariables (context, datasetId) {
+export function fetchKeyVariables(context, datasetId) {
   // var baseUrl = "https://public.carto.com";
   var baseUrl = 'https://cmonteserin-do-st.carto-staging.com';
   var apiPath = '/api/v4/data/observatory/metadata/datasets/';
@@ -36,20 +36,19 @@ export function fetchKeyVariables (context, datasetId) {
   req.send(null);
 }
 
-export function fetchVariables (context, datasetId) {
+export function fetchVariables(context, datasetId) {
   // var baseUrl = "https://public.carto.com";
-  var baseUrl = "https://cmonteserin-do-st.carto-staging.com";
-  var apiPath = "/api/v4/data/observatory/metadata/datasets/";
-  var url = baseUrl + apiPath + datasetId + "/variables?minimal=true";
+  var baseUrl = 'https://cmonteserin-do-st.carto-staging.com';
+  var apiPath = '/api/v4/data/observatory/metadata/datasets/';
+  var url = baseUrl + apiPath + datasetId + '/variables?minimal=true';
   console.log(url);
   var req = new XMLHttpRequest();
   req.open('GET', url, true);
-  req.onreadystatechange = function () {
+  req.onreadystatechange = function() {
     if (req.readyState == 4) {
-      if(req.status == 200)
+      if (req.status == 200)
         context.commit('setVariables', JSON.parse(req.responseText));
-      else
-        console.log("Error loading page\n"); //TODO
+      else console.log('Error loading page\n'); //TODO
     }
   };
   req.send(null);

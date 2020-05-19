@@ -3,12 +3,13 @@
 exports[`DatasetSummary.vue Renders view properly 1`] = `
 <div class="grid u-flex__justify--center">
   <div class="grid-cell grid-cell--col7 main-column">
-    <div class="map-header"><img src="../assets/map-samples.jpg" alt="map-sample"></div>
+    <div class="map-header"></div>
     <p class="text is-caption is-txtMainTextColor u-mt--32">
       Retail Centrality is the ratio between Retail Turnover Index and Retail Spending Index multiplied by 100. It describes the ability of an area to pin the Retail Spending of its population and of other areas' population down to the local retail trade.
     </p>
     <div class="key-variables u-mt--32">
-      <h5 class="title is-caption is-txtMainTextColor">Key variables <a href="#" class="is-small">(View all)</a></h5>
+      <h5 class="title is-caption is-txtMainTextColor">
+        Key variables <a href="#" class="is-small">(View all)</a></h5>
       <ul class="text is-caption column-list u-mt--24">
         <li><span>Total Population</span></li>
         <li><span>Number of households</span></li>
@@ -46,27 +47,43 @@ exports[`DatasetSummary.vue Renders view properly 1`] = `
     <ul class="side-characteristics">
       <li class="u-mb--32">
         <h4 class="text is-small is-txtSoftGrey u-mb--10">Licence</h4>
-        <p class="text is-caption is-txtMainTextColor">Premium Data</p>
+        <p class="text is-caption is-txtMainTextColor">
+          Premium Data
+        </p>
       </li>
       <li class="u-mb--32">
         <h4 class="text is-small is-txtSoftGrey u-mb--10">Country</h4>
-        <p class="text is-caption is-txtMainTextColor">United States of America</p>
+        <p class="text is-caption is-txtMainTextColor">
+          United States of America
+        </p>
       </li>
       <li class="u-mb--32">
         <h4 class="text is-small is-txtSoftGrey u-mb--10">Source</h4>
-        <p class="text is-caption is-txtMainTextColor">Michael Bauer International</p>
+        <p class="text is-caption is-txtMainTextColor">
+          Michael Bauer International
+        </p>
       </li>
       <li class="u-mb--32">
         <h4 class="text is-small is-txtSoftGrey u-mb--10">Geography</h4>
-        <p class="text is-caption is-txtMainTextColor">USA - PC 5-digit</p>
+        <p class="text is-caption is-txtMainTextColor">
+          USA - PC 5-digit
+        </p>
       </li>
       <li class="u-mb--32">
-        <h4 class="text is-small is-txtSoftGrey u-mb--10">Temporal aggregation</h4>
-        <p class="text is-caption is-txtMainTextColor">Yearly</p>
+        <h4 class="text is-small is-txtSoftGrey u-mb--10">
+          Temporal aggregation
+        </h4>
+        <p class="text is-caption is-txtMainTextColor">
+          Yearly
+        </p>
       </li>
       <li class="u-mb--32">
-        <h4 class="text is-small is-txtSoftGrey u-mb--10">Update Frequency</h4>
-        <p class="text is-caption is-txtMainTextColor">None</p>
+        <h4 class="text is-small is-txtSoftGrey u-mb--10">
+          Update Frequency
+        </h4>
+        <p class="text is-caption is-txtMainTextColor">
+          None
+        </p>
       </li>
     </ul>
   </div>

@@ -1,23 +1,45 @@
 <template>
   <div class="grid u-flex__justify--center">
     <div class="grid-cell grid-cell--col10 u-mt--28">
-      <h2 class="title is-caption is-txtMainTextColor">Data sample <a href="#variables-section" class="is-small">View {{numberColumns}} variables list</a></h2>
+      <h2 class="title is-caption is-txtMainTextColor">
+        Data sample
+        <a href="#variables-section" class="is-small"
+          >View {{ numberColumns }} variables list</a
+        >
+      </h2>
       <div class="table-wrapper" ref="tableWrapper">
-        <div class="tooltip is-small" :class="{ first: tooltip.isFirst, last: tooltip.isLast }" v-if="tooltip.visible" :style="{left: tooltip.left+'px'}">
-          <p class="text is-small"><span class="is-semibold">Description:</span> {{tooltip.description}}</p>
-          <p class="text is-small"><span class="is-semibold">Type:</span> {{tooltip.type}}</p>
+        <div
+          class="tooltip is-small"
+          :class="{ first: tooltip.isFirst, last: tooltip.isLast }"
+          v-if="tooltip.visible"
+          :style="{ left: tooltip.left + 'px' }"
+        >
+          <p class="text is-small">
+            <span class="is-semibold">Description:</span>
+            {{ tooltip.description }}
+          </p>
+          <p class="text is-small">
+            <span class="is-semibold">Type:</span> {{ tooltip.type }}
+          </p>
         </div>
         <div class="scrollable-table u-mt--24">
           <table class="text is-small">
             <tr>
               <th></th>
-              <th @mouseover="showTooltip(value, $event)" @mouseleave="hideTooltip" v-for="value in columns" :key="value">
-                {{value}}
+              <th
+                @mouseover="showTooltip(value, $event)"
+                @mouseleave="hideTooltip"
+                v-for="value in columns"
+                :key="value"
+              >
+                {{ value }}
               </th>
             </tr>
             <tr v-for="n in numberRows" :key="n">
               <td class="is-semibold">{{ n - 1 }}</td>
-              <td v-for="value in columns" :key="value">{{tableSample[value][n-1]}}</td>
+              <td v-for="value in columns" :key="value">
+                {{ tableSample[value][n - 1] }}
+              </td>
             </tr>
           </table>
         </div>
@@ -34,13 +56,20 @@
           <div class="grid-cell grid-cell--col1">Type</div>
         </li>
 
-        <li class="grid info-row" v-for="variable in variables" :key="variable.slug">
-          <div class="grid-cell grid-cell--col4 is-semibold">{{variable.name}}</div>
-          <div class="grid-cell grid-cell--col7">{{variable.description}}</div>
-          <div class="grid-cell grid-cell--col1">{{variable.db_type}}</div>
+        <li
+          class="grid info-row"
+          v-for="variable in variables"
+          :key="variable.slug"
+        >
+          <div class="grid-cell grid-cell--col4 is-semibold">
+            {{ variable.name }}
+          </div>
+          <div class="grid-cell grid-cell--col7">
+            {{ variable.description }}
+          </div>
+          <div class="grid-cell grid-cell--col1">{{ variable.db_type }}</div>
         </li>
       </ul>
-
     </div>
   </div>
 </template>
@@ -49,8 +78,8 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: "DatasetSummary",
-  data () {
+  name: 'DatasetSummary',
+  data() {
     return {
       tooltip: {
         visible: false,
@@ -60,44 +89,49 @@ export default {
         description: null,
         type: null
       }
-    }
+    };
   },
-  mounted () {
-    this.fetchVariables()
+  mounted() {
+    this.fetchVariables();
   },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset,
       variables: state => state.doCatalog.variables
     }),
-    tableSample () {
-      return this.dataset && this.dataset.summary_json ? this.dataset.summary_json.glimpses.head : {};
+    tableSample() {
+      return this.dataset && this.dataset.summary_json
+        ? this.dataset.summary_json.glimpses.head
+        : {};
     },
-    columns () {
+    columns() {
       return this.tableSample ? Object.keys(this.tableSample) : [];
     },
-    numberRows () {
+    numberRows() {
       return this.columns.length ? this.tableSample[this.columns[0]].length : 0;
     },
-    numberColumns () {
+    numberColumns() {
       return this.columns.length;
     }
   },
   methods: {
-    fetchVariables () {
-      this.$store.dispatch('doCatalog/fetchVariables', this.$route.params.datasetId)
+    fetchVariables() {
+      this.$store.dispatch(
+        'doCatalog/fetchVariables',
+        this.$route.params.datasetId
+      );
     },
-    findVariableInfo (variableName) {
+    findVariableInfo(variableName) {
       return this.variables.find(e => e.column_name == variableName);
     },
-    showTooltip (variableName, event) {
+    showTooltip(variableName, event) {
       let tooltipInfo = this.findVariableInfo(variableName);
       let tableBoundingSize = this.$refs.tableWrapper.getBoundingClientRect();
       let targetBoundingSize = event.target.getBoundingClientRect();
       this.tooltip.left = targetBoundingSize.left - tableBoundingSize.left;
       if (this.tooltip.left < 60) {
         this.tooltip.isFirst = true;
-      } else if ((tableBoundingSize.width - this.tooltip.left) < 120) {
+      } else if (tableBoundingSize.width - this.tooltip.left < 120) {
         this.tooltip.isLast = true;
         this.tooltip.left += targetBoundingSize.width;
       } else {
@@ -113,11 +147,11 @@ export default {
       this.tooltip.isLast = false;
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
-@import "@/styles/variables";
+@import '@/styles/variables';
 
 .title a {
   margin-left: 26px;
@@ -172,7 +206,7 @@ export default {
   padding: 12px 16px 8px;
   border: 1px solid $border-color;
   border-radius: 4px;
-  background-color: #FFF;
+  background-color: #fff;
   transform: translateX(-50%);
   word-break: break-word;
 
@@ -188,7 +222,7 @@ export default {
     border-top: none;
     border-left: none;
     border-radius: 2px;
-    background-color: #FFF;
+    background-color: #fff;
   }
 
   &.first {
