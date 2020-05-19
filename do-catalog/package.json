@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --inline-vue",
+    "build:lib": "vue-cli-service build --target lib --formats umd-min --inline-vue",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "lint:css": "stylelint './src/styles/**/*.scss'"
