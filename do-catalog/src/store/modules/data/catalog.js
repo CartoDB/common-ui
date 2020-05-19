@@ -7,18 +7,21 @@ const catalog = {
     isFetching: false,
     hasError: false,
     dataset: {},
-    key_variables: {}
+    key_variables: {},
+    variables: {}
   },
   computed: {},
   getters: {},
   mutations: {
     setFetchingState: CatalogMutations.setFetchingState,
     setDataset: CatalogMutations.setDataset,
-    setKeyVariables: CatalogMutations.setKeyVariables
+    setKeyVariables: CatalogMutations.setKeyVariables,
+    setVariables: CatalogMutations.setVariables
   },
   actions: {
     fetchDataset: CatalogActions.fetchDataset,
-    fetchKeyVariables: CatalogActions.fetchKeyVariables
+    fetchKeyVariables: CatalogActions.fetchKeyVariables,
+    fetchVariables: CatalogActions.fetchVariables
   }
 };
 
