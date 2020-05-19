@@ -20,8 +20,6 @@ export function fetchDataset (context, datasetId) {
 }
 
 export function fetchKeyVariables (context, datasetId) {
-  // context.commit('setFetchingState');
-
   // var baseUrl = "https://public.carto.com";
   var baseUrl = "https://cmonteserin-do-st.carto-staging.com";
   var apiPath = "/api/v4/data/observatory/metadata/datasets/";
@@ -33,6 +31,25 @@ export function fetchKeyVariables (context, datasetId) {
     if (req.readyState == 4) {
       if(req.status == 200)
         context.commit('setKeyVariables', JSON.parse(req.responseText));
+      else
+        console.log("Error loading page\n"); //TODO
+    }
+  };
+  req.send(null);
+}
+
+export function fetchVariables (context, datasetId) {
+  // var baseUrl = "https://public.carto.com";
+  var baseUrl = "https://cmonteserin-do-st.carto-staging.com";
+  var apiPath = "/api/v4/data/observatory/metadata/datasets/";
+  var url = baseUrl + apiPath + datasetId + "/variables?minimal=true";
+  console.log(url);
+  var req = new XMLHttpRequest();
+  req.open('GET', url, true);
+  req.onreadystatechange = function () {
+    if (req.readyState == 4) {
+      if(req.status == 200)
+        context.commit('setVariables', JSON.parse(req.responseText));
       else
         console.log("Error loading page\n"); //TODO
     }
