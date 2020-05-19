@@ -61,8 +61,8 @@ export default {
   },
   computed: {
     ...mapState({
-      dataset: state => state.catalog.dataset,
-      variables: state => state.catalog.variables
+      dataset: state => state.doCatalog.dataset,
+      variables: state => state.doCatalog.variables
     }),
     tableSample () {
       return this.dataset && this.dataset.summary_json ? this.dataset.summary_json.glimpses.head : {};
@@ -71,7 +71,7 @@ export default {
       return this.tableSample ? Object.keys(this.tableSample) : [];
     },
     numberRows () {
-      return this.tableSample[this.columns[0]].length;
+      return this.columns.length ? this.tableSample[this.columns[0]].length : 0;
     },
     numberColumns () {
       return this.columns.length;
@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     fetchVariables () {
-      this.$store.dispatch('catalog/fetchVariables', this.$route.params.dataset_id)
+      this.$store.dispatch('doCatalog/fetchVariables', this.$route.params.datasetId)
     },
     findVariableInfo (variableName) {
       return this.variables.find(e => e.column_name == variableName);
@@ -92,7 +92,6 @@ export default {
       this.tooltipVisible = true;
     },
     hideTooltip() {
-      console.log("HIDE")
       this.tooltipVisible = false;
     }
   }
@@ -104,7 +103,7 @@ export default {
 
 .scrollable-table {
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
   border: 1px solid $neutral--400;
 
   td,

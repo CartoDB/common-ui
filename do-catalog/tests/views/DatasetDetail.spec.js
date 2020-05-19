@@ -1,6 +1,6 @@
-import { createLocalVue, shallowMount } from "@vue/test-utils";
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
-import DatasetDetail from "@/views/DatasetDetail";
+import DatasetDetail from '@/views/DatasetDetail';
 import VueRouter from 'vue-router';
 
 const localVue = createLocalVue();
@@ -8,14 +8,14 @@ localVue.use(VueRouter);
 localVue.use(Vuex);
 const router = new VueRouter();
 
-describe("DatasetDetail.vue", () => {
+describe('DatasetDetail.vue', () => {
   let actions;
   let store;
 
   beforeEach(() => {
     actions = {
-      "catalog/fetchDataset": jest.fn(),
-      "catalog/fetchKeyVariables": jest.fn()
+      'catalog/fetchDataset': jest.fn(),
+      'catalog/fetchKeyVariables': jest.fn()
     };
     store = new Vuex.Store({
       state: {},
@@ -23,7 +23,7 @@ describe("DatasetDetail.vue", () => {
     });
   });
 
-  it("Renders view properly", () => {
+  it('Renders view properly', () => {
     const datasetDetail = shallowMount(DatasetDetail, {
       localVue,
       router,
@@ -32,13 +32,13 @@ describe("DatasetDetail.vue", () => {
     expect(datasetDetail).toMatchSnapshot();
   });
 
-  it("Fetch data from the api", () => {
+  it('Fetch data from the api', () => {
     const datasetDetail = shallowMount(DatasetDetail, {
       localVue,
       router,
       store
     });
-    expect(actions["catalog/fetchDataset"]).toHaveBeenCalled();
-    expect(actions["catalog/fetchKeyVariables"]).toHaveBeenCalled();
+    expect(actions['catalog/fetchDataset']).toHaveBeenCalled();
+    expect(actions['catalog/fetchKeyVariables']).toHaveBeenCalled();
   });
 });
