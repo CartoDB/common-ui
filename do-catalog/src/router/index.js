@@ -24,7 +24,7 @@ const routes = [
         component: DatasetData
       },
       {
-        path: 'summary',
+        path: '',
         name: 'do-dataset-summary',
         component: DatasetSummary
       }
