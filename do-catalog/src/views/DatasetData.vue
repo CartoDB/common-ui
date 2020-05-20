@@ -1,28 +1,52 @@
 <template>
   <div class="grid u-flex__justify--center">
     <div class="grid-cell grid-cell--col10 u-mt--28">
-      <h2 class="title is-caption is-txtMainTextColor">Data sample <a href="#" class="is-small">(View {{numberColumns}} variables list)</a></h2>
+      <h2 class="title is-caption is-txtMainTextColor">
+        Data sample
+        <a href="#variables-section" class="is-small"
+          >View {{ numberColumns }} variables list</a
+        >
+      </h2>
       <div class="table-wrapper" ref="tableWrapper">
-        <div class="tooltip is-small" v-if="tooltipVisible" :style="{left: tooltipLeft+'px'}">
-          <p class="text is-small"><span class="is-semibold">Description:</span> {{tooltipDescription}}</p>
-          <p class="text is-small"><span class="is-semibold">Type:</span> {{tooltipType}}</p>
+        <div
+          class="tooltip is-small"
+          :class="{ first: tooltip.isFirst, last: tooltip.isLast }"
+          v-if="tooltip.visible"
+          :style="{ left: tooltip.left + 'px' }"
+        >
+          <p class="text is-small">
+            <span class="is-semibold">Description:</span>
+            {{ tooltip.description }}
+          </p>
+          <p class="text is-small">
+            <span class="is-semibold">Type:</span> {{ tooltip.type }}
+          </p>
         </div>
         <div class="scrollable-table u-mt--24">
           <table class="text is-small">
             <tr>
-              <th @mouseover="showTooltip(value, $event)" @mouseleave="hideTooltip" v-for="value in columns" :key="value">
-                {{value}}
+              <th></th>
+              <th
+                @mouseover="showTooltip(value, $event)"
+                @mouseleave="hideTooltip"
+                v-for="value in columns"
+                :key="value"
+              >
+                {{ value }}
               </th>
             </tr>
             <tr v-for="n in numberRows" :key="n">
-              <td v-for="value in columns" :key="value">{{tableSample[value][n-1]}}</td>
+              <td class="is-semibold">{{ n - 1 }}</td>
+              <td v-for="value in columns" :key="value">
+                {{ tableSample[value][n - 1] }}
+              </td>
             </tr>
           </table>
         </div>
       </div>
     </div>
 
-    <div class="grid-cell--col10 u-mt--60">
+    <div class="grid-cell--col10 u-mt--60" id="variables-section">
       <h2 class="grid-cell title is-caption is-txtMainTextColor">Variables</h2>
 
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
@@ -32,13 +56,20 @@
           <div class="grid-cell grid-cell--col1">Type</div>
         </li>
 
-        <li class="grid info-row" v-for="variable in variables" :key="variable.slug">
-          <div class="grid-cell grid-cell--col4 is-semibold">{{variable.name}}</div>
-          <div class="grid-cell grid-cell--col7">{{variable.description}}</div>
-          <div class="grid-cell grid-cell--col1">{{variable.db_type}}</div>
+        <li
+          class="grid info-row"
+          v-for="variable in variables"
+          :key="variable.slug"
+        >
+          <div class="grid-cell grid-cell--col4 is-semibold">
+            {{ variable.name }}
+          </div>
+          <div class="grid-cell grid-cell--col7">
+            {{ variable.description }}
+          </div>
+          <div class="grid-cell grid-cell--col1">{{ variable.db_type }}</div>
         </li>
       </ul>
-
     </div>
   </div>
 </template>
@@ -47,64 +78,88 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: "DatasetSummary",
-  data () {
+  name: 'DatasetSummary',
+  data() {
     return {
-      tooltipVisible: false,
-      tooltipLeft: 0,
-      tooltipDescription: null,
-      tooltipType: null
-    }
+      tooltip: {
+        visible: false,
+        isFirst: false,
+        isLast: false,
+        left: 0,
+        description: null,
+        type: null
+      }
+    };
   },
-  mounted () {
-    this.fetchVariables()
+  mounted() {
+    this.fetchVariables();
   },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset,
       variables: state => state.doCatalog.variables
     }),
-    tableSample () {
-      return this.dataset && this.dataset.summary_json ? this.dataset.summary_json.glimpses.head : {};
+    tableSample() {
+      return this.dataset && this.dataset.summary_json
+        ? this.dataset.summary_json.glimpses.head
+        : {};
     },
-    columns () {
+    columns() {
       return this.tableSample ? Object.keys(this.tableSample) : [];
     },
-    numberRows () {
+    numberRows() {
       return this.columns.length ? this.tableSample[this.columns[0]].length : 0;
     },
-    numberColumns () {
+    numberColumns() {
       return this.columns.length;
     }
   },
   methods: {
-    fetchVariables () {
-      this.$store.dispatch('doCatalog/fetchVariables', this.$route.params.datasetId)
+    fetchVariables() {
+      this.$store.dispatch(
+        'doCatalog/fetchVariables',
+        this.$route.params.datasetId
+      );
     },
-    findVariableInfo (variableName) {
+    findVariableInfo(variableName) {
       return this.variables.find(e => e.column_name == variableName);
     },
-    showTooltip (variableName, event) {
+    showTooltip(variableName, event) {
       let tooltipInfo = this.findVariableInfo(variableName);
-      this.tooltipLeft = event.target.getBoundingClientRect().left - this.$refs.tableWrapper.getBoundingClientRect().left;
-      this.tooltipDescription = tooltipInfo.description;
-      this.tooltipType = tooltipInfo.db_type;
-      this.tooltipVisible = true;
+      let tableBoundingSize = this.$refs.tableWrapper.getBoundingClientRect();
+      let targetBoundingSize = event.target.getBoundingClientRect();
+      this.tooltip.left = targetBoundingSize.left - tableBoundingSize.left;
+      if (this.tooltip.left < 60) {
+        this.tooltip.isFirst = true;
+      } else if (tableBoundingSize.width - this.tooltip.left < 120) {
+        this.tooltip.isLast = true;
+        this.tooltip.left += targetBoundingSize.width;
+      } else {
+        this.tooltip.left += targetBoundingSize.width / 2;
+      }
+      this.tooltip.description = tooltipInfo.description;
+      this.tooltip.type = tooltipInfo.db_type;
+      this.tooltip.visible = true;
     },
     hideTooltip() {
-      this.tooltipVisible = false;
+      this.tooltip.visible = false;
+      this.tooltip.isFirst = false;
+      this.tooltip.isLast = false;
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
-@import "@/styles/variables";
+@import '@/styles/variables';
+
+.title a {
+  margin-left: 26px;
+}
 
 .scrollable-table {
   width: 100%;
   overflow: auto;
-  border: 1px solid $neutral--400;
 
   td,
   th {
@@ -151,13 +206,15 @@ export default {
   padding: 12px 16px 8px;
   border: 1px solid $border-color;
   border-radius: 4px;
-  background-color: #FFF;
+  background-color: #fff;
+  transform: translateX(-50%);
+  word-break: break-word;
 
   &::before {
     content: '';
     position: absolute;
     bottom: -8px;
-    left: 24px;
+    left: calc(50% - 12px); // To compensate right extra padding
     width: 14px;
     height: 14px;
     transform: rotate(45deg);
@@ -165,7 +222,24 @@ export default {
     border-top: none;
     border-left: none;
     border-radius: 2px;
-    background-color: #FFF;
+    background-color: #fff;
+  }
+
+  &.first {
+    transform: translateX(0);
+
+    &::before {
+      left: 12px;
+    }
+  }
+
+  &.last {
+    transform: translateX(-100%);
+
+    &::before {
+      left: auto;
+      right: 24px;
+    }
   }
 }
 </style>

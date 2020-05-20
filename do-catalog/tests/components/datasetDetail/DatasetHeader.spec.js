@@ -21,7 +21,7 @@ describe('DatasetHeader.vue', () => {
 function createStore(data = dataset.dataset_samples[0]) {
   const store = new Vuex.Store({
     state: {
-      catalog: {
+      doCatalog: {
         dataset: data
       }
     }

@@ -14,8 +14,8 @@ describe('DatasetDetail.vue', () => {
 
   beforeEach(() => {
     actions = {
-      'catalog/fetchDataset': jest.fn(),
-      'catalog/fetchKeyVariables': jest.fn()
+      'doCatalog/fetchDataset': jest.fn(),
+      'doCatalog/fetchKeyVariables': jest.fn()
     };
     store = new Vuex.Store({
       state: {},
@@ -33,12 +33,12 @@ describe('DatasetDetail.vue', () => {
   });
 
   it('Fetch data from the api', () => {
-    const datasetDetail = shallowMount(DatasetDetail, {
+    shallowMount(DatasetDetail, {
       localVue,
       router,
       store
     });
-    expect(actions['catalog/fetchDataset']).toHaveBeenCalled();
-    expect(actions['catalog/fetchKeyVariables']).toHaveBeenCalled();
+    expect(actions['doCatalog/fetchDataset']).toHaveBeenCalled();
+    expect(actions['doCatalog/fetchKeyVariables']).toHaveBeenCalled();
   });
 });
