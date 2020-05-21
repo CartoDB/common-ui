@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div>
+    <router-link :to="{ name: 'do-catalog' }">Datasets list</router-link>
     <DatasetHeader></DatasetHeader>
     <div class="grid grid-cell u-flex__justify--center">
       <NavigationTabs class="grid-cell--col10">

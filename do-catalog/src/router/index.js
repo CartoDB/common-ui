@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import DOCatalog from '../views/CatalogHome.vue';
+import CatalogSearch from '../views/CatalogSearch.vue';
 import DatasetDetail from '../views/DatasetDetail.vue';
 import DatasetSummary from '../views/DatasetSummary.vue';
 import DatasetData from '../views/DatasetData.vue';
@@ -11,12 +11,11 @@ const routes = [
   {
     path: '/',
     name: 'do-catalog',
-    component: DOCatalog
+    component: CatalogSearch
   },
   {
     path: '/datasets/:datasetId',
     component: DatasetDetail,
-    name: 'do-dataset',
     children: [
       {
         path: 'data',
@@ -36,7 +35,16 @@ function createRouter() {
   const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes
+    routes,
+    scrollBehavior (to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition
+      } else if (to.hash) {
+        return { selector: to.hash }
+      } else {
+        return { x: 0, y: 0 }
+      }
+    }
   });
   return router;
 }

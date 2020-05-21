@@ -3,6 +3,12 @@ export function setFetchingState(state) {
   state.hasError = false;
 }
 
+export function setDatasetsList(state, data) {
+  state.datasetsList = data;
+  state.isFetching = false;
+  state.hasError = false;
+}
+
 export function setDataset(state, data) {
   state.dataset = data;
   state.isFetching = false;
@@ -10,7 +16,7 @@ export function setDataset(state, data) {
 }
 
 export function setKeyVariables(state, data) {
-  state.key_variables = data;
+  state.keyVariables = data;
   state.isFetching = false;
   state.hasError = false;
 }
@@ -19,4 +25,14 @@ export function setVariables(state, data) {
   state.variables = data;
   state.isFetching = false;
   state.hasError = false;
+}
+
+export function resetDatasetsList(state) {
+  state.datasetsList = [];
+}
+
+export function resetDataset(state) {
+  state.dataset = {};
+  state.keyVariables = {};
+  state.variables = {};
 }

@@ -13,7 +13,7 @@
           Key variables <a href="#" class="is-small">(View all)</a>
         </h5>
         <ul class="text is-caption column-list u-mt--24">
-          <li v-for="variable in key_variables" :key="variable.id">
+          <li v-for="variable in keyVariables" :key="variable.id">
             <span>{{ variable.name }}</span>
           </li>
         </ul>
@@ -76,7 +76,7 @@ export default {
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset,
-      key_variables: state => state.doCatalog.key_variables
+      keyVariables: state => state.doCatalog.keyVariables
     }),
     temporal_aggregation() {
       return temporalAggregationName(this.dataset.temporal_aggregation);

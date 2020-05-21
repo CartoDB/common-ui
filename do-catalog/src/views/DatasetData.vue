@@ -7,7 +7,7 @@
           >View {{ numberColumns }} variables list</a
         >
       </h2>
-      <div class="table-wrapper" ref="tableWrapper">
+      <div class="table-wrapper" ref="tableWrapper" v-if="columns.length">
         <div
           class="tooltip is-small"
           :class="{ first: tooltip.isFirst, last: tooltip.isLast }"
@@ -44,6 +44,7 @@
           </table>
         </div>
       </div>
+      <div v-else>No data sample</div>
     </div>
 
     <div class="grid-cell--col10 u-mt--60" id="variables-section">
@@ -111,7 +112,7 @@ export default {
       return this.columns.length ? this.tableSample[this.columns[0]].length : 0;
     },
     numberColumns() {
-      return this.columns.length;
+      return this.variables.length;
     }
   },
   methods: {
