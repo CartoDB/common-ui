@@ -38,7 +38,8 @@
             <tr v-for="n in numberRows" :key="n">
               <td class="is-semibold">{{ n - 1 }}</td>
               <td v-for="value in columns" :key="value">
-                {{ tableSample[value][n - 1] }}
+                <span v-if="tableSample[value][n - 1]">{{ tableSample[value][n - 1] }}</span>
+                <span v-else class="is-txtLightGrey is-italic">null</span>
               </td>
             </tr>
           </table>
@@ -61,8 +62,8 @@
           v-for="variable in variables"
           :key="variable.slug"
         >
-          <div class="grid-cell grid-cell--col4 is-semibold">
-            {{ variable.name }}
+          <div class="grid-cell grid-cell--col4 is-semibold name-cell">
+            {{ variable.column_name }}
           </div>
           <div class="grid-cell grid-cell--col7">
             {{ variable.description }}
@@ -137,8 +138,14 @@ export default {
       } else {
         this.tooltip.left += targetBoundingSize.width / 2;
       }
+
+      if (this.tooltip.left < -20) {
+        this.tooltip.left = -20;
+      } else if (tableBoundingSize.width - this.tooltip.left < -20) {
+        this.tooltip.left = tableBoundingSize.width + 20;
+      }
       this.tooltip.description = tooltipInfo.description;
-      this.tooltip.type = tooltipInfo.db_type;
+      this.tooltip.type = tooltipInfo.db_type;      
       this.tooltip.visible = true;
     },
     hideTooltip() {
@@ -182,6 +189,11 @@ export default {
   border-bottom: 1px solid $blue--100;
 }
 
+.name-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .header-row {
   padding-bottom: 12px;
   border-bottom: 2px solid $blue--100;
@@ -204,10 +216,10 @@ export default {
   bottom: calc(100% + 8px);
   width: 300px;
   padding: 12px 16px 8px;
+  transform: translateX(-50%);
   border: 1px solid $border-color;
   border-radius: 4px;
-  background-color: #fff;
-  transform: translateX(-50%);
+  background-color: #FFF;
   word-break: break-word;
 
   &::before {
@@ -222,7 +234,7 @@ export default {
     border-top: none;
     border-left: none;
     border-radius: 2px;
-    background-color: #fff;
+    background-color: #FFF;
   }
 
   &.first {
@@ -237,8 +249,8 @@ export default {
     transform: translateX(-100%);
 
     &::before {
-      left: auto;
       right: 24px;
+      left: auto;
     }
   }
 }
