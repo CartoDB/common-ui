@@ -9,7 +9,25 @@ const catalog = {
     datasetsList: [],
     dataset: {},
     keyVariables: {},
-    variables: {}
+    variables: {},
+    filtersAvailable: {
+      categories: [],
+      countries: [],
+      licenses: [
+        { id: 'premium', name: 'Premium' },
+        { id: 'public', name: 'Public' },
+      ],
+      geographies: [],
+      sources: [],
+    },
+    filter: {
+      searchText: '',
+      categories: [],
+      countries: [],
+      geographies: [],
+      licenses: [],
+      sources: []
+    }
   },
   computed: {},
   getters: {},
@@ -19,6 +37,11 @@ const catalog = {
     setDataset: CatalogMutations.setDataset,
     setKeyVariables: CatalogMutations.setKeyVariables,
     setVariables: CatalogMutations.setVariables,
+    setAvailableCategories: CatalogMutations.setAvailableCategories,
+    setAvailableCountries: CatalogMutations.setAvailableCountries,
+    setAvailableGeographies: CatalogMutations.setAvailableGeographies,
+    setAvailableSources: CatalogMutations.setAvailableSources,
+    setFilter: CatalogMutations.setFilter,
     resetDatasetsList: CatalogMutations.resetDatasetsList,
     resetDataset: CatalogMutations.resetDataset
   },
@@ -26,7 +49,9 @@ const catalog = {
     fetchDatasetsList: CatalogActions.fetchDatasetsList,
     fetchDataset: CatalogActions.fetchDataset,
     fetchKeyVariables: CatalogActions.fetchKeyVariables,
-    fetchVariables: CatalogActions.fetchVariables
+    fetchVariables: CatalogActions.fetchVariables,
+    fetchFilters: CatalogActions.fetchFilters,
+    updateFilter: CatalogActions.updateFilter
   }
 };
 

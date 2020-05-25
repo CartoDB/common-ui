@@ -27,6 +27,28 @@ export function setVariables(state, data) {
   state.hasError = false;
 }
 
+export function setAvailableCategories(state, data) {
+  state.filtersAvailable.categories = data;
+}
+
+export function setAvailableCountries(state, data) {
+  state.filtersAvailable.countries = data;
+}
+
+export function setAvailableGeographies(state, data) {
+  state.filtersAvailable.geographies = data;
+}
+
+export function setAvailableSources(state, data) {
+  state.filtersAvailable.sources = data;
+}
+
+export function setFilter(state, filter) {
+  const newFilter = Object.assign(state.filter, filter)
+
+  state.filter = newFilter;
+}
+
 export function resetDatasetsList(state) {
   state.datasetsList = [];
 }

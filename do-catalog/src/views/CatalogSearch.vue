@@ -5,11 +5,11 @@
     </header>
     <div class="grid grid-cell u-flex__justify--center">
       <div class="grid-cell--col3">
-        <div class="filter-box">
-          <h3>License</h3>
-          <label><input type="checkbox" v-model="filter.premiumOnly">Premium</label>
-          <label><input type="checkbox" v-model="filter.publicOnly">Public</label>
-        </div>
+        <FilterBox title="Countries" filter="countries"></FilterBox>
+        <FilterBox title="Categories" filter="categories"></FilterBox>
+        <FilterBox title="Licenses" filter="licenses"></FilterBox>
+        <FilterBox title="Geographies" filter="geographies"></FilterBox>
+        <FilterBox title="Sources" filter="sources"></FilterBox>
       </div>
       <div class="grid-cell--col7">
         <div class="search-box">
@@ -34,61 +34,39 @@
 
 <script>
 import { mapState } from 'vuex';
-import DatasetListItem from '../components/catalogSearch/DatasetListItem'
+import DatasetListItem from '../components/catalogSearch/DatasetListItem';
+import FilterBox from '../components/catalogSearch/FilterBox';
 
 export default {
   name: 'CatalogSearch',
   components: {
-    DatasetListItem
-  },
-  data() {
-    return {
-      filter: {
-        searchText: '',
-        publicOnly: false,
-        premiumOnly: false
-      }
-    };
+    DatasetListItem,
+    FilterBox
   },
   watch: {
-    publicOnly() {
-      this.fetchDatasetsList();
-    },
-    premiumOnly() {
-      this.fetchDatasetsList();
+    filter: {
+      deep: true,
+      handler() { this.fetchDatasetsList(); }
     }
   },
   computed: {
     ...mapState({
       datasetsList: state => state.doCatalog.datasetsList,
-      loading: state => state.doCatalog.isFetching
-    }),
-    publicOnly() {
-      return this.filter.publicOnly;
-    },
-    premiumOnly() {
-      return this.filter.premiumOnly;
-    },
-    filterLicense() {
-      return this.publicOnly === true
-        ? this.premiumOnly === true
-          ? null
-          : true
-        : this.premiumOnly === false
-          ? null
-          : false
-    }
+      loading: state => state.doCatalog.isFetching,
+      filtersAvailable: state => state.doCatalog.filtersAvailable,
+      filter: state => state.doCatalog.filter
+    })
   },
   methods: {
     fetchDatasetsList() {
-      const options = {
-        searchText: this.filter.searchText,
-        publicOnly: this.filterLicense
-      }
-      this.$store.dispatch('doCatalog/fetchDatasetsList', options);
+      this.$store.dispatch('doCatalog/fetchDatasetsList');
+    },
+    fetchAvailableFilters() {
+      this.$store.dispatch('doCatalog/fetchFilters');
     }
   },
   mounted() {
+    this.fetchAvailableFilters();
     this.fetchDatasetsList();
   }
 }
