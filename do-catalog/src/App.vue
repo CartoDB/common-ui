@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="do-root">
     <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
@@ -15,6 +15,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import './styles/main.scss';
+<style lang="scss" scoped>
+  ::v-deep {
+    @import './styles/main.scss';
+  }
 </style>
