@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="do-root">
+  <div id="app">
     <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
@@ -16,7 +16,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep {
-    @import './styles/main.scss';
-  }
+/* stylelint-disable */
+::v-deep {
+  @import './styles/main.scss';
+}
+/* stylelint-enable */
 </style>
