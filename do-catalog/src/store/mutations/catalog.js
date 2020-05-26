@@ -44,7 +44,7 @@ export function setAvailableSources(state, data) {
 }
 
 export function setFilter(state, filter) {
-  const newFilter = Object.assign(state.filter, filter)
+  const newFilter = Object.assign(state.filter, filter);
 
   state.filter = newFilter;
 }

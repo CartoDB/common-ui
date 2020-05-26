@@ -16,7 +16,11 @@
         <h2 v-if="loading">LOADING...</h2>
         <div v-else>
           <ul class="datasets-list">
-            <DatasetListItem v-for="dataset in datasetsList" :key="dataset.slug" :dataset="dataset"></DatasetListItem>
+            <DatasetListItem
+              v-for="dataset in datasetsList"
+              :key="dataset.slug"
+              :dataset="dataset"
+            ></DatasetListItem>
           </ul>
           <ul class="pager">
             <li v-if="filter.page > 0" @click="goPrevPage">Prev page</li>
@@ -44,7 +48,9 @@ export default {
   watch: {
     filter: {
       deep: true,
-      handler() { this.fetchDatasetsList(); }
+      handler() {
+        this.fetchDatasetsList();
+      }
     }
   },
   computed: {
@@ -63,28 +69,32 @@ export default {
       this.$store.dispatch('doCatalog/fetchFilters');
     },
     goPrevPage() {
-      this.$store.dispatch('doCatalog/updateFilter', { page: this.filter.page - 1 });
+      this.$store.dispatch('doCatalog/updateFilter', {
+        page: this.filter.page - 1
+      });
     },
     goNextPage() {
-      this.$store.dispatch('doCatalog/updateFilter', { page: this.filter.page + 1 });
+      this.$store.dispatch('doCatalog/updateFilter', {
+        page: this.filter.page + 1
+      });
     }
   },
   mounted() {
     this.fetchAvailableFilters();
     this.fetchDatasetsList();
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/variables';
+@import '../styles/variables';
 
-  header {
-    padding-top: 24px;
+header {
+  padding-top: 24px;
 
-    h1 {
-      padding-bottom: 24px;
-      border-bottom: 1px solid $neutral--300;
-    }
+  h1 {
+    padding-bottom: 24px;
+    border-bottom: 1px solid $neutral--300;
   }
+}
 </style>

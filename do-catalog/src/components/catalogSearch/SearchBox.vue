@@ -20,13 +20,12 @@ export default {
   data() {
     return {
       filterText: ''
-    }
+    };
   },
   computed: {
-    searchText: {
-      get: function () { return this.$store.state.doCatalog.filter.searchText; },
-      set: function (value) { this.filterText = value; }
-    }
+    ...mapState({
+      searchText: state => state.doCatalog.filter.searchText
+    })
   },
   methods: {
     clearFilter() {
@@ -34,37 +33,39 @@ export default {
       this.updateFilter();
     },
     updateFilter() {
-      this.$store.dispatch('doCatalog/updateFilter', { searchText: this.filterText });
+      this.$store.dispatch('doCatalog/updateFilter', {
+        searchText: this.filterText
+      });
     }
   },
   mounted() {
     this.filterText = this.searchText;
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  @import '../../styles/variables';
-  
-  .search-box {
-    display: flex;
-    flex-direction: row;
-    padding-bottom: 12px;
-    border-bottom: 1px solid $neutral--300;
+@import '../../styles/variables';
 
-    input[type=text] {
-      flex: 1 1 auto;
-      padding: 12px 16px;
-      border: 1px solid $neutral--600;
-      border-radius: 8px;
-      margin: 1px;
-      color: $navy-blue;
+.search-box {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 12px;
+  border-bottom: 1px solid $neutral--300;
 
-      &:focus {
-        outline: none;
-        border: 2px solid $blue--500;
-        margin: 0;
-      }
+  input[type='text'] {
+    flex: 1 1 auto;
+    padding: 12px 16px;
+    border: 1px solid $neutral--600;
+    border-radius: 8px;
+    margin: 1px;
+    color: $navy-blue;
+
+    &:focus {
+      outline: none;
+      border: 2px solid $blue--500;
+      margin: 0;
     }
   }
+}
 </style>

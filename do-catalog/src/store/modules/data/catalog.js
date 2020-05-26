@@ -15,10 +15,10 @@ const catalog = {
       countries: [],
       licenses: [
         { id: 'premium', name: 'Premium' },
-        { id: 'public', name: 'Public' },
+        { id: 'public', name: 'Public' }
       ],
       geographies: [],
-      sources: [],
+      sources: []
     },
     filter: {
       searchText: '',

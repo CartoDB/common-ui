@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 
-const baseUrl = 'https://cmonteserin-do-st.carto-staging.com/api/v4/data/observatory/'; // "https://public.carto.com"
+const baseUrl =
+  'https://cmonteserin-do-st.carto-staging.com/api/v4/data/observatory/'; // "https://public.carto.com"
 const datasetsEndpoint = 'metadata/datasets';
 
 function filterLicenseToPayload(licenses) {
@@ -9,8 +10,8 @@ function filterLicenseToPayload(licenses) {
       ? null
       : true
     : !licenses.includes('premium')
-      ? null
-      : false
+    ? null
+    : false;
 }
 
 function filtersToPayload(filter) {
@@ -25,7 +26,7 @@ function filtersToPayload(filter) {
     limit = 30,
     page = 0
   } = filter;
-  const publicOnly = filterLicenseToPayload(filter.licenses)
+  const publicOnly = filterLicenseToPayload(filter.licenses);
   const offset = page * limit;
 
   payload += `?searchtext=${searchText}&limit=${limit}&offset=${offset}`;
@@ -34,7 +35,7 @@ function filtersToPayload(filter) {
   payload += countries.length ? `&country=${countries.join(',')}` : '';
   payload += geographies.length ? `&geography=${geographies.join(',')}` : '';
   payload += sources.length ? `&provider=${sources.join(',')}` : '';
-  
+
   return payload;
 }
 
@@ -43,7 +44,7 @@ export async function fetchDatasetsList(context) {
   context.commit('setFetchingState');
 
   let url = baseUrl + datasetsEndpoint + filtersToPayload(context.state.filter);
-  
+
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -63,7 +64,7 @@ export async function fetchDataset(context, datasetId) {
     const response = await fetch(url);
     const data = await response.json();
     context.commit('setDataset', data);
-  } catch(error) {
+  } catch (error) {
     console.error(`ERROR: ${error}`);
   }
 }
@@ -75,32 +76,33 @@ export async function fetchKeyVariables(context, datasetId) {
     const response = await fetch(url);
     const data = await response.json();
     context.commit('setKeyVariables', data);
-  } catch(error) {
+  } catch (error) {
     console.error(`ERROR: ${error}`);
   }
 }
 
 export async function fetchVariables(context, datasetId) {
-  const url = baseUrl + datasetsEndpoint + '/' + datasetId + '/variables?minimal=true';
+  const url =
+    baseUrl + datasetsEndpoint + '/' + datasetId + '/variables?minimal=true';
 
   try {
     const response = await fetch(url);
     const data = await response.json();
     context.commit('setVariables', data);
-  } catch(error) {
+  } catch (error) {
     console.error(`ERROR: ${error}`);
   }
 }
 
 export async function fetchFilters(context) {
   const url = baseUrl + 'metadata/';
-  
+
   // categories
   try {
     const response = await fetch(url + 'categories');
     const data = await response.json();
     context.commit('setAvailableCategories', data);
-  } catch(error) {
+  } catch (error) {
     console.error(`ERROR: ${error}`);
   }
 
@@ -109,7 +111,7 @@ export async function fetchFilters(context) {
     const response = await fetch(url + 'countries');
     const data = await response.json();
     context.commit('setAvailableCountries', data);
-  } catch(error) {
+  } catch (error) {
     console.error(`ERROR: ${error}`);
   }
 
@@ -118,7 +120,7 @@ export async function fetchFilters(context) {
     const response = await fetch(url + 'geographies');
     const data = await response.json();
     context.commit('setAvailableGeographies', data);
-  } catch(error) {
+  } catch (error) {
     console.error(`ERROR: ${error}`);
   }
 
@@ -127,7 +129,7 @@ export async function fetchFilters(context) {
     const response = await fetch(url + 'providers');
     const data = await response.json();
     context.commit('setAvailableSources', data);
-  } catch(error) {
+  } catch (error) {
     console.error(`ERROR: ${error}`);
   }
 }
