@@ -7,7 +7,7 @@
           <a class="text is-txtMainTextColor">{{ dataset.data_source_name }}</a>
         </p>
       </nav>
-      <h1 class="title is-subheader is-txtMainTextColor u-mt--4">
+      <h1 class="title is-sectiontitle is-txtMainTextColor u-mt--4">
         {{ dataset.name }}
       </h1>
     </div>
