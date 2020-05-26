@@ -23,9 +23,10 @@ function filtersToPayload(filter) {
     geographies = [],
     sources = [],
     limit = 30,
-    offset = 0
+    page = 0
   } = filter;
   const publicOnly = filterLicenseToPayload(filter.licenses)
+  const offset = page * limit;
 
   payload += `?searchtext=${searchText}&limit=${limit}&offset=${offset}`;
   payload += publicOnly !== null ? `&public=${publicOnly}` : '';

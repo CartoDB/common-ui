@@ -2,11 +2,16 @@
   <div class="filter-box">
     <div class="filter-header">
       <h3 class="title is-caption">{{ title }}</h3>
+      <p v-if="currentFilter.length">
+        {{ currentFilter.length > 1 ? `${currentFilter.length} filters` : `${currentFilter.length} filters`  }}
+        <span>·</span>
+        <button @click="clearFilter">Clear</button>
+      </p>
     </div>
     <input v-if="options.length > 10" type="text" placeholder="Filter options" v-model="filterText" />
     <div class="filter-content">
       <label class="text is-caption" v-for="option in filteredOptions" :key="option.id">
-        <input type="checkbox" name="option.id" :value="model.has(option.id)" @change="filterChanged($event, option.id)">
+        <input type="checkbox" name="option.id" :checked="currentFilter.includes(option.id)" @change="filterChanged($event, option.id)">
         {{ option.name }}
       </label>
     </div>
@@ -31,6 +36,7 @@ export default {
   computed: {
     ...mapState({
       options(state) { return state.doCatalog.filtersAvailable[this.filter]; },
+      currentFilter(state) { return state.doCatalog.filter[this.filter]; }
     }),
     filteredOptions () {
       const lowercaseFilter = this.filterText.toLowerCase();
@@ -46,11 +52,18 @@ export default {
       }
       this.updateFilter();
     },
+    clearFilter() {
+      this.model.clear();
+      this.updateFilter();
+    },
     updateFilter() {
       const newFilter = {};
       newFilter[this.filter] = [...this.model];
       this.$store.dispatch('doCatalog/updateFilter', newFilter);
     }
+  },
+  mounted() {
+    this.model = new Set(this.currentFilter);
   }
 }
 </script>

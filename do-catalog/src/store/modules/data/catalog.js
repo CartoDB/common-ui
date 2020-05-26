@@ -26,7 +26,9 @@ const catalog = {
       countries: [],
       geographies: [],
       licenses: [],
-      sources: []
+      sources: [],
+      limit: 30,
+      page: 0
     }
   },
   computed: {},
