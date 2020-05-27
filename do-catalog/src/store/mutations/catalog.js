@@ -35,8 +35,8 @@ export function setAvailableCountries(state, data) {
   state.filtersAvailable.countries = data;
 }
 
-export function setAvailableGeographies(state, data) {
-  state.filtersAvailable.geographies = data;
+export function setAvailableLicenses(state, data) {
+  state.filtersAvailable.licenses = data;
 }
 
 export function setAvailableSources(state, data) {

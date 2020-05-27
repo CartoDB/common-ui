@@ -3,16 +3,7 @@ import 'whatwg-fetch';
 const baseUrl =
   'https://cmonteserin-do-st.carto-staging.com/api/v4/data/observatory/'; // "https://public.carto.com"
 const datasetsEndpoint = 'metadata/datasets';
-
-function filterLicenseToPayload(licenses) {
-  return licenses.includes('public')
-    ? licenses.includes('premium')
-      ? null
-      : true
-    : !licenses.includes('premium')
-    ? null
-    : false;
-}
+const entitiesEndpoint = 'metadata/entities';
 
 function filtersToPayload(filter) {
   let payload = '';
@@ -23,14 +14,14 @@ function filtersToPayload(filter) {
     countries = [],
     geographies = [],
     sources = [],
+    licenses = [],
     limit = 30,
     page = 0
   } = filter;
-  const publicOnly = filterLicenseToPayload(filter.licenses);
   const offset = page * limit;
 
   payload += `?searchtext=${searchText}&limit=${limit}&offset=${offset}`;
-  payload += publicOnly !== null ? `&public=${publicOnly}` : '';
+  payload += licenses.length ? `&public=${licenses.join(',')}` : '';
   payload += categories.length ? `&category=${categories.join(',')}` : '';
   payload += countries.length ? `&country=${countries.join(',')}` : '';
   payload += geographies.length ? `&geography=${geographies.join(',')}` : '';
@@ -43,12 +34,22 @@ export async function fetchDatasetsList(context) {
   context.commit('resetDatasetsList');
   context.commit('setFetchingState');
 
-  let url = baseUrl + datasetsEndpoint + filtersToPayload(context.state.filter);
+  let url = baseUrl + entitiesEndpoint + filtersToPayload(context.state.filter);
 
   try {
     const response = await fetch(url);
     const data = await response.json();
-    context.commit('setDatasetsList', data);
+    
+    // Entities list
+    context.commit('setDatasetsList', data.results);
+
+    // Filters
+    if (data.filters) {
+      context.commit('setAvailableCategories', data.filters.category || []);
+      context.commit('setAvailableCountries', data.filters.country || []);
+      context.commit('setAvailableSources', data.filters.provider || []);
+      context.commit('setAvailableLicenses', data.filters.license || []);
+    }
   } catch (error) {
     console.error(`ERROR: ${error}`);
   }
@@ -89,46 +90,6 @@ export async function fetchVariables(context, datasetId) {
     const response = await fetch(url);
     const data = await response.json();
     context.commit('setVariables', data);
-  } catch (error) {
-    console.error(`ERROR: ${error}`);
-  }
-}
-
-export async function fetchFilters(context) {
-  const url = baseUrl + 'metadata/';
-
-  // categories
-  try {
-    const response = await fetch(url + 'categories');
-    const data = await response.json();
-    context.commit('setAvailableCategories', data);
-  } catch (error) {
-    console.error(`ERROR: ${error}`);
-  }
-
-  // countries
-  try {
-    const response = await fetch(url + 'countries');
-    const data = await response.json();
-    context.commit('setAvailableCountries', data);
-  } catch (error) {
-    console.error(`ERROR: ${error}`);
-  }
-
-  // geographies
-  try {
-    const response = await fetch(url + 'geographies');
-    const data = await response.json();
-    context.commit('setAvailableGeographies', data);
-  } catch (error) {
-    console.error(`ERROR: ${error}`);
-  }
-
-  // sources
-  try {
-    const response = await fetch(url + 'providers');
-    const data = await response.json();
-    context.commit('setAvailableSources', data);
   } catch (error) {
     console.error(`ERROR: ${error}`);
   }

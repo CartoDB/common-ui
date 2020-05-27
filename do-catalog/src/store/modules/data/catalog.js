@@ -41,7 +41,7 @@ const catalog = {
     setVariables: CatalogMutations.setVariables,
     setAvailableCategories: CatalogMutations.setAvailableCategories,
     setAvailableCountries: CatalogMutations.setAvailableCountries,
-    setAvailableGeographies: CatalogMutations.setAvailableGeographies,
+    setAvailableLicenses: CatalogMutations.setAvailableLicenses,
     setAvailableSources: CatalogMutations.setAvailableSources,
     setFilter: CatalogMutations.setFilter,
     resetDatasetsList: CatalogMutations.resetDatasetsList,
@@ -52,7 +52,6 @@ const catalog = {
     fetchDataset: CatalogActions.fetchDataset,
     fetchKeyVariables: CatalogActions.fetchKeyVariables,
     fetchVariables: CatalogActions.fetchVariables,
-    fetchFilters: CatalogActions.fetchFilters,
     updateFilter: CatalogActions.updateFilter
   }
 };

@@ -8,7 +8,6 @@
         <FilterBox title="Countries" filter="countries"></FilterBox>
         <FilterBox title="Categories" filter="categories"></FilterBox>
         <FilterBox title="Licenses" filter="licenses"></FilterBox>
-        <FilterBox title="Geographies" filter="geographies"></FilterBox>
         <FilterBox title="Sources" filter="sources"></FilterBox>
       </div>
       <div class="grid-cell--col7">
@@ -65,9 +64,6 @@ export default {
     fetchDatasetsList() {
       this.$store.dispatch('doCatalog/fetchDatasetsList');
     },
-    fetchAvailableFilters() {
-      this.$store.dispatch('doCatalog/fetchFilters');
-    },
     goPrevPage() {
       this.$store.dispatch('doCatalog/updateFilter', {
         page: this.filter.page - 1
@@ -80,7 +76,6 @@ export default {
     }
   },
   mounted() {
-    this.fetchAvailableFilters();
     this.fetchDatasetsList();
   }
 };
