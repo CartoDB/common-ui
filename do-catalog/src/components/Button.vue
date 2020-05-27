@@ -31,13 +31,17 @@ export default {
   cursor: pointer;
 
   &:hover {
-    filter: brightness(98%);
+    background-color: $button__bg-color--hover;
   }
 }
 
 .reverse-colors {
   background: $button__color;
   color: $button__bg-color;
+
+  &:hover {
+    background-color: darken($button__color, 2);
+  }
 }
 
 .is-outline {
@@ -47,7 +51,7 @@ export default {
 
   &:hover,
   &:focus {
-    background: $button-outline__bg-color--hover;
+    background-color: rgba($black, 0.02);
   }
 }
 </style>

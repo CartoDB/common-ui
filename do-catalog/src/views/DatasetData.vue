@@ -119,6 +119,7 @@ export default {
       variables: state => state.doCatalog.variables
     }),
     isPublicWebsite() {
+      //TODO
       return true;
     },
     tableSample() {
