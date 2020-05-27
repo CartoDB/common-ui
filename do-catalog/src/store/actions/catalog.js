@@ -39,7 +39,7 @@ export async function fetchDatasetsList(context) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    
+
     // Entities list
     context.commit('setDatasetsList', data.results);
 

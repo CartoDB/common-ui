@@ -35,7 +35,8 @@
           :checked="currentFilter.includes(option.id)"
           @change="filterChanged($event, option.id)"
         />
-        {{ option.name }} <span v-if="option.entity_count">({{ option.entity_count }})</span>
+        {{ option.name }}
+        <span v-if="option.entity_count">({{ option.entity_count }})</span>
       </label>
     </div>
   </div>
