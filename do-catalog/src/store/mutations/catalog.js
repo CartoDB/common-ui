@@ -45,12 +45,23 @@ export function setAvailableSources(state, data) {
 
 export function setFilter(state, filter) {
   const newFilter = Object.assign(state.filter, filter);
-
   state.filter = newFilter;
+}
+
+export function setDatasetsListCount(state, count) {
+  state.datasetsListCount = count;
+}
+
+export function resetTagFilters(state) {
+  state.filter.categories = [];
+  state.filter.countries = [];
+  state.filter.licenses = [];
+  state.filter.sources = [];
 }
 
 export function resetDatasetsList(state) {
   state.datasetsList = [];
+  state.datasetsListCount = 0;
 }
 
 export function resetDataset(state) {

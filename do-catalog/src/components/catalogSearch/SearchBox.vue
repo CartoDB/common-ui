@@ -50,8 +50,6 @@ export default {
 .search-box {
   display: flex;
   flex-direction: row;
-  padding-bottom: 12px;
-  border-bottom: 1px solid $neutral--300;
 
   input[type='text'] {
     flex: 1 1 auto;

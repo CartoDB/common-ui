@@ -73,6 +73,14 @@ export default {
       );
     }
   },
+  watch: {
+    currentFilter: {
+      deep: true,
+      handler() {
+        this.model = new Set(this.currentFilter);
+      }
+    }
+  },
   methods: {
     filterChanged(event, option) {
       if (this.model.has(option)) {
@@ -94,9 +102,6 @@ export default {
     clearOptionsFilter() {
       this.filterText = '';
     }
-  },
-  mounted() {
-    this.model = new Set(this.currentFilter);
   }
 };
 </script>

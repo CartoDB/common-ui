@@ -43,6 +43,9 @@ export async function fetchDatasetsList(context) {
     // Entities list
     context.commit('setDatasetsList', data.results);
 
+    // Entities list count
+    context.commit('setDatasetsListCount', data.total_results);
+
     // Filters
     if (data.filters) {
       context.commit('setAvailableCategories', data.filters.category || []);
@@ -97,4 +100,8 @@ export async function fetchVariables(context, datasetId) {
 
 export function updateFilter(context, filter) {
   context.commit('setFilter', filter);
+}
+
+export function clearTagFilters(context) {
+  context.commit('resetTagFilters');
 }

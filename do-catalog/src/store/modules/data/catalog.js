@@ -7,6 +7,7 @@ const catalog = {
     isFetching: false,
     hasError: false,
     datasetsList: [],
+    datasetsListCount: 0,
     dataset: {},
     keyVariables: {},
     variables: {},
@@ -17,14 +18,12 @@ const catalog = {
         { id: 'premium', name: 'Premium' },
         { id: 'public', name: 'Public' }
       ],
-      geographies: [],
       sources: []
     },
     filter: {
       searchText: '',
       categories: [],
       countries: [],
-      geographies: [],
       licenses: [],
       sources: [],
       limit: 30,
@@ -44,6 +43,8 @@ const catalog = {
     setAvailableLicenses: CatalogMutations.setAvailableLicenses,
     setAvailableSources: CatalogMutations.setAvailableSources,
     setFilter: CatalogMutations.setFilter,
+    setDatasetsListCount: CatalogMutations.setDatasetsListCount,
+    resetTagFilters: CatalogMutations.resetTagFilters,
     resetDatasetsList: CatalogMutations.resetDatasetsList,
     resetDataset: CatalogMutations.resetDataset
   },
@@ -52,7 +53,8 @@ const catalog = {
     fetchDataset: CatalogActions.fetchDataset,
     fetchKeyVariables: CatalogActions.fetchKeyVariables,
     fetchVariables: CatalogActions.fetchVariables,
-    updateFilter: CatalogActions.updateFilter
+    updateFilter: CatalogActions.updateFilter,
+    clearTagFilters: CatalogActions.clearTagFilters
   }
 };
 
