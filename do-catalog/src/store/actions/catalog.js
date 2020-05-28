@@ -24,7 +24,7 @@ function filtersToPayload(filter) {
   payload += searchText.length ? `&searchtext=${searchText}` : '';
 
   //TODO: Make this filters dynamic too
-  payload += licenses.length ? `&public=${licenses.join(',')}` : '';
+  payload += licenses.length ? `&license=${licenses.join(',')}` : '';
   payload += categories.length ? `&category=${categories.join(',')}` : '';
   payload += countries.length ? `&country=${countries.join(',')}` : '';
   payload += geographies.length ? `&geography=${geographies.join(',')}` : '';
