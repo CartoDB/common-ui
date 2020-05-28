@@ -14,7 +14,7 @@ const routes = [
     component: CatalogSearch
   },
   {
-    path: '/datasets/:datasetId',
+    path: '/datasets/:type/:datasetId',
     component: DatasetDetail,
     children: [
       {

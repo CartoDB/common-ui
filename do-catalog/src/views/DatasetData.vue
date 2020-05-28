@@ -47,7 +47,7 @@
       <div v-else>No data sample</div>
     </div>
 
-    <div class="grid-cell--col10 u-mt--60" id="variables-section">
+    <div class="grid-cell--col10 u-mt--60" id="variables-section" v-if="!isGeography">
       <h2 class="grid-cell title is-caption is-txtMainTextColor">Variables</h2>
 
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
@@ -113,6 +113,9 @@ export default {
     },
     numberColumns() {
       return this.variables.length;
+    },
+    isGeography() {
+      return this.$route.params.type === 'geography'
     }
   },
   methods: {

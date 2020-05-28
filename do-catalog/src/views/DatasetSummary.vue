@@ -1,14 +1,11 @@
 <template>
   <div class="grid u-flex__justify--center">
     <div class="grid-cell grid-cell--col7 main-column">
-      <div class="map-header">
-        <img class="" src="../assets/map-samples.jpg" alt="map-sample" />
-      </div>
       <p class="text is-caption is-txtMainTextColor u-mt--32">
         {{ dataset.description }}
       </p>
 
-      <div class="key-variables u-mt--32">
+      <div class="key-variables u-mt--32" v-if="!isGeography">
         <h5 class="title is-caption is-txtMainTextColor">
           Key variables <a href="#" class="is-small">(View all)</a>
         </h5>
@@ -25,13 +22,13 @@
         <li class="u-mb--32">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Licence</h4>
           <p class="text is-caption is-txtMainTextColor">
-            {{ dataset_privacy }}
+            {{ datasetPrivacy }}
           </p>
         </li>
         <li class="u-mb--32">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Country</h4>
           <p class="text is-caption is-txtMainTextColor">
-            {{ dataset.country_name }}
+            {{ dataset.country_name || '-' }}
           </p>
         </li>
         <li class="u-mb--32">
@@ -40,18 +37,32 @@
             {{ dataset.provider_name }}
           </p>
         </li>
-        <li class="u-mb--32">
+        <li class="u-mb--32" v-if="!isGeography">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Geography</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ dataset.geography_name }}
           </p>
         </li>
-        <li class="u-mb--32">
+        <li class="u-mb--32" v-else>
+          <h4 class="text is-small is-txtSoftGrey u-mb--10">Geometry type</h4>
+          <p class="text is-caption is-txtMainTextColor">
+            {{ geometryType }}
+          </p>
+        </li>
+        <li class="u-mb--32" v-if="!isGeography">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Temporal aggregation
           </h4>
           <p class="text is-caption is-txtMainTextColor">
-            {{ temporal_aggregation }}
+            {{ temporalAggregation }}
+          </p>
+        </li>
+        <li class="u-mb--32" v-else>
+          <h4 class="text is-small is-txtSoftGrey u-mb--10">
+            Spatial aggregation
+          </h4>
+          <p class="text is-caption is-txtMainTextColor">
+            {{ dataset.spatial_aggr || '-' }}
           </p>
         </li>
         <li class="u-mb--32">
@@ -59,7 +70,7 @@
             Update Frequency
           </h4>
           <p class="text is-caption is-txtMainTextColor">
-            {{ update_frequency }}
+            {{ updateFrequency }}
           </p>
         </li>
       </ul>
@@ -70,6 +81,7 @@
 <script>
 import { mapState } from 'vuex';
 import { temporalAggregationName } from '../utils/temporal-agregation-name';
+import { toTitleCase } from '../utils/string-to-title-case';
 
 export default {
   name: 'DatasetSummary',
@@ -78,16 +90,22 @@ export default {
       dataset: state => state.doCatalog.dataset,
       keyVariables: state => state.doCatalog.keyVariables
     }),
-    temporal_aggregation() {
+    temporalAggregation() {
       return temporalAggregationName(this.dataset.temporal_aggregation);
     },
-    update_frequency() {
+    updateFrequency() {
       return this.dataset.update_frequency
-        ? this.dataset.update_frequency
+        ? toTitleCase(this.dataset.update_frequency)
         : 'None';
     },
-    dataset_privacy() {
+    datasetPrivacy() {
       return this.dataset.is_public_data ? 'Public Data' : 'Premium Data';
+    },
+    isGeography() {
+      return this.$route.params.type === 'geography'
+    },
+    geometryType() {
+      return toTitleCase(this.dataset.geom_type);
     }
   }
 };

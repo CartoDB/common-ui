@@ -7,15 +7,15 @@
       <router-link
         :to="{
           name: 'do-dataset-summary',
-          params: { datasetId: dataset.slug }
+          params: { datasetId: dataset.slug, type: dataset.is_geography ? 'geography' : 'dataset' }
         }"
         >{{ dataset.name }}</router-link
       >
     </h3>
     <div class="description text">{{ dataset.description }}</div>
-    <div class="extra text is-small grid grid--out">
+    <div class="extra text is-small grid grid--out" v-if="!dataset.is_geography">
       <div class="grid-cell grid-cell--col7 grid grid--align-end grid--no-wrap">
-        <div class="license"><span>License</span> {{ license }}</div>
+        <div class="license"><span>License</span> {{ dataset.license_name }}</div>
         <div class="geography">
           <span>Geography</span> {{ dataset.geography_name }}
         </div>
@@ -23,6 +23,20 @@
       <div class="grid-cell grid-cell--col5 grid grid--align-end grid--space">
         <div class="aggregation">
           <span>Temporal aggr.</span> {{ dataset.temporal_aggregation }}
+        </div>
+        <div class="provider" :alt="dataset.provider_name"></div>
+      </div>
+    </div>
+    <div class="extra text is-small grid grid--out" v-else>
+      <div class="grid-cell grid-cell--col7 grid grid--align-end grid--no-wrap">
+        <div class="license"><span>License</span> {{ dataset.license_name }}</div>
+        <!-- <div class="geography">
+          <span>Spatial aggr.</span> {{ dataset.spatial_aggr }}
+        </div> -->
+      </div>
+      <div class="grid-cell grid-cell--col5 grid grid--align-end grid--space">
+        <div class="aggregation">
+          <span>Geometry type</span> {{ dataset.geom_type }}
         </div>
         <div class="provider" :alt="dataset.provider_name"></div>
       </div>
@@ -35,11 +49,6 @@ export default {
   name: 'DatasetListItem',
   props: {
     dataset: Object
-  },
-  computed: {
-    license() {
-      return this.dataset.is_public_data ? 'Public' : 'Premium';
-    }
   }
 };
 </script>
