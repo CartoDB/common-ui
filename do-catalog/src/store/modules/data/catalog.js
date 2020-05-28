@@ -11,23 +11,17 @@ const catalog = {
     dataset: {},
     keyVariables: {},
     variables: {},
-    filtersAvailable: {
-      categories: [],
-      countries: [],
-      licenses: [
-        { id: 'premium', name: 'Premium' },
-        { id: 'public', name: 'Public' }
-      ],
-      sources: []
-    },
+    filtersAvailable: {},
     filter: {
       searchText: '',
+      limit: 30,
+      page: 0,
+
+      //TODO: Make this filters dynamic too
       categories: [],
       countries: [],
       licenses: [],
-      sources: [],
-      limit: 30,
-      page: 0
+      sources: []
     }
   },
   computed: {},
@@ -38,11 +32,9 @@ const catalog = {
     setDataset: CatalogMutations.setDataset,
     setKeyVariables: CatalogMutations.setKeyVariables,
     setVariables: CatalogMutations.setVariables,
-    setAvailableCategories: CatalogMutations.setAvailableCategories,
-    setAvailableCountries: CatalogMutations.setAvailableCountries,
-    setAvailableLicenses: CatalogMutations.setAvailableLicenses,
-    setAvailableSources: CatalogMutations.setAvailableSources,
+    setAvailableFilters: CatalogMutations.setAvailableFilters,
     setFilter: CatalogMutations.setFilter,
+    removeFilter: CatalogMutations.removeFilter,
     setDatasetsListCount: CatalogMutations.setDatasetsListCount,
     resetTagFilters: CatalogMutations.resetTagFilters,
     resetDatasetsList: CatalogMutations.resetDatasetsList,
@@ -54,6 +46,7 @@ const catalog = {
     fetchKeyVariables: CatalogActions.fetchKeyVariables,
     fetchVariables: CatalogActions.fetchVariables,
     updateFilter: CatalogActions.updateFilter,
+    deleteFilter: CatalogActions.deleteFilter,
     clearTagFilters: CatalogActions.clearTagFilters
   }
 };
