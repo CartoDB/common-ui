@@ -14,7 +14,7 @@
     </div>
     <div class="options-filter">
       <input
-        v-if="options.length > 10"
+        v-if="options.size > 10"
         type="text"
         placeholder="Filter options"
         v-model="filterText"
@@ -33,7 +33,7 @@
           type="checkbox"
           name="option.id"
           :checked="currentFilter.includes(option.id)"
-          @change="filterChanged($event, option.id)"
+          @change="filterChanged($event, option)"
         />
         {{ option.name }}
         <span v-if="option.entity_count">({{ option.entity_count }})</span>
@@ -59,32 +59,41 @@ export default {
   },
   computed: {
     ...mapState({
-      options: function(state) {
-        return state.doCatalog.filtersAvailable[this.filter];
-      },
-      currentFilter: function(state) {
+      filtersAvailable: state => state.doCatalog.filtersAvailable,
+      currentFilter(state) {
         return state.doCatalog.filter[this.filter];
       }
     }),
+    options() {
+      return this.filtersAvailable[this.filter] || new Map();
+    },
     filteredOptions() {
       const lowercaseFilter = this.filterText.toLowerCase();
-      return this.options.filter(opt =>
+      return [...this.options.values()].filter(opt =>
         opt.name.toLowerCase().includes(lowercaseFilter)
       );
     }
   },
+  watch: {
+    currentFilter: {
+      deep: true,
+      handler() {
+        this.model = new Set(this.currentFilter);
+      }
+    }
+  },
   methods: {
     filterChanged(event, option) {
-      if (this.model.has(option)) {
-        this.model.delete(option);
+      if (this.model.has(option.id)) {
+        this.model.delete(option.id);
       } else {
-        this.model.add(option);
+        this.model.add(option.id);
       }
       this.updateFilter();
     },
     updateFilter() {
       const newFilter = {};
-      newFilter[this.filter] = [...this.model];
+      newFilter[this.filter] = [...this.model.values()];
       this.$store.dispatch('doCatalog/updateFilter', newFilter);
     },
     clearFilter() {
@@ -94,9 +103,6 @@ export default {
     clearOptionsFilter() {
       this.filterText = '';
     }
-  },
-  mounted() {
-    this.model = new Set(this.currentFilter);
   }
 };
 </script>

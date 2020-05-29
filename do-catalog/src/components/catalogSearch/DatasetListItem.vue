@@ -15,7 +15,7 @@
     <div class="description text">{{ dataset.description }}</div>
     <div class="extra text is-small grid grid--out">
       <div class="grid-cell grid-cell--col7 grid grid--align-end grid--no-wrap">
-        <div class="license"><span>License</span> {{ license }}</div>
+        <div class="license"><span>License</span> {{ dataset.license_name }}</div>
         <div class="geography">
           <span>Geography</span> {{ dataset.geography_name }}
         </div>
@@ -35,11 +35,6 @@ export default {
   name: 'DatasetListItem',
   props: {
     dataset: Object
-  },
-  computed: {
-    license() {
-      return this.dataset.is_public_data ? 'Public' : 'Premium';
-    }
   }
 };
 </script>

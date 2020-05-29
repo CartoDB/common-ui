@@ -20,8 +20,11 @@ function filtersToPayload(filter) {
   } = filter;
   const offset = page * limit;
 
-  payload += `?searchtext=${searchText}&limit=${limit}&offset=${offset}`;
-  payload += licenses.length ? `&public=${licenses.join(',')}` : '';
+  payload += `?limit=${limit}&offset=${offset}`;
+  payload += searchText.length ? `&searchtext=${searchText}` : '';
+
+  //TODO: Make this filters dynamic too
+  payload += licenses.length ? `&license=${licenses.join(',')}` : '';
   payload += categories.length ? `&category=${categories.join(',')}` : '';
   payload += countries.length ? `&country=${countries.join(',')}` : '';
   payload += geographies.length ? `&geography=${geographies.join(',')}` : '';
@@ -43,12 +46,12 @@ export async function fetchDatasetsList(context) {
     // Entities list
     context.commit('setDatasetsList', data.results);
 
+    // Entities list count
+    context.commit('setDatasetsListCount', data.total_results);
+
     // Filters
-    if (data.filters) {
-      context.commit('setAvailableCategories', data.filters.category || []);
-      context.commit('setAvailableCountries', data.filters.country || []);
-      context.commit('setAvailableSources', data.filters.provider || []);
-      context.commit('setAvailableLicenses', data.filters.license || []);
+    for (let key in data.filters) {
+      context.commit('setAvailableFilters', { id: key, options: data.filters[key] });
     }
   } catch (error) {
     console.error(`ERROR: ${error}`);
@@ -97,4 +100,12 @@ export async function fetchVariables(context, datasetId) {
 
 export function updateFilter(context, filter) {
   context.commit('setFilter', filter);
+}
+
+export function deleteFilter(context, filter) {
+  context.commit('removeFilter', filter);
+}
+
+export function clearTagFilters(context) {
+  context.commit('resetTagFilters');
 }

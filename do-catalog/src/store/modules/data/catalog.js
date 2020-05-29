@@ -7,28 +7,21 @@ const catalog = {
     isFetching: false,
     hasError: false,
     datasetsList: [],
+    datasetsListCount: 0,
     dataset: {},
     keyVariables: {},
     variables: {},
-    filtersAvailable: {
-      categories: [],
-      countries: [],
-      licenses: [
-        { id: 'premium', name: 'Premium' },
-        { id: 'public', name: 'Public' }
-      ],
-      geographies: [],
-      sources: []
-    },
+    filtersAvailable: {},
     filter: {
       searchText: '',
+      limit: 30,
+      page: 0,
+
+      //TODO: Make this filters dynamic too
       categories: [],
       countries: [],
-      geographies: [],
       licenses: [],
-      sources: [],
-      limit: 30,
-      page: 0
+      sources: []
     }
   },
   computed: {},
@@ -39,11 +32,11 @@ const catalog = {
     setDataset: CatalogMutations.setDataset,
     setKeyVariables: CatalogMutations.setKeyVariables,
     setVariables: CatalogMutations.setVariables,
-    setAvailableCategories: CatalogMutations.setAvailableCategories,
-    setAvailableCountries: CatalogMutations.setAvailableCountries,
-    setAvailableLicenses: CatalogMutations.setAvailableLicenses,
-    setAvailableSources: CatalogMutations.setAvailableSources,
+    setAvailableFilters: CatalogMutations.setAvailableFilters,
     setFilter: CatalogMutations.setFilter,
+    removeFilter: CatalogMutations.removeFilter,
+    setDatasetsListCount: CatalogMutations.setDatasetsListCount,
+    resetTagFilters: CatalogMutations.resetTagFilters,
     resetDatasetsList: CatalogMutations.resetDatasetsList,
     resetDataset: CatalogMutations.resetDataset
   },
@@ -52,7 +45,9 @@ const catalog = {
     fetchDataset: CatalogActions.fetchDataset,
     fetchKeyVariables: CatalogActions.fetchKeyVariables,
     fetchVariables: CatalogActions.fetchVariables,
-    updateFilter: CatalogActions.updateFilter
+    updateFilter: CatalogActions.updateFilter,
+    deleteFilter: CatalogActions.deleteFilter,
+    clearTagFilters: CatalogActions.clearTagFilters
   }
 };
 

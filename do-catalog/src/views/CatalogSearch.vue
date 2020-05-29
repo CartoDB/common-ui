@@ -12,6 +12,7 @@
       </div>
       <div class="grid-cell--col7">
         <SearchBox></SearchBox>
+        <FilterSummary></FilterSummary>
         <h2 v-if="loading">LOADING...</h2>
         <div v-else>
           <ul class="datasets-list">
@@ -35,6 +36,7 @@
 import { mapState } from 'vuex';
 import DatasetListItem from '../components/catalogSearch/DatasetListItem';
 import FilterBox from '../components/catalogSearch/FilterBox';
+import FilterSummary from '../components/catalogSearch/FilterSummary';
 import SearchBox from '../components/catalogSearch/SearchBox';
 
 export default {
@@ -42,6 +44,7 @@ export default {
   components: {
     DatasetListItem,
     FilterBox,
+    FilterSummary,
     SearchBox
   },
   watch: {
@@ -82,14 +85,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables';
+  @import '../styles/variables';
 
-header {
-  padding-top: 24px;
+  header {
+    padding-top: 24px;
 
-  h1 {
-    padding-bottom: 24px;
-    border-bottom: 1px solid $neutral--300;
+    h1 {
+      padding-bottom: 24px;
+      border-bottom: 1px solid $neutral--300;
+    }
   }
-}
+
+  .datasets-list {
+    margin-top: 12px;
+    border-top: 1px solid $neutral--300;
+  }
 </style>
