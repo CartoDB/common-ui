@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     ...mapState({
-      filterMetadata: function(state) { return state.doCatalog.filtersAvailable[this.filterId]; }
+      filterMetadata: state => state.doCatalog.filtersAvailable[this.filterId]
     })
   },
   methods: {
