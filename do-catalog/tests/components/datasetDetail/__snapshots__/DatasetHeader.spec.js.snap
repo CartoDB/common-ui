@@ -13,7 +13,9 @@ exports[`DatasetHeader.vue Renders view properly 1`] = `
   </div>
   <div class="grid-cell--col1"></div>
   <div class="grid-cell--col2">
-    <div class="u-flex u-flex__justify--end"><button class="button">Subscribe for Free</button></div>
+    <div class="u-flex u-flex__justify--end">
+      <button-stub>Subscribe for Free</button-stub>
+    </div>
     <p class="text is-small is-txtMainTextColor u-mt--16 right-align">
       Any questions? <a href="/">Contact</a></p>
   </div>

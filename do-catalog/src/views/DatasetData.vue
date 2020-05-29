@@ -22,7 +22,7 @@
             <span class="is-semibold">Type:</span> {{ tooltip.type }}
           </p>
         </div>
-        <div class="scrollable-table u-mt--24">
+        <div class="scrollable-table u-mt--24" v-if="numberRows > 0 && !isPublicWebsite">
           <table class="text is-small">
             <tr>
               <th></th>
@@ -43,6 +43,20 @@
               </td>
             </tr>
           </table>
+        </div>
+        <div class="empty-container grid u-flex__justify--center u-mt--24" v-else>
+          <div class="grid-cell--col5">
+            <h4 class="title is-body is-txtMidGrey">Sample is not available</h4>
+            <p class="text is-caption is-txtMidGrey u-mt--8">
+              <span v-if="numberRows > 0">This data sample is only available for customers.</span>
+              <span v-else>This data sample can’t be shown because the real dataset only contains a few rows.</span>
+            </p>
+            <div>
+              <Button v-if="numberRows > 0" class="u-mt--24" url="https://carto.com/login" :isOutline=false :reverseColors=true>Login</Button>
+              <span v-if="numberRows > 0" class="u-ml--12 u-mr--12 text is-small">or</span>
+              <Button class="u-mt--24" :url="getFormUrl()" :isOutline=true>Contact us for a demo</Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -77,9 +91,14 @@
 
 <script>
 import { mapState } from 'vuex';
+import Button from '@/components/Button.vue';
+import { formUrl } from '@/utils/form-url';
 
 export default {
   name: 'DatasetSummary',
+  components: {
+    Button
+  },
   data() {
     return {
       tooltip: {
@@ -100,6 +119,10 @@ export default {
       dataset: state => state.doCatalog.dataset,
       variables: state => state.doCatalog.variables
     }),
+    isPublicWebsite() {
+      //TODO
+      return true;
+    },
     tableSample() {
       return this.dataset && this.dataset.summary_json
         ? this.dataset.summary_json.glimpses.head
@@ -112,7 +135,7 @@ export default {
       return this.columns.length ? this.tableSample[this.columns[0]].length : 0;
     },
     numberColumns() {
-      return this.columns.length;
+      return this.variables ? this.variables.length : this.columns.length;
     }
   },
   methods: {
@@ -152,6 +175,9 @@ export default {
       this.tooltip.visible = false;
       this.tooltip.isFirst = false;
       this.tooltip.isLast = false;
+    },
+    getFormUrl() {
+      return formUrl(this.dataset.category_name, this.dataset.country_name, this.dataset.data_source_name)
     }
   }
 };
@@ -253,5 +279,12 @@ export default {
       left: auto;
     }
   }
+}
+
+.empty-container {
+  padding: 36px 0 48px;
+  border-radius: 6px;
+  background-color: $blue--100;
+  text-align: center;
 }
 </style>

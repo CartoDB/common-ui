@@ -14,7 +14,7 @@
     <div class="grid-cell--col1"></div>
     <div class="grid-cell--col2">
       <div class="u-flex u-flex__justify--end">
-        <button class="button">Subscribe for Free</button>
+        <Button>Subscribe for Free</Button>
       </div>
       <p class="text is-small is-txtMainTextColor u-mt--16 right-align">
         Any questions? <a href="/">Contact</a>
@@ -25,9 +25,13 @@
 
 <script>
 import { mapState } from 'vuex';
+import Button from '@/components/Button';
 
 export default {
   name: 'DatasetHeader',
+  components: {
+    Button
+  },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset
