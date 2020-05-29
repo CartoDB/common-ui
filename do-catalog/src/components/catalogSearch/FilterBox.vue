@@ -60,7 +60,7 @@ export default {
   computed: {
     ...mapState({
       filtersAvailable: state => state.doCatalog.filtersAvailable,
-      currentFilter: function(state) {
+      currentFilter(state) {
         return state.doCatalog.filter[this.filter];
       }
     }),

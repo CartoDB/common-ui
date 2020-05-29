@@ -33,7 +33,7 @@ export default {
       filter: state => state.doCatalog.filter,
       filtersAvailable: state => state.doCatalog.filtersAvailable
     }),
-    filtersApplied: function() {
+    filtersApplied() {
       const filterMap = new Map();
       for (let filterId in this.filtersAvailable) {
         if (this.filter[filterId].length) {
@@ -42,7 +42,7 @@ export default {
       }
       return filterMap;
     },
-    filtersCount: function() {
+    filtersCount() {
       let filterCount = 0;
       for (let filterId in this.filtersAvailable) {
         filterCount += this.filter[filterId].length;
