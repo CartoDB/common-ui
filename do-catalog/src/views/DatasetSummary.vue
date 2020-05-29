@@ -82,6 +82,7 @@
 import { mapState } from 'vuex';
 import { temporalAggregationName } from '../utils/temporal-agregation-name';
 import { toTitleCase } from '../utils/string-to-title-case';
+import { updateFrequencyName } from '../utils/update-frequency-name';
 
 export default {
   name: 'DatasetSummary',
@@ -93,10 +94,8 @@ export default {
     temporalAggregation() {
       return temporalAggregationName(this.dataset.temporal_aggregation);
     },
-    updateFrequency() {
-      return this.dataset.update_frequency
-        ? toTitleCase(this.dataset.update_frequency)
-        : 'None';
+    update_frequency() {
+      return updateFrequencyName(this.dataset.update_frequency);
     },
     datasetPrivacy() {
       return this.dataset.is_public_data ? 'Public Data' : 'Premium Data';
