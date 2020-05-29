@@ -1,16 +1,16 @@
 <template>
 <div v-if="isOpen" class="modal">
   <div @click="closeModal()" class="close-modal">
-    <img src="@/assets/modal/close.svg" alt="close" />
+    <img src="../assets/modal/close.svg" alt="close" />
   </div>
 
   <div class="grid u-flex__justify--center u-mt--120">
     <div class="grid-cell--col6 u-align--center">
-      <img src="@/assets/modal/data-request.svg" alt="Request data" />
+      <img src="../assets/modal/data-request.svg" alt="Request data" />
       <h2 class="title is-sectiontitle is-txtNavyBlue u-mt--24">Confirm your request</h2>
       <p class="text is-caption is-txtNavyBlue u-mt--12">You are going to request a subscription to the following dataset and its geography.</p>
       <p class="title is-small is-txtNavyBlue u-flex u-mt--48">
-        <img class="u-mr--8" src="@/assets/modal/db-icon.svg" alt="Dataset selected" />
+        <img class="u-mr--8" src="../assets/modal/db-icon.svg" alt="Dataset selected" />
         1 Dataset
       </p>
       <ul class="u-mt--10 data-request-container">
@@ -18,7 +18,7 @@
           <div class="card-info u-mr--16">
             <h4 class="text is-caption is-txtNavyBlue">{{dataset.name}}</h4>
             <p class="text is-small is-txtNavyBlue is-semibold u-mt--4 u-flex">
-              <img class="u-mr--8" src="@/assets/modal/provider.svg" alt="Provider" />
+              <img class="u-mr--8" src="../assets/modal/provider.svg" alt="Provider" />
               {{dataset.provider_name}}
             </p>
           </div>
@@ -31,7 +31,7 @@
       <p class="text is-caption is-txtNavyBlue u-mt--16">After confirming this request, a <span class="is-semibold">CARTO team member will contact you</span> to give you more information about this dataset and solve other doubts you may have.</p>
 
       <div class="grid u-flex__justify--center u-mt--32">
-        <Button class="u-mr--16">Confirm request</Button>
+        <Button class="u-mr--16" @click.native="requestDataset()">Confirm request</Button>
         <Button @click.native="closeModal()" :isOutline="true">Cancel</Button>
       </div>
     </div>
@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import Button from '@/components/Button.vue';
+import { mapState } from 'vuex';
+import Button from './Button.vue';
 
 export default {
   name: 'ModalSubscription',
@@ -52,6 +53,9 @@ export default {
     dataset: Object
   },
   computed: {
+    ...mapState({
+      user: state => state.user
+    }),
     datasetPrivacy () {
       return this.dataset.is_public_data ? "Public data" : "Premium"
     }
@@ -59,17 +63,25 @@ export default {
   methods: {
     closeModal() {
       this.$emit('closeModal');
+    },
+    requestDataset() {
+      // Check if requestDataset is defined or call Dashboard's requestDataset action as a fallback
+      if (this.$root.requestDataset) {
+        this.$root.requestDataset(this.user, this.dataset);
+      } else {
+        this.$store.dispatch('catalog/requestDataset', {user: this.user, dataset: this.dataset});
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+@import '../styles/variables';
 
 .modal {
   position: fixed;
-  z-index: 1;
+  z-index: 5; // Min value for Dashboard
   top: 0;
   left: 0;
   width: 100vw;

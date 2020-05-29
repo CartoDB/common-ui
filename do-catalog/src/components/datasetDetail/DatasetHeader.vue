@@ -28,9 +28,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import Button from '@/components/Button';
-import ModalSubscription from '@/components/ModalSubscription';
-import { formUrl } from '@/utils/form-url';
+import Button from '../Button';
+import ModalSubscription from '../ModalSubscription';
+import { formUrl } from '../../utils/form-url';
 
 export default {
   name: 'DatasetHeader',
@@ -48,7 +48,7 @@ export default {
       dataset: state => state.doCatalog.dataset
     }),
     isPublicWebsite() {
-      return false;
+      return !(this.$store.state.user && this.$store.state.user.id);
     },
   },
   methods: {
