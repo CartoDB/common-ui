@@ -38,7 +38,8 @@
             <tr v-for="n in numberRows" :key="n">
               <td class="is-semibold">{{ n - 1 }}</td>
               <td v-for="value in columns" :key="value">
-                {{ tableSample[value][n - 1] }}
+                <span v-if="tableSample[value][n - 1]">{{ tableSample[value][n - 1] }}</span>
+                <span v-else class="is-txtLightGrey is-italic">null</span>
               </td>
             </tr>
           </table>
@@ -75,8 +76,8 @@
           v-for="variable in variables"
           :key="variable.slug"
         >
-          <div class="grid-cell grid-cell--col4 is-semibold">
-            {{ variable.name }}
+          <div class="grid-cell grid-cell--col4 is-semibold name-cell">
+            {{ variable.column_name }}
           </div>
           <div class="grid-cell grid-cell--col7">
             {{ variable.description }}
@@ -119,6 +120,7 @@ export default {
       variables: state => state.doCatalog.variables
     }),
     isPublicWebsite() {
+      //TODO
       return true;
     },
     tableSample() {
@@ -159,8 +161,14 @@ export default {
       } else {
         this.tooltip.left += targetBoundingSize.width / 2;
       }
+
+      if (this.tooltip.left < -20) {
+        this.tooltip.left = -20;
+      } else if (tableBoundingSize.width - this.tooltip.left < -20) {
+        this.tooltip.left = tableBoundingSize.width + 20;
+      }
       this.tooltip.description = tooltipInfo.description;
-      this.tooltip.type = tooltipInfo.db_type;
+      this.tooltip.type = tooltipInfo.db_type;      
       this.tooltip.visible = true;
     },
     hideTooltip() {
@@ -205,6 +213,11 @@ export default {
 .info-row {
   padding: 14px 0;
   border-bottom: 1px solid $blue--100;
+}
+
+.name-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-row {
