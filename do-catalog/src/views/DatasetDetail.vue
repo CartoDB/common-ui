@@ -6,9 +6,6 @@
       <NavigationTabs class="grid-cell--col10">
         <router-link :to="{ name: 'do-dataset-summary' }">Summary</router-link>
         <router-link :to="{ name: 'do-dataset-data' }">Data</router-link>
-        <router-link to="/">Map</router-link>
-        <router-link to="/">Use it</router-link>
-        <router-link to="/">Catalog</router-link>
       </NavigationTabs>
     </div>
     <router-view :key="$route.fullPath"></router-view>

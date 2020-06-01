@@ -37,14 +37,14 @@ describe('DatasetSummary.vue', () => {
       expect(updateFrequency).toBe('None');
     });
 
-    it('Keeps original update frequency when the update frequency is set', () => {
+    it('Converts update frequency to readable data', () => {
       let altStore = createStore(dataset.dataset_samples[1]);
       const datasetSummary = shallowMount(DatasetSummary, {
         localVue,
         store: altStore
       });
       const updateFrequency = datasetSummary.vm.update_frequency;
-      expect(updateFrequency).toBe(dataset.dataset_samples[1].update_frequency);
+      expect(updateFrequency).toBe('Daily');
     });
 
     it('Returns premium data when is not public data', () => {

@@ -1,8 +1,25 @@
 {
-  "name": "common-ui",
-  "version": "0.1.1",
-  "private": true,
+  "name": "@carto/common-ui",
+  "version": "0.1.2-rc.3",
+  "description": "Common UI libraries and components for CARTO websites",
+  "authors": [
+    "Raúl Yeguas <raul@carto.com>",
+    "Alberto Acuña <albertoag@carto.com>"
+  ],
+  "homepage": "https://www.carto.com",
+  "license": "BSD-3-Clause",
   "main": "index.js",
+  "scripts": {
+    "bump:prerelease": "npm --no-git-tag-version version prerelease --preid=rc",
+    "bump:patch": "npm --no-git-tag-version version patch",
+    "bump:minor": "npm --no-git-tag-version version minor",
+    "bump:major": "npm --no-git-tag-version version major",
+    "publish:prerelease": "npm publish --tag prerelease",
+    "publish": "npm publish"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",

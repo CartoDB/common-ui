@@ -70,6 +70,7 @@
 <script>
 import { mapState } from 'vuex';
 import { temporalAggregationName } from '../utils/temporal-agregation-name';
+import { updateFrequencyName } from '../utils/update-frequency-name';
 
 export default {
   name: 'DatasetSummary',
@@ -82,9 +83,7 @@ export default {
       return temporalAggregationName(this.dataset.temporal_aggregation);
     },
     update_frequency() {
-      return this.dataset.update_frequency
-        ? this.dataset.update_frequency
-        : 'None';
+      return updateFrequencyName(this.dataset.update_frequency);
     },
     dataset_privacy() {
       return this.dataset.is_public_data ? 'Public Data' : 'Premium Data';

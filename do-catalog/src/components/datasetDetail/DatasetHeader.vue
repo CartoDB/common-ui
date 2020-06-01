@@ -7,31 +7,60 @@
           <a class="text is-txtMainTextColor">{{ dataset.data_source_name }}</a>
         </p>
       </nav>
-      <h1 class="title is-subheader is-txtMainTextColor u-mt--4">
+      <h1 class="title is-sectiontitle is-txtMainTextColor u-mt--4">
         {{ dataset.name }}
       </h1>
     </div>
     <div class="grid-cell--col1"></div>
     <div class="grid-cell--col2">
       <div class="u-flex u-flex__justify--end">
-        <button class="button">Subscribe for Free</button>
+        <Button v-if="isPublicWebsite" :url="getFormUrl()">I’m interested</Button>
+        <Button v-else @click.native="showModal()">Request</Button>
       </div>
       <p class="text is-small is-txtMainTextColor u-mt--16 right-align">
         Any questions? <a href="/">Contact</a>
       </p>
     </div>
+
+    <ModalSubscription @closeModal="hideModal()" :isOpen="modalOpen" :dataset="dataset"></ModalSubscription>
   </header>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Button from '../Button';
+import ModalSubscription from '../ModalSubscription';
+import { formUrl } from '../../utils/form-url';
 
 export default {
   name: 'DatasetHeader',
+  data() {
+    return {
+      modalOpen: false
+    }
+  },
+  components: {
+    Button,
+    ModalSubscription
+  },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset
-    })
+    }),
+    isPublicWebsite() {
+      return !(this.$store.state.user && this.$store.state.user.id);
+    },
+  },
+  methods: {
+    getFormUrl() {
+      return formUrl(this.dataset.category_name, this.dataset.country_name, this.dataset.data_source_name)
+    },
+    showModal() {
+      this.modalOpen = true;
+    },
+    hideModal() {
+      this.modalOpen = false;
+    }
   }
 };
 </script>

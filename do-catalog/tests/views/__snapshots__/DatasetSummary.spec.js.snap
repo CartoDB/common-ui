@@ -3,7 +3,7 @@
 exports[`DatasetSummary.vue Renders view properly 1`] = `
 <div class="grid u-flex__justify--center">
   <div class="grid-cell grid-cell--col7 main-column">
-    <div class="map-header"><img src="@/assets/map-samples.jpg" alt="map-sample"></div>
+    <div class="map-header"><img src="../assets/map-samples.jpg" alt="map-sample"></div>
     <p class="text is-caption is-txtMainTextColor u-mt--32">
       Retail Centrality is the ratio between Retail Turnover Index and Retail Spending Index multiplied by 100. It describes the ability of an area to pin the Retail Spending of its population and of other areas' population down to the local retail trade.
     </p>
