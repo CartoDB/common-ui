@@ -1,6 +1,6 @@
 <template>
   <div class="filter-detail">
-    <div class="label text is-small is-txtMidGrey u-mt--8 u-ml--12">{{ filterId }}</div>
+    <div class="label text is-small is-txtMidGrey u-mt--8 u-ml--12">{{ filterName }}</div>
     <ul class="filter-container">
       <li v-for="filter in filters" :key="filter">
         <div class="filter-tag title is-small is-txtNavyBlue u-ml--12 u-mb--12">
@@ -16,6 +16,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { toTitleCase } from '../../utils/string-to-title-case';
 
 export default {
   name: 'FilterDetail',
@@ -26,7 +27,10 @@ export default {
   computed: {
     ...mapState({
       filterMetadata: function(state) { return state.doCatalog.filtersAvailable[this.filterId] }
-    })
+    }),
+    filterName: function() {
+      return toTitleCase(this.filterId);
+    }
   },
   methods: {
     deleteFilter(filterValue) {

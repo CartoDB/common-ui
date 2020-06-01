@@ -12,7 +12,7 @@
       </div>
       <div class="grid-cell grid-cell--col7">
         <SearchBox></SearchBox>
-        <FilterSummary></FilterSummary>
+        <FilterSummary class="u-mt--4"></FilterSummary>
         <div v-if="loading">
           <LoadingBar></LoadingBar>
         </div>
@@ -116,6 +116,10 @@ export default {
   .datasets-list {
     margin-top: 12px;
     border-top: 1px solid $neutral--300;
+  }
+
+  FilterSummary {
+    margin-top: 4px;
   }
 
   .empty-result {
