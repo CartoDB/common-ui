@@ -3,6 +3,7 @@
     :class="[{ 'is-outline': isOutline,
               'reverse-colors': reverseColors,
               'extra-border': extraBorder,
+              'is-narrow': narrow,
               color: color},
               color
               ]"
@@ -19,7 +20,8 @@ export default {
     isOutline: Boolean,
     reverseColors: Boolean,
     extraBorder: Boolean,
-    color: String
+    color: String,
+    narrow: Boolean
   }
 }
 </script>
@@ -43,6 +45,10 @@ export default {
     background-color: $button__bg-color--hover;
   }
 
+  &.is-narrow {
+    padding: 8px 16px;
+  }
+
   &.engine-blue {
     background-color: $engine-blue;
   }
@@ -62,11 +68,6 @@ export default {
   background: transparent;
   color: $button-outline__color;
 
-  &:hover,
-  &:focus {
-    background-color: rgba($black, 0.02);
-  }
-
   &.extra-border {
     border-width: 2px;
   }
@@ -75,6 +76,11 @@ export default {
     border-color: $engine-blue;
     background: transparent;
     color: $engine-blue;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: rgba($black, 0.02);
   }
 }
 </style>

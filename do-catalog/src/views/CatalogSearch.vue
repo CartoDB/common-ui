@@ -13,8 +13,10 @@
       <div class="grid-cell grid-cell--col7">
         <SearchBox></SearchBox>
         <FilterSummary></FilterSummary>
-        <h2 v-if="loading">LOADING...</h2>
-        <div v-else>
+        <div v-if="loading">
+          <LoadingBar></LoadingBar>
+        </div>
+        <div v-if="datasetsList.length > 0">
           <ul class="datasets-list">
             <DatasetListItem
               v-for="dataset in datasetsList"
@@ -27,6 +29,17 @@
             <li @click="goNextPage">Next page</li>
           </ul>
         </div>
+        <div v-else-if="!loading">
+          <div class="empty-result u-mt--36">
+            <img src="../assets/empty-search.svg" alt="No results">
+            <h3 class="title is-body is-txtNavyBlue u-mt--16">We couldn’t find anything for your search:</h3>
+            <p class="text is-caption is-txtNavyBlue u-mt--16">Try again with another keyword or clear your filters</p>
+            <hr class="u-mt--24"/>
+            <p class="text is-caption is-txtNavyBlue u-mt--24">Still can’t find what you’re looking for?
+                <br/>Get help from our team</p>
+            <Button class="u-mt--24" color="engine-blue">Contact us</Button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,6 +51,8 @@ import DatasetListItem from '../components/catalogSearch/DatasetListItem';
 import FilterBox from '../components/catalogSearch/FilterBox';
 import FilterSummary from '../components/catalogSearch/FilterSummary';
 import SearchBox from '../components/catalogSearch/SearchBox';
+import Button from '../components/Button';
+import LoadingBar from '../components/catalogSearch/LoadingBar';
 
 export default {
   name: 'CatalogSearch',
@@ -45,7 +60,9 @@ export default {
     DatasetListItem,
     FilterBox,
     FilterSummary,
-    SearchBox
+    SearchBox,
+    Button,
+    LoadingBar
   },
   watch: {
     filter: {
@@ -99,5 +116,17 @@ export default {
   .datasets-list {
     margin-top: 12px;
     border-top: 1px solid $neutral--300;
+  }
+
+  .empty-result {
+    padding: 64px;
+    border-radius: 12px;
+    background-color: $neutral--100;
+    text-align: center;
+
+    hr {
+      width: 78px;
+      border: 1px solid $neutral--400;
+    }
   }
 </style>

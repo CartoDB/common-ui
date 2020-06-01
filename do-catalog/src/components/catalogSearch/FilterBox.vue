@@ -183,10 +183,13 @@ export default {
 .filter-input {
   width: 100%;
   height: 36px;
-  padding: 10px 12px;
+  padding: 10px 12px 10px 36px;
   border: 0;
   border-radius: 4px;
   background-color: $neutral--100;
+  background-image: url("../../assets/search-placeholder.svg");
+  background-repeat: no-repeat;
+  background-position: left 12px center;
 
   &::placeholder {
     opacity: 1;

@@ -1,13 +1,13 @@
 <template>
-  <div class="filter-summary">
-    <div class="header" :class="{'highlight-header': showDetails}">
+  <div class="filter-summary" :class="{'highlight-header': showDetails}">
+    <div class="header">
       <div class="entities-count title"><span class="is-caption is-txtNavyBlue">{{ count }}</span> <span class="is-txtMidGrey is-small">datasets</span></div>
       <div class="filters-count" v-if="filtersCount">
         <button class="title is-small is-navyBlue u-mr--20 detail-button" @click="toggleDetails()">
-          <img class="u-mr--12" src="../../assets/arrow-blue.svg" alt="Expand">
+          <img class="u-mr--12 expand-icon" src="../../assets/arrow-blue.svg" alt="Expand">
           {{ filtersCount }} <span>filters applied</span>
         </button>
-        <Button :isOutline="true" :extraBorder="true" color="engine-blue" @click.native="clearFilters">Clear all</Button>
+        <Button :isOutline="true" :extraBorder="true" color="engine-blue" @click.native="clearFilters" :narrow="true">Clear all</Button>
       </div>
     </div>
     <div class="extra-container" v-if="showDetails">
@@ -61,6 +61,7 @@ export default {
     },
     clearFilters() {
       this.$store.dispatch('doCatalog/clearTagFilters');
+      this.showDetails = false;
     }
   }
 }
@@ -71,6 +72,9 @@ export default {
 
   .filter-summary {
     position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: $white;
 
     .header {
       display: flex;
@@ -78,32 +82,37 @@ export default {
       align-items: center;
       justify-content: space-between;
       padding: 12px 12px 12px 24px;
-
-      &.highlight-header {
-        border-radius: 8px 8px 0 0;
-        background-color: #FFF;
-        box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
-      }
     }
 
     .extra-container {
-      position: absolute;
       top: 100%;
       left: 0;
       width: 100%;
       padding: 0 12px;
-      border-radius: 0 0 8px 8px;
       background: #FFF;
+    }
+
+    &.highlight-header {
       box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
+
+      .expand-icon {
+        transform: rotate(180deg);
+      }
     }
   }
 
   .detail-button {
+    padding: 8px 16px 8px 12px;
+    border-radius: 4px;
     cursor: pointer;
 
     &:focus {
       outline: none;
       box-shadow: none;
+    }
+
+    &:hover {
+      background-color: $blue--100;
     }
   }
 </style>
