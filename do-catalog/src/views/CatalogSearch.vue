@@ -4,13 +4,13 @@
       <h1 class="grid-cell--col10 title is-title">Data Catalog</h1>
     </header>
     <div class="grid grid-cell u-flex__justify--center">
-      <div class="grid-cell--col3">
-        <FilterBox title="Countries" filter="countries"></FilterBox>
-        <FilterBox title="Categories" filter="categories"></FilterBox>
-        <FilterBox title="Licenses" filter="licenses"></FilterBox>
-        <FilterBox title="Sources" filter="sources"></FilterBox>
+      <div class="grid-cell grid-cell--col3">
+        <FilterBox title="Countries" filter="countries" placeholder="country"></FilterBox>
+        <FilterBox title="Categories" filter="categories" placeholder="category"></FilterBox>
+        <FilterBox title="Licenses" filter="licenses" placeholder="license"></FilterBox>
+        <FilterBox title="Sources" filter="sources" placeholder="source"></FilterBox>
       </div>
-      <div class="grid-cell--col7">
+      <div class="grid-cell grid-cell--col7">
         <SearchBox></SearchBox>
         <FilterSummary></FilterSummary>
         <h2 v-if="loading">LOADING...</h2>
