@@ -3,16 +3,18 @@
     <div class="category title is-small">
       {{ dataset.country_name }}<span>·</span>{{ dataset.category_name }}
     </div>
-    <h3 class="title">
-      <router-link
-        :to="{
-          name: 'do-dataset-summary',
-          params: { datasetId: dataset.slug, type: dataset.is_geography ? 'geography' : 'dataset' }
-        }"
-        >{{ dataset.name }}</router-link
-      >
-    </h3>
-    <div class="description text">{{ dataset.description }}</div>
+    <div class="info u-mr--72">
+      <h3 class="title is-body u-mb--8">
+        <router-link
+          :to="{
+            name: 'do-dataset-summary',
+            params: { datasetId: dataset.slug, type: dataset.is_geography ? 'geography' : 'dataset' }
+          }"
+          >{{ dataset.name }}</router-link
+        >
+      </h3>
+      <p class="description text">{{ dataset.description }}</p>
+    </div>
     <div class="extra text is-small grid grid--out" v-if="!dataset.is_geography">
       <div class="grid-cell grid-cell--col7 grid grid--align-end grid--no-wrap">
         <div class="license"><span>License</span> {{ dataset.license_name }}</div>
@@ -22,9 +24,11 @@
       </div>
       <div class="grid-cell grid-cell--col5 grid grid--align-end grid--space">
         <div class="aggregation">
-          <span>Temporal aggr.</span> {{ dataset.temporal_aggregation }}
+          <span>Temporal aggr.</span> {{ temporalAggregation }}
         </div>
-        <div class="provider" :alt="dataset.provider_name"></div>
+        <div class="provider">
+          <img :src="providerLogo" :alt="dataset.provider_name"/>
+        </div>
       </div>
     </div>
     <div class="extra text is-small grid grid--out" v-else>
@@ -38,17 +42,31 @@
         <div class="aggregation">
           <span>Geometry type</span> {{ dataset.geom_type }}
         </div>
-        <div class="provider" :alt="dataset.provider_name"></div>
+        <div class="provider">
+          <img :src="providerLogo" :alt="dataset.provider_name"/>
+        </div>
       </div>
     </div>
   </li>
 </template>
 
 <script>
+import { temporalAggregationName } from '../../utils/temporal-agregation-name';
+
 export default {
   name: 'DatasetListItem',
   props: {
     dataset: Object
+  },
+  computed: {
+    temporalAggregation() {
+      return temporalAggregationName(this.dataset.temporal_aggregation)
+    },
+    providerLogo() {
+      const baseUrl = "https://libs.cartocdn.com/data-observatory/assets/providers/" //TODO
+      const provider = this.dataset.provider_id;
+      return `${baseUrl}${provider}.png`
+    }
   }
 };
 </script>
@@ -65,22 +83,21 @@ export default {
     margin-bottom: 8px;
 
     span {
-      color: $neutral--600;
       margin: 0 8px;
+      color: $neutral--600;
     }
   }
 
   h3 a {
+    margin-bottom: 8px;
+    color: inherit;
     font-size: 20px;
     line-height: 28px;
-    color: inherit;
-    margin-bottom: 8px;
   }
 
   .description {
     font-size: 14px;
     line-height: 20px;
-    margin-bottom: 8px;
   }
 
   .extra {
@@ -105,9 +122,12 @@ export default {
 
     .provider {
       display: block;
-      height: 36px;
       width: 36px;
-      background-color: $navy-blue;
+      height: 36px;
+
+      img {
+        max-width: 100%;
+      }
     }
   }
 }
