@@ -63,7 +63,7 @@ export default {
       return temporalAggregationName(this.dataset.temporal_aggregation)
     },
     providerLogo() {
-      const baseUrl = "https://bucket.carto.com/catalog/logos/" //TODO
+      const baseUrl = "https://libs.cartocdn.com/data-observatory/assets/providers/" //TODO
       const provider = this.dataset.provider_id;
       return `${baseUrl}${provider}.png`
     }
@@ -124,7 +124,10 @@ export default {
       display: block;
       width: 36px;
       height: 36px;
-      background-color: $navy-blue;
+
+      img {
+        max-width: 100%;
+      }
     }
   }
 }
