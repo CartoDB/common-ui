@@ -18,19 +18,20 @@ import NavigationTabs from '../components/datasetDetail/NavigationTabs';
 
 export default {
   name: 'DatasetDetail',
-  mounted() {
-    this.fetchDataset();
-    this.fetchKeyVariables();
-  },
   components: {
     DatasetHeader,
     NavigationTabs
+  },
+  computed: {
+    isGeography() {
+      return this.$route.params.type === 'geography'
+    }
   },
   methods: {
     fetchDataset() {
       this.$store.dispatch(
         'doCatalog/fetchDataset',
-        this.$route.params.datasetId
+        { id: this.$route.params.datasetId, type: this.$route.params.type }
       );
     },
     fetchKeyVariables() {
@@ -39,6 +40,10 @@ export default {
         this.$route.params.datasetId
       );
     }
+  },
+  mounted() {
+    this.fetchDataset();
+    this.fetchKeyVariables();
   }
 };
 </script>

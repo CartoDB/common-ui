@@ -2,8 +2,9 @@ import 'whatwg-fetch';
 
 const baseUrl =
   'https://cmonteserin-do-st.carto-staging.com/api/v4/data/observatory/'; // "https://public.carto.com"
-const datasetsEndpoint = 'metadata/datasets';
 const entitiesEndpoint = 'metadata/entities';
+const datasetsEndpoint = 'metadata/datasets';
+const geographiesEndpoint = 'metadata/geographies';
 
 function filtersToPayload(filter) {
   let payload = '';
@@ -58,11 +59,16 @@ export async function fetchDatasetsList(context) {
   }
 }
 
-export async function fetchDataset(context, datasetId) {
+export async function fetchDataset(context, { id, type }) {
   context.commit('resetDataset');
   context.commit('setFetchingState');
 
-  const url = baseUrl + datasetsEndpoint + '/' + datasetId;
+  let url = baseUrl;
+  if (type === 'dataset') {
+    url += datasetsEndpoint + '/' + id;
+  } else {
+    url += geographiesEndpoint + '/' + id;
+  }
 
   try {
     const response = await fetch(url);

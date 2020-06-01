@@ -1,5 +1,12 @@
 <template>
-  <a class="button" :class="{'is-outline': isOutline, 'reverse-colors': reverseColors}" :href="url">
+  <a class="button"
+    :class="[{ 'is-outline': isOutline,
+              'reverse-colors': reverseColors,
+              'extra-border': extraBorder,
+              color: color},
+              color
+              ]"
+    :href="url">
     <slot></slot>
   </a>
 </template>
@@ -10,7 +17,9 @@ export default {
   props: {
     url: String,
     isOutline: Boolean,
-    reverseColors: Boolean
+    reverseColors: Boolean,
+    extraBorder: Boolean,
+    color: String
   }
 }
 </script>
@@ -33,6 +42,10 @@ export default {
   &:hover {
     background-color: $button__bg-color--hover;
   }
+
+  &.engine-blue {
+    background-color: $engine-blue;
+  }
 }
 
 .reverse-colors {
@@ -52,6 +65,16 @@ export default {
   &:hover,
   &:focus {
     background-color: rgba($black, 0.02);
+  }
+
+  &.extra-border {
+    border-width: 2px;
+  }
+
+  &.engine-blue {
+    border-color: $engine-blue;
+    background: transparent;
+    color: $engine-blue;
   }
 }
 </style>
