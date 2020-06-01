@@ -14,28 +14,53 @@
     <div class="grid-cell--col1"></div>
     <div class="grid-cell--col2">
       <div class="u-flex u-flex__justify--end">
-        <Button>Subscribe for Free</Button>
+        <Button v-if="isPublicWebsite" :url="getFormUrl()">I’m interested</Button>
+        <Button v-else @click.native="showModal()">Request</Button>
       </div>
       <p class="text is-small is-txtMainTextColor u-mt--16 right-align">
         Any questions? <a href="/">Contact</a>
       </p>
     </div>
+
+    <ModalSubscription @closeModal="hideModal()" :isOpen="modalOpen" :dataset="dataset"></ModalSubscription>
   </header>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import Button from '@/components/Button';
+import Button from '../Button';
+import ModalSubscription from '../ModalSubscription';
+import { formUrl } from '../../utils/form-url';
 
 export default {
   name: 'DatasetHeader',
+  data() {
+    return {
+      modalOpen: false
+    }
+  },
   components: {
-    Button
+    Button,
+    ModalSubscription
   },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset
-    })
+    }),
+    isPublicWebsite() {
+      return !(this.$store.state.user && this.$store.state.user.id);
+    },
+  },
+  methods: {
+    getFormUrl() {
+      return formUrl(this.dataset.category_name, this.dataset.country_name, this.dataset.data_source_name)
+    },
+    showModal() {
+      this.modalOpen = true;
+    },
+    hideModal() {
+      this.modalOpen = false;
+    }
   }
 };
 </script>
