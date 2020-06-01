@@ -91,8 +91,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import Button from '@/components/Button.vue';
-import { formUrl } from '@/utils/form-url';
+import Button from '../components/Button.vue';
+import { formUrl } from '../utils/form-url';
 
 export default {
   name: 'DatasetSummary',
@@ -120,8 +120,7 @@ export default {
       variables: state => state.doCatalog.variables
     }),
     isPublicWebsite() {
-      //TODO
-      return true;
+      return !(this.$store.state.user && this.$store.state.user.id);
     },
     tableSample() {
       return this.dataset && this.dataset.summary_json
