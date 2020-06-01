@@ -27,7 +27,7 @@
           <span>Temporal aggr.</span> {{ temporalAggregation }}
         </div>
         <div class="provider">
-          <img :src="providerLogo" :alt="dataset.provider_name"/>
+          <img :src="providerLogo" :alt="dataset.provider_name" :title="dataset.provider_name"/>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
           <span>Geometry type</span> {{ geometryType }}
         </div>
         <div class="provider">
-          <img :src="providerLogo" :alt="dataset.provider_name"/>
+          <img :src="providerLogo" :alt="dataset.provider_name" :title="dataset.provider_name" />
         </div>
       </div>
     </div>

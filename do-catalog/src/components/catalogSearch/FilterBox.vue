@@ -89,7 +89,7 @@ export default {
       const lowercaseFilter = this.filterText.toLowerCase();
       return [...this.options.values()].filter(opt =>
         opt.name.toLowerCase().includes(lowercaseFilter)
-      );
+      ).sort((a, b) => b.entity_count - a.entity_count);
     }
   },
   watch: {
