@@ -11,7 +11,12 @@ import createRouter from './router';
 export default {
   store,
   router: createRouter(),
-  name: 'DOCatalogHome'
+  name: 'DOCatalogHome',
+  created() {
+    if (this.$root.userData) {
+      this.$store.dispatch('user/setUserData', this.$root.userData);
+    }
+  }
 };
 </script>
 

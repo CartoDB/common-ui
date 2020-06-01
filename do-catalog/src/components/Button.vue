@@ -82,5 +82,15 @@ export default {
   &:focus {
     background-color: rgba($black, 0.02);
   }
+
+  &.extra-border {
+    border-width: 2px;
+  }
+
+  &.engine-blue {
+    border-color: $engine-blue;
+    background: transparent;
+    color: $engine-blue;
+  }
 }
 </style>

@@ -62,7 +62,7 @@
             Spatial aggregation
           </h4>
           <p class="text is-caption is-txtMainTextColor">
-            {{ dataset.spatial_aggr || '-' }}
+            {{ spatialAggregation }}
           </p>
         </li>
         <li class="u-mb--32">
@@ -81,6 +81,7 @@
 <script>
 import { mapState } from 'vuex';
 import { temporalAggregationName } from '../utils/temporal-agregation-name';
+import { geometryTypeName } from '../utils/geometry-type-name';
 import { toTitleCase } from '../utils/string-to-title-case';
 import { updateFrequencyName } from '../utils/update-frequency-name';
 
@@ -94,8 +95,10 @@ export default {
     temporalAggregation() {
       return temporalAggregationName(this.dataset.temporal_aggregation);
     },
-    update_frequency() {
-      return updateFrequencyName(this.dataset.update_frequency);
+    updateFrequency() {
+      return this.dataset.update_frequency
+        ? updateFrequencyName(this.dataset.update_frequency)
+        : '-';
     },
     datasetPrivacy() {
       return this.dataset.is_public_data ? 'Public Data' : 'Premium Data';
@@ -104,7 +107,12 @@ export default {
       return this.$route.params.type === 'geography'
     },
     geometryType() {
-      return toTitleCase(this.dataset.geom_type);
+      return geometryTypeName(this.dataset.geom_type);
+    },
+    spatialAggregation() {
+      return this.dataset.spatial_aggregation
+        ? toTitleCase(this.dataset.spatial_aggregation)
+        : '-';
     }
   }
 };

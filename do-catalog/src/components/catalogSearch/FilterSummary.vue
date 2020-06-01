@@ -90,6 +90,16 @@ export default {
       width: 100%;
       padding: 0 12px;
       background: #FFF;
+      box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
+    }
+  }
+
+  .detail-button {
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
     }
 
     &.highlight-header {

@@ -27,23 +27,23 @@
           <span>Temporal aggr.</span> {{ temporalAggregation }}
         </div>
         <div class="provider">
-          <img :src="providerLogo" :alt="dataset.provider_name"/>
+          <img :src="providerLogo" :alt="dataset.provider_name" :title="dataset.provider_name"/>
         </div>
       </div>
     </div>
     <div class="extra text is-small grid grid--out" v-else>
       <div class="grid-cell grid-cell--col7 grid grid--align-end grid--no-wrap">
         <div class="license"><span>License</span> {{ dataset.license_name }}</div>
-        <!-- <div class="geography">
-          <span>Spatial aggr.</span> {{ dataset.spatial_aggr }}
-        </div> -->
+        <div class="geography">
+          <span>Spatial aggr.</span> {{ spatialAggregation }}
+        </div>
       </div>
       <div class="grid-cell grid-cell--col5 grid grid--align-end grid--space">
         <div class="aggregation">
-          <span>Geometry type</span> {{ dataset.geom_type }}
+          <span>Geometry type</span> {{ geometryType }}
         </div>
         <div class="provider">
-          <img :src="providerLogo" :alt="dataset.provider_name"/>
+          <img :src="providerLogo" :alt="dataset.provider_name" :title="dataset.provider_name" />
         </div>
       </div>
     </div>
@@ -52,6 +52,8 @@
 
 <script>
 import { temporalAggregationName } from '../../utils/temporal-agregation-name';
+import { geometryTypeName } from '../../utils/geometry-type-name';
+import { toTitleCase } from '../../utils/string-to-title-case';
 
 export default {
   name: 'DatasetListItem',
@@ -60,12 +62,16 @@ export default {
   },
   computed: {
     temporalAggregation() {
-      return temporalAggregationName(this.dataset.temporal_aggregation)
+      return temporalAggregationName(this.dataset.temporal_aggregation);
     },
     providerLogo() {
-      const baseUrl = "https://libs.cartocdn.com/data-observatory/assets/providers/" //TODO
-      const provider = this.dataset.provider_id;
-      return `${baseUrl}${provider}.png`
+      return `https://libs.cartocdn.com/data-observatory/assets/providers/${this.dataset.provider_id}.png`;
+    },
+    geometryType() {
+      return geometryTypeName(this.dataset.geom_type);
+    },
+    spatialAggregation() {
+      return toTitleCase(this.dataset.spatial_aggregation);
     }
   }
 };
@@ -98,6 +104,10 @@ export default {
   .description {
     font-size: 14px;
     line-height: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .extra {
