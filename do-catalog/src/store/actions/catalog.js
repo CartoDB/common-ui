@@ -5,7 +5,6 @@ const baseUrl =
 const entitiesEndpoint = 'metadata/entities';
 const datasetsEndpoint = 'metadata/datasets';
 const geographiesEndpoint = 'metadata/geographies';
-// const variablesEndpoint = 'metadata/variables';
 
 function filtersToPayload(filter) {
   let payload = '';
