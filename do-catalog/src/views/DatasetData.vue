@@ -117,7 +117,11 @@
       </div>
     </div>
 
-    <div class="grid-cell--col10 u-mt--60" ref="variablesSection" v-if="!isGeography">
+    <div
+      class="grid-cell--col10 u-mt--60"
+      ref="variablesSection"
+      v-if="!isGeography"
+    >
       <h2 class="grid-cell title is-caption is-txtMainTextColor">Variables</h2>
 
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
@@ -235,7 +239,11 @@ export default {
       this.tooltip.isLast = false;
     },
     getFormUrl() {
-      return formUrl(this.dataset.category_name, this.dataset.country_name, this.dataset.data_source_name)
+      return formUrl(
+        this.dataset.category_name,
+        this.dataset.country_name,
+        this.dataset.data_source_name
+      );
     },
     scrollToVariables() {
       window.scrollTo(0, this.$refs.variablesSection.offsetTop);

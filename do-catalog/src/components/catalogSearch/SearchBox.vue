@@ -8,7 +8,7 @@
       v-on:keyup.enter="updateFilter"
     />
     <button class="clear-search" v-if="filterText.length" @click="clearFilter">
-      <img src="../../assets/clear-search.svg" alt="Clear" title="Clear"/>
+      <img src="../../assets/clear-search.svg" alt="Clear" title="Clear" />
     </button>
     <button
       class="search-button"
@@ -92,7 +92,8 @@ export default {
     }
   }
 
-  &:focus-within, &.active-search {
+  &:focus-within,
+  &.active-search {
     padding: 0;
     border: 2px solid $engine-blue;
   }

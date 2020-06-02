@@ -71,7 +71,7 @@ import DatasetListItem from '../components/catalogSearch/DatasetListItem';
 import FilterBox from '../components/catalogSearch/FilterBox';
 import FilterSummary from '../components/catalogSearch/FilterSummary';
 import LoadingBar from '../components/catalogSearch/LoadingBar';
-import Pager from '../components/catalogSearch/Pager'
+import Pager from '../components/catalogSearch/Pager';
 import SearchBox from '../components/catalogSearch/SearchBox';
 
 export default {
@@ -135,7 +135,7 @@ header {
   .datasets-list {
     margin-top: 12px;
     border-top: 1px solid $neutral--300;
-  }  
+  }
 }
 
 .empty-result {

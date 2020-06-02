@@ -29,11 +29,13 @@
           v-model="filterText"
         />
         <button v-if="filterText.length" @click="clearOptionsFilter">
-          <img src="../../assets/clear-search.svg" alt="Clear" title="Clear"/>
+          <img src="../../assets/clear-search.svg" alt="Clear" title="Clear" />
         </button>
       </div>
       <div class="filter-content">
-        <p class="text is-caption center" v-if="!filteredOptions.length">Not found</p>
+        <p class="text is-caption center" v-if="!filteredOptions.length">
+          Not found
+        </p>
         <label
           class="text is-caption"
           v-for="option in filteredOptions"
@@ -196,7 +198,8 @@ export default {
 
       &:focus-within {
         border-color: $engine-blue;
-        &, input {
+        &,
+        input {
           background-color: $white;
         }
       }
