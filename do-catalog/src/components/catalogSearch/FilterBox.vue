@@ -13,7 +13,7 @@
               : `${currentFilter.length} filter`
           }}
           <span>·</span>
-          <button class="title is-small clear-button" @click="clearFilter">Clear</button>
+          <button class="title is-small clear-button" @click.stop="clearFilter">Clear</button>
         </p>
       </div>
     </div>
