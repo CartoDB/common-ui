@@ -1,5 +1,5 @@
 <template>
-  <div class="grid u-flex__justify--center">
+  <div class="grid grid-cell u-flex__justify--center">
     <div class="grid-cell grid-cell--col9 main-column">
       <p class="text is-caption is-txtMainTextColor u-mt--32">
         {{ dataset.description }}

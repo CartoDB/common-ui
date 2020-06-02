@@ -1,5 +1,5 @@
 <template>
-  <div class="grid u-flex__justify--center">
+  <div class="grid grid-cell u-flex__justify--center">
     <div class="grid-cell grid-cell--col12 u-mt--28">
       <h2 class="title is-caption is-txtMainTextColor">
         Data sample

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DatasetSummary.vue Renders view properly 1`] = `
-<div class="grid u-flex__justify--center">
+<div class="grid grid-cell u-flex__justify--center">
   <div class="grid-cell grid-cell--col9 main-column">
     <div class="map-header"><img src="../assets/map-samples.jpg" alt="map-sample"></div>
     <p class="text is-caption is-txtMainTextColor u-mt--32">
