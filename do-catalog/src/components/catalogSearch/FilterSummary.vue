@@ -98,7 +98,6 @@ export default {
     },
     clearFilters() {
       this.$store.dispatch('doCatalog/clearTagFilters');
-      this.showDetails = false;
     },
 
     // Vue transition to force precalculate height
