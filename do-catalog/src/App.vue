@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="do-catalog">
     <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
@@ -21,5 +21,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import './styles/main.scss';
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Open+Sans:400,600');
+
+.do-catalog {
+  @import './styles/main.scss';
+}
 </style>
