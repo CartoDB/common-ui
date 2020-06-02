@@ -1,6 +1,6 @@
 <template>
   <header class="grid u-flex__justify--center u-mb--36 u-mt--36">
-    <div class="grid-cell grid-cell--col7">
+    <div class="grid-cell grid-cell--col9">
       <nav class="breadcrumbs">
         <p class="text is-caption is-txtMainTextColor" v-if="!isGeography">
           <span class="title is-txtMainTextColor">{{ dataset.category_name }}</span> /
@@ -15,7 +15,7 @@
       </h1>
     </div>
     <div class="grid-cell--col1"></div>
-    <div class="grid-cell--col2">
+    <div class="grid-cell grid-cell--col2">
       <div class="u-flex u-flex__justify--end">
         <Button v-if="isPublicWebsite" :url="getFormUrl()">I’m interested</Button>
         <Button v-else @click.native="showModal()">Request</Button>

@@ -1,6 +1,6 @@
 <template>
   <div class="grid u-flex__justify--center">
-    <div class="grid-cell grid-cell--col10 u-mt--28">
+    <div class="grid-cell grid-cell--col12 u-mt--28">
       <h2 class="title is-caption is-txtMainTextColor">
         Data sample
         <a href="#variables-section" class="is-small"
@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <div class="grid-cell--col10 u-mt--60" id="variables-section" v-if="!isGeography">
+    <div class="grid-cell--col12 u-mt--60" id="variables-section" v-if="!isGeography">
       <h2 class="grid-cell title is-caption is-txtMainTextColor">Variables</h2>
 
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">

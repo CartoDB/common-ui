@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="grid u-flex__justify--center u-mb--36 u-mt--36">
-      <h1 class="grid-cell--col10 title is-title">Data Catalog</h1>
+      <h1 class="grid-cell--col12 title is-title">Data Catalog</h1>
     </header>
     <div class="grid grid-cell u-flex__justify--center">
       <div class="grid-cell grid-cell--col3">
@@ -10,7 +10,7 @@
         <FilterBox title="Licenses" filter="licenses" placeholder="license"></FilterBox>
         <FilterBox title="Sources" filter="sources" placeholder="source"></FilterBox>
       </div>
-      <div class="grid-cell grid-cell--col7">
+      <div class="grid-cell grid-cell--col9">
         <SearchBox></SearchBox>
         <FilterSummary class="u-mt--4"></FilterSummary>
         <div v-if="loading">

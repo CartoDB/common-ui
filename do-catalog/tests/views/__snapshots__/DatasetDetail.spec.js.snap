@@ -4,7 +4,7 @@ exports[`DatasetDetail.vue Renders view properly 1`] = `
 <div id="app">
   <datasetheader-stub></datasetheader-stub>
   <div class="grid grid-cell u-flex__justify--center">
-    <navigationtabs-stub class="grid-cell--col10">
+    <navigationtabs-stub class="grid-cell--col12">
       <router-link-stub to="[object Object]" tag="a" event="click">Summary</router-link-stub>
       <router-link-stub to="[object Object]" tag="a" event="click">Data</router-link-stub>
     </navigationtabs-stub>
