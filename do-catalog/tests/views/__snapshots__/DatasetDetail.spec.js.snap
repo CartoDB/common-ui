@@ -7,9 +7,6 @@ exports[`DatasetDetail.vue Renders view properly 1`] = `
     <navigationtabs-stub class="grid-cell--col10">
       <router-link-stub to="[object Object]" tag="a" event="click">Summary</router-link-stub>
       <router-link-stub to="[object Object]" tag="a" event="click">Data</router-link-stub>
-      <router-link-stub to="/" tag="a" event="click">Map</router-link-stub>
-      <router-link-stub to="/" tag="a" event="click">Use it</router-link-stub>
-      <router-link-stub to="/" tag="a" event="click">Catalog</router-link-stub>
     </navigationtabs-stub>
   </div>
   <router-view-stub name="default"></router-view-stub>

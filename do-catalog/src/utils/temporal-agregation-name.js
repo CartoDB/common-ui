@@ -8,7 +8,7 @@ const temporalAggregations = {
   hourly: 'Hourly',
   seconds: 'Seconds',
   monthly: 'Monthly',
-  '5minutes': 'minutes'
+  '5minutes': 'Minutes'
 };
 
 export function temporalAggregationName(aggregationId) {
