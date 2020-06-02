@@ -27,10 +27,11 @@
           v-model="filterText"
         />
         <button v-if="filterText.length" @click="clearOptionsFilter">
-          Clear
+          <img src="../../assets/clear-search.svg" alt="Clear" title="Clear"/>
         </button>
       </div>
       <div class="filter-content">
+        <p class="text is-caption center" v-if="!filteredOptions.length">Not found</p>
         <label
           class="text is-caption"
           v-for="option in filteredOptions"
@@ -131,14 +132,18 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/variables';
 
+.center {
+  text-align: center;
+}
+
 .filter-box {
   border-bottom: 1px solid $neutral--300;
-  cursor: pointer;
 
   .filter-header {
     display: flex;
     align-items: center;
     padding: 24px 0 24px 20px;
+    cursor: pointer;
 
     &:hover {
       background-color: $blue--100;
@@ -162,6 +167,39 @@ export default {
     flex-direction: column;
     max-height: 268px;
     overflow: hidden;
+
+    .options-filter {
+      display: flex;
+      flex-direction: row;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      background-color: $neutral--100;
+
+      &:focus-within {
+        border-color: $engine-blue;
+        &, input {
+          background-color: $white;
+        }
+      }
+
+      input {
+        flex: 1 1 auto;
+        outline: none;
+      }
+
+      button {
+        display: flex;
+        flex: 0 0 auto;
+        margin-right: 6px;
+        outline: none;
+        cursor: pointer;
+
+        img {
+          height: 16px;
+          width: 16px;
+        }
+      }
+    }
   }
 
   &.is-compressed {

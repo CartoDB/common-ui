@@ -57,6 +57,13 @@ export default {
       return filterCount;
     }
   },
+  watch: {
+    filtersCount: function(newValue) {
+      if (newValue === 0) {
+        this.showDetails = false;
+      }
+    }
+  },
   methods: {
     toggleDetails() {
       this.showDetails = !this.showDetails;
