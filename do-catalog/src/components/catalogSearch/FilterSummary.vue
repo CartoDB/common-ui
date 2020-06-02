@@ -3,7 +3,7 @@
     <div class="header">
       <div class="entities-count title">
         <span class="is-caption is-txtNavyBlue">{{ count }}</span>
-        <span class="is-txtMidGrey is-small">datasets</span>
+        <span class="is-txtMidGrey is-small"> datasets</span>
       </div>
       <div class="filters-count" v-if="filtersCount">
         <button
