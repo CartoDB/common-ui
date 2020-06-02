@@ -16,7 +16,7 @@ function filtersToPayload(filter) {
     geographies = [],
     sources = [],
     licenses = [],
-    limit = 30,
+    limit = 10,
     page = 0
   } = filter;
   const offset = page * limit;

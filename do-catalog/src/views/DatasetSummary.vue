@@ -7,7 +7,7 @@
 
       <div class="key-variables u-mt--32" v-if="!isGeography">
         <h5 class="title is-caption is-txtMainTextColor">
-          Key variables <a href="#" class="is-small">(View all)</a>
+          Key variables <router-link to="data" class="is-small">(View all)</router-link>
         </h5>
         <ul class="text is-caption column-list u-mt--24">
           <li v-for="variable in keyVariables" :key="variable.id">

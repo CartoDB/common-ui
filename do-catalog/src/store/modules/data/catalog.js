@@ -14,7 +14,7 @@ const catalog = {
     filtersAvailable: {},
     filter: {
       searchText: '',
-      limit: 30,
+      limit: 10,
       page: 0,
 
       //TODO: Make this filters dynamic too
