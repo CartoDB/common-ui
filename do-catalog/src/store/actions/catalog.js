@@ -5,6 +5,7 @@ const baseUrl =
 const entitiesEndpoint = 'metadata/entities';
 const datasetsEndpoint = 'metadata/datasets';
 const geographiesEndpoint = 'metadata/geographies';
+// const variablesEndpoint = 'metadata/variables';
 
 function filtersToPayload(filter) {
   let payload = '';
@@ -87,7 +88,7 @@ export async function fetchKeyVariables(context, { id, type }) {
   if (type === 'dataset') {
     url += datasetsEndpoint + '/' + id + '/key_variables';
   } else {
-    url += geographiesEndpoint + '/' + id + '/key_variables';
+    url += geographiesEndpoint + '/' + id + '/variables?minimal=true';
   }
 
   try {
