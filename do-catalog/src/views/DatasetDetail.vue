@@ -45,10 +45,10 @@ export default {
       });
     },
     fetchKeyVariables() {
-      this.$store.dispatch(
-        'doCatalog/fetchKeyVariables',
-        this.$route.params.datasetId
-      );
+      this.$store.dispatch('doCatalog/fetchKeyVariables', {
+        id: this.$route.params.datasetId,
+        type: this.$route.params.type
+      });
     }
   },
   mounted() {

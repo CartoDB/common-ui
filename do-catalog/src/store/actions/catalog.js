@@ -82,8 +82,13 @@ export async function fetchDataset(context, { id, type }) {
   }
 }
 
-export async function fetchKeyVariables(context, datasetId) {
-  const url = baseUrl + datasetsEndpoint + '/' + datasetId + '/key_variables';
+export async function fetchKeyVariables(context, { id, type }) {
+  let url = baseUrl;
+  if (type === 'dataset') {
+    url += datasetsEndpoint + '/' + id + '/key_variables';
+  } else {
+    url += geographiesEndpoint + '/' + id + '/variables?minimal=true';
+  }
 
   try {
     const response = await fetch(url);
@@ -94,9 +99,13 @@ export async function fetchKeyVariables(context, datasetId) {
   }
 }
 
-export async function fetchVariables(context, datasetId) {
-  const url =
-    baseUrl + datasetsEndpoint + '/' + datasetId + '/variables?minimal=true';
+export async function fetchVariables(context, { id, type }) {
+  let url = baseUrl;
+  if (type === 'dataset') {
+    url += datasetsEndpoint + '/' + id + '/variables?minimal=true';
+  } else {
+    url += geographiesEndpoint + '/' + id + '/variables?minimal=true';
+  }
 
   try {
     const response = await fetch(url);
