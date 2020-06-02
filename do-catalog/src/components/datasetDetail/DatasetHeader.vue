@@ -1,6 +1,6 @@
 <template>
-  <header class="grid u-flex__justify--center u-mb--36 u-mt--36">
-    <div class="grid-cell grid-cell--col9">
+  <header class="grid u-flex__justify--center u-mb--36 u-mb--20--tablet u-mt--36">
+    <div class="grid-cell grid-cell--col9 grid-cell--col8--tablet">
       <nav class="breadcrumbs">
         <p class="text is-caption is-txtMainTextColor" v-if="!isGeography">
           <span class="title is-txtMainTextColor">{{
@@ -19,8 +19,8 @@
         {{ dataset.name }}
       </h1>
     </div>
-    <div class="grid-cell--col1"></div>
-    <div class="grid-cell grid-cell--col2">
+
+    <div class="u-ml--auto grid-cell grid-cell--col3 grid-cell--col4--tablet">
       <div class="u-flex u-flex__justify--end">
         <Button v-if="isPublicWebsite" :url="getFormUrl()"
           >I’m interested</Button
@@ -89,5 +89,9 @@ export default {
 <style lang="scss" scoped>
 .right-align {
   text-align: right;
+}
+
+.u-ml--auto {
+  margin-left: auto;
 }
 </style>

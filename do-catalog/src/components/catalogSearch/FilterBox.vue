@@ -192,6 +192,7 @@ export default {
     .options-filter {
       display: flex;
       flex-direction: row;
+      flex-shrink: 0;
       border: 2px solid transparent;
       border-radius: 4px;
       background-color: $neutral--100;

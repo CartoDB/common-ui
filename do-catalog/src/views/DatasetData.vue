@@ -53,7 +53,7 @@
           class="empty-container grid u-flex__justify--center u-mt--24"
           v-else
         >
-          <div class="grid-cell--col5">
+          <div class="grid-cell--col5 grid-cell--col8--tablet">
             <h4 class="title is-body is-txtMidGrey">Sample is not available</h4>
             <p class="text is-caption is-txtMidGrey u-mt--8">
               <span v-if="numberRows > 0"
@@ -118,7 +118,7 @@
     </div>
 
     <div
-      class="grid-cell--col10 u-mt--60"
+      class="grid-cell--col12 u-mt--60"
       ref="variablesSection"
       v-if="!isGeography"
     >
@@ -127,8 +127,8 @@
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
         <li class="grid title is-txtMidGrey header-row">
           <div class="grid-cell grid-cell--col4">Column Name</div>
-          <div class="grid-cell grid-cell--col7">Description</div>
-          <div class="grid-cell grid-cell--col1">Type</div>
+          <div class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile">Description</div>
+          <div class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile">Type</div>
         </li>
 
         <li
@@ -139,10 +139,10 @@
           <div class="grid-cell grid-cell--col4 is-semibold name-cell">
             {{ variable.column_name }}
           </div>
-          <div class="grid-cell grid-cell--col7">
+          <div class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile">
             {{ variable.description }}
           </div>
-          <div class="grid-cell grid-cell--col1">{{ variable.db_type }}</div>
+          <div class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile">{{ variable.db_type }}</div>
         </li>
       </ul>
     </div>

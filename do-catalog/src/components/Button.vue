@@ -7,7 +7,6 @@
         'reverse-colors': reverseColors,
         'extra-border': extraBorder,
         'is-narrow': narrow,
-        color: color
       },
       color
     ]"

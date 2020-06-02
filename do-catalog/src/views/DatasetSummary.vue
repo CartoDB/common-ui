@@ -1,7 +1,7 @@
 <template>
-  <div class="grid grid-cell u-flex__justify--center">
-    <div class="grid-cell grid-cell--col9 main-column">
-      <p class="text is-caption is-txtMainTextColor u-mt--32">
+  <div class="grid grid-cell u-flex__justify--center wrap-reverse--tablet">
+    <div class="grid-cell grid-cell--col9 grid-cell--col12--tablet main-column">
+      <p class="text is-caption is-txtMainTextColor u-mt--32 u-mt--12--tablet">
         {{ dataset.description }}
       </p>
 
@@ -19,40 +19,40 @@
         </ul>
       </div>
     </div>
-    <div class="grid-cell--col1"></div>
-    <div class="grid-cell grid-cell--col2 sidebar">
+    <div class="grid-cell--col1 grid-cell--col0--tablet"></div>
+    <div class="grid-cell grid-cell--col2 grid-cell--col12--tablet sidebar">
       <ul class="side-characteristics">
-        <li class="u-mb--32">
+        <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Licence</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ datasetPrivacy }}
           </p>
         </li>
-        <li class="u-mb--32">
+        <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Country</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ dataset.country_name || '-' }}
           </p>
         </li>
-        <li class="u-mb--32">
+        <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Source</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ dataset.provider_name }}
           </p>
         </li>
-        <li class="u-mb--32" v-if="!isGeography">
+        <li class="u-mb--32 u-mb--12--tablet" v-if="!isGeography">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Geography</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ dataset.geography_name }}
           </p>
         </li>
-        <li class="u-mb--32" v-else>
+        <li class="u-mb--32 u-mb--12--tablet" v-else>
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Geometry type</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ geometryType }}
           </p>
         </li>
-        <li class="u-mb--32" v-if="!isGeography">
+        <li class="u-mb--32 u-mb--12--tablet" v-if="!isGeography">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Temporal aggregation
           </h4>
@@ -60,7 +60,7 @@
             {{ temporalAggregation }}
           </p>
         </li>
-        <li class="u-mb--32" v-else>
+        <li class="u-mb--32 u-mb--12--tablet" v-else>
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Spatial aggregation
           </h4>
@@ -68,7 +68,7 @@
             {{ spatialAggregation }}
           </p>
         </li>
-        <li class="u-mb--32">
+        <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Update Frequency
           </h4>
@@ -122,6 +122,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '../styles/variables';
+
 .map-header {
   overflow: hidden;
   border-radius: 4px;
@@ -145,6 +147,48 @@ export default {
       display: inline-block;
       vertical-align: text-top;
     }
+  }
+}
+
+@media (max-width: $layout-tablet) {
+  .wrap-reverse--tablet {
+    flex-wrap: wrap-reverse;
+  }
+
+  .side-characteristics {
+    display: flex;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+
+    li {
+      flex-shrink: 0;
+      padding-right: 24px;
+      white-space: nowrap;
+
+      &:last-of-type {
+        padding-right: 72px;
+      }
+    }
+  }
+
+  .sidebar {
+    position: relative;
+    border-bottom: 1px solid $neutral--300;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 72px;
+      height: 100%;
+      background-image: linear-gradient(90deg, rgba($white, 0) 0, $white 70%, $white 100%);
+      pointer-events: none;
+    }
+  }
+
+  .column-list {
+    column-count: unset;
   }
 }
 </style>
