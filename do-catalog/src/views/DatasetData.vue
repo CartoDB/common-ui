@@ -117,11 +117,7 @@
       </div>
     </div>
 
-    <div
-      class="grid-cell--col12 u-mt--60"
-      ref="variablesSection"
-      v-if="!isGeography"
-    >
+    <div class="grid-cell--col12 u-mt--60" ref="variablesSection">
       <h2 class="grid-cell title is-caption is-txtMainTextColor">Variables</h2>
 
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
@@ -202,10 +198,10 @@ export default {
   },
   methods: {
     fetchVariables() {
-      this.$store.dispatch(
-        'doCatalog/fetchVariables',
-        this.$route.params.datasetId
-      );
+      this.$store.dispatch('doCatalog/fetchVariables', {
+        id: this.$route.params.datasetId,
+        type: this.$route.params.type
+      });
     },
     findVariableInfo(variableName) {
       return this.variables.find(e => e.column_name == variableName);

@@ -148,6 +148,7 @@ header {
   justify-content: flex-start;
 
   .datasets-list {
+    width: 100%;
     margin-top: 12px;
     border-top: 1px solid $neutral--300;
   }

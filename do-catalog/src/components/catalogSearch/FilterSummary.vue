@@ -3,7 +3,7 @@
     <div class="header">
       <div class="entities-count title">
         <span class="is-caption is-txtNavyBlue">{{ count }}</span>
-        <span class="is-txtMidGrey is-small">datasets</span>
+        <span class="is-txtMidGrey is-small"> datasets</span>
       </div>
       <div class="filters-count" :class="{'filter-selector': filtersCount}">
         <button
@@ -101,7 +101,6 @@ export default {
     },
     clearFilters() {
       this.$store.dispatch('doCatalog/clearTagFilters');
-      this.showDetails = false;
     },
 
     // Vue transition to force precalculate height

@@ -17,6 +17,7 @@
       ...
     </li>
     <li
+      v-if="totalPages > 1"
       @click="goToPage(totalPages - 1)"
       :class="{ active: currentPage === totalPages - 1 }"
     >
@@ -34,10 +35,13 @@ export default {
       count: state => state.doCatalog.datasetsListCount,
       currentPage: state => state.doCatalog.filter.page
     }),
-    totalPages: function() {
-      return Math.ceil(this.count / process.env.VUE_APP_PAGE_SIZE);
+    pageSize() {
+      return process.env.VUE_APP_PAGE_SIZE || 10;
     },
-    middlePages: function() {
+    totalPages() {
+      return Math.ceil(this.count / this.pageSize);
+    },
+    middlePages() {
       if (this.totalPages > 3) {
         if (this.currentPage < 2) {
           return [1, 2];
@@ -46,8 +50,10 @@ export default {
         } else {
           return [this.currentPage - 1, this.currentPage, this.currentPage + 1];
         }
+      } else if (this.totalPages > 2) {
+        return [this.totalPages - 2];
       } else {
-        return [this.currentPage];
+        return [];
       }
     }
   },

@@ -5,7 +5,7 @@
         {{ dataset.description }}
       </p>
 
-      <div class="key-variables u-mt--32" v-if="!isGeography">
+      <div class="key-variables u-mt--32">
         <h5 class="title is-caption is-txtMainTextColor">
           Key variables
           <router-link :to="{ name: 'do-dataset-data' }" class="is-small"
