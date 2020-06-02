@@ -4,7 +4,7 @@
       <h1 class="grid-cell--col12 title is-title">Data Catalog</h1>
     </header>
     <div class="grid grid-cell u-flex__justify--center">
-      <div class="grid-cell grid-cell--col3">
+      <div class="grid-cell grid-cell--col4">
         <FilterBox
           title="Countries"
           filter="countries"
@@ -26,7 +26,7 @@
           placeholder="source"
         ></FilterBox>
       </div>
-      <div class="grid-cell grid-cell--col9">
+      <div class="grid-cell grid-cell--col8">
         <SearchBox></SearchBox>
         <FilterSummary class="u-mt--4"></FilterSummary>
         <div v-if="loading">
