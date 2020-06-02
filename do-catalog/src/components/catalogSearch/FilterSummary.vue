@@ -1,18 +1,46 @@
 <template>
-  <div class="filter-summary" :class="{'highlight': showDetails}">
+  <div class="filter-summary" :class="{ highlight: showDetails }">
     <div class="header">
-      <div class="entities-count title"><span class="is-caption is-txtNavyBlue">{{ count }}</span> <span class="is-txtMidGrey is-small">datasets</span></div>
+      <div class="entities-count title">
+        <span class="is-caption is-txtNavyBlue">{{ count }}</span>
+        <span class="is-txtMidGrey is-small">datasets</span>
+      </div>
       <div class="filters-count" v-if="filtersCount">
-        <button class="title is-small is-navyBlue u-mr--20 detail-button" @click="toggleDetails()">
-          <img class="u-mr--12 expand-icon" src="../../assets/arrow-blue.svg" alt="Expand">
+        <button
+          class="title is-small is-navyBlue u-mr--20 detail-button"
+          @click="toggleDetails()"
+        >
+          <img
+            class="u-mr--12 expand-icon"
+            src="../../assets/arrow-blue.svg"
+            alt="Expand"
+          />
           {{ filtersCount }} <span>filters applied</span>
         </button>
-        <Button :isOutline="true" :extraBorder="true" color="engine-blue" @click.native="clearFilters" :narrow="true">Clear all</Button>
+        <Button
+          :isOutline="true"
+          :extraBorder="true"
+          color="engine-blue"
+          @click.native="clearFilters"
+          :narrow="true"
+          >Clear all</Button
+        >
       </div>
     </div>
-    <transition name="slide" @enter="enter" @after-enter="afterEnter" @leave="leave" @after-leave="afterLeave">
+    <transition
+      name="slide"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @leave="leave"
+      @after-leave="afterLeave"
+    >
       <div class="extra-container" v-if="showDetails">
-        <FilterDetail v-for="[filterKey, filterContent] in filtersApplied" :key="filterKey" :filterId="filterKey" :filters="filterContent"></FilterDetail>
+        <FilterDetail
+          v-for="[filterKey, filterContent] in filtersApplied"
+          :key="filterKey"
+          :filterId="filterKey"
+          :filters="filterContent"
+        ></FilterDetail>
       </div>
     </transition>
   </div>
@@ -32,7 +60,7 @@ export default {
   data() {
     return {
       showDetails: false
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -67,125 +95,126 @@ export default {
     },
 
     // Vue transition to force precalculate height
-    enter (el) {
-      el.style.overflow = 'hidden'
-      el.style.height = '0'
+    enter(el) {
+      el.style.overflow = 'hidden';
+      el.style.height = '0';
 
       window.requestAnimationFrame(() => {
-        el.style.height = `${el.scrollHeight}px`
-      })
+        el.style.height = `${el.scrollHeight}px`;
+      });
     },
-    leave (el) {
-      el.style.overflow = 'hidden'
-      el.style.height = `${el.scrollHeight}px`
+    leave(el) {
+      el.style.overflow = 'hidden';
+      el.style.height = `${el.scrollHeight}px`;
 
       window.requestAnimationFrame(() => {
-        el.style.height = '0'
-      })
+        el.style.height = '0';
+      });
     },
-    afterEnter (el) {
-      el.style.height = ''
-      el.style.overflow = ''
+    afterEnter(el) {
+      el.style.height = '';
+      el.style.overflow = '';
     },
-    afterLeave (el) {
-      el.style.height = ''
-      el.style.overflow = ''
+    afterLeave(el) {
+      el.style.height = '';
+      el.style.overflow = '';
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  @import '../../styles/variables';
+@import '../../styles/variables';
 
-  .filter-summary {
-    border-radius: 8px;
-    background-color: $white;
-    box-shadow: 0 0 0 0 transparent;
-    transition: box-shadow .2s ease-out;
+.filter-summary {
+  border-radius: 8px;
+  background-color: $white;
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 0.2s ease-out;
 
-    .header {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 12px 12px 24px;
-    }
-
-    .extra-container {
-      width: 100%;
-      padding: 0 12px;
-      background: #FFF;
-      border-radius: 0 0 8px 8px;
-    }
-
-    &.highlight {
-      box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
-
-      .expand-icon {
-        transform: rotate(180deg);
-      }
-    }
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px 12px 24px;
   }
 
-  .detail-button {
-    cursor: pointer;
+  .extra-container {
+    width: 100%;
+    padding: 0 12px;
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+  }
 
-    &:focus {
-      outline: none;
-      box-shadow: none;
-    }
+  &.highlight {
+    box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
 
-    &.highlight-header {
-      box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
-
-      .expand-icon {
-        transform: rotate(180deg);
-      }
+    .expand-icon {
+      transform: rotate(180deg);
     }
   }
+}
 
-  .detail-button {
-    padding: 8px 16px 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
+.detail-button {
+  cursor: pointer;
 
-    &:focus {
-      outline: none;
-      box-shadow: none;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &.highlight-header {
+    box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
+
+    .expand-icon {
+      transform: rotate(180deg);
     }
+  }
+}
 
-    &:hover {
-      background-color: $blue--100;
-    }
+.detail-button {
+  padding: 8px 16px 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
   }
 
-  .expand-enter-active, .expand-leave-active {
-    transition: height .2s ease-out;
-    overflow: hidden;
+  &:hover {
+    background-color: $blue--100;
   }
-  .expand-enter, .expand-leave-to {
-    height: 0;
-  }
+}
 
-  // Vue transition
-  $animationTimming: 250ms;
-  $animationFunc: ease;
+.expand-enter-active,
+.expand-leave-active {
+  transition: height 0.2s ease-out;
+  overflow: hidden;
+}
+.expand-enter,
+.expand-leave-to {
+  height: 0;
+}
 
-  .slide-enter-active {
-    transition: 
-      height $animationTimming $animationFunc,
-      opacity $animationTimming $animationFunc $animationTimming/3;
-  }
+// Vue transition
+$animationTimming: 250ms;
+$animationFunc: ease;
 
-  .slide-leave-active {
-    transition: 
-      height $animationTimming $animationFunc,
-      opacity $animationTimming $animationFunc;
-  }
+.slide-enter-active {
+  transition: height $animationTimming $animationFunc,
+    opacity $animationTimming $animationFunc $animationTimming/3;
+}
 
-  .slide-enter, .slide-leave-to {
-    opacity: 0;
-    margin: 0;
-  }
+.slide-leave-active {
+  transition: height $animationTimming $animationFunc,
+    opacity $animationTimming $animationFunc;
+}
+
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  margin: 0;
+}
 </style>

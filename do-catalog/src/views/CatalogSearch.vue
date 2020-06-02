@@ -5,10 +5,26 @@
     </header>
     <div class="grid grid-cell u-flex__justify--center">
       <div class="grid-cell grid-cell--col3">
-        <FilterBox title="Countries" filter="countries" placeholder="country"></FilterBox>
-        <FilterBox title="Categories" filter="categories" placeholder="category"></FilterBox>
-        <FilterBox title="Licenses" filter="licenses" placeholder="license"></FilterBox>
-        <FilterBox title="Sources" filter="sources" placeholder="source"></FilterBox>
+        <FilterBox
+          title="Countries"
+          filter="countries"
+          placeholder="country"
+        ></FilterBox>
+        <FilterBox
+          title="Categories"
+          filter="categories"
+          placeholder="category"
+        ></FilterBox>
+        <FilterBox
+          title="Licenses"
+          filter="licenses"
+          placeholder="license"
+        ></FilterBox>
+        <FilterBox
+          title="Sources"
+          filter="sources"
+          placeholder="source"
+        ></FilterBox>
       </div>
       <div class="grid-cell grid-cell--col9">
         <SearchBox></SearchBox>
@@ -31,12 +47,18 @@
         </div>
         <div v-else-if="!loading">
           <div class="empty-result u-mt--36">
-            <img src="../assets/empty-search.svg" alt="No results">
-            <h3 class="title is-body is-txtNavyBlue u-mt--16">We couldn’t find anything for your search:</h3>
-            <p class="text is-caption is-txtNavyBlue u-mt--16">Try again with another keyword or clear your filters</p>
-            <hr class="u-mt--24"/>
-            <p class="text is-caption is-txtNavyBlue u-mt--24">Still can’t find what you’re looking for?
-                <br/>Get help from our team</p>
+            <img src="../assets/empty-search.svg" alt="No results" />
+            <h3 class="title is-body is-txtNavyBlue u-mt--16">
+              We couldn’t find anything for your search:
+            </h3>
+            <p class="text is-caption is-txtNavyBlue u-mt--16">
+              Try again with another keyword or clear your filters
+            </p>
+            <hr class="u-mt--24" />
+            <p class="text is-caption is-txtNavyBlue u-mt--24">
+              Still can’t find what you’re looking for? <br />Get help from our
+              team
+            </p>
             <Button class="u-mt--24" color="engine-blue">Contact us</Button>
           </div>
         </div>
@@ -102,35 +124,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/variables';
+@import '../styles/variables';
 
-  header {
-    padding-top: 24px;
+header {
+  padding-top: 24px;
 
-    h1 {
-      padding-bottom: 24px;
-      border-bottom: 1px solid $neutral--300;
-    }
+  h1 {
+    padding-bottom: 24px;
+    border-bottom: 1px solid $neutral--300;
   }
+}
 
-  .datasets-list {
-    margin-top: 12px;
-    border-top: 1px solid $neutral--300;
+.datasets-list {
+  margin-top: 12px;
+  border-top: 1px solid $neutral--300;
+}
+
+FilterSummary {
+  margin-top: 4px;
+}
+
+.empty-result {
+  padding: 64px;
+  border-radius: 12px;
+  background-color: $neutral--100;
+  text-align: center;
+
+  hr {
+    width: 78px;
+    border: 1px solid $neutral--400;
   }
-
-  FilterSummary {
-    margin-top: 4px;
-  }
-
-  .empty-result {
-    padding: 64px;
-    border-radius: 12px;
-    background-color: $neutral--100;
-    text-align: center;
-
-    hr {
-      width: 78px;
-      border: 1px solid $neutral--400;
-    }
-  }
+}
 </style>

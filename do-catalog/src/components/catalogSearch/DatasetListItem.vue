@@ -1,23 +1,32 @@
 <template>
   <li class="list-item">
     <div class="category title is-small">
-      {{ dataset.country_name }}<span>·</span>{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
+      {{ dataset.country_name }}<span>·</span
+      >{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
     </div>
     <div class="info u-mr--72">
       <h3 class="title is-body u-mb--8">
         <router-link
           :to="{
             name: 'do-dataset-summary',
-            params: { datasetId: dataset.slug, type: dataset.is_geography ? 'geography' : 'dataset' }
+            params: {
+              datasetId: dataset.slug,
+              type: dataset.is_geography ? 'geography' : 'dataset'
+            }
           }"
           >{{ dataset.name }}</router-link
         >
       </h3>
       <p class="description text">{{ dataset.description }}</p>
     </div>
-    <div class="extra text is-small grid grid--out" v-if="!dataset.is_geography">
+    <div
+      class="extra text is-small grid grid--out"
+      v-if="!dataset.is_geography"
+    >
       <div class="grid-cell grid-cell--col7 grid grid--align-end grid--no-wrap">
-        <div class="license"><span>License</span> {{ dataset.license_name }}</div>
+        <div class="license">
+          <span>License</span> {{ dataset.license_name }}
+        </div>
         <div class="geography">
           <span>Geography</span> {{ dataset.geography_name }}
         </div>
@@ -27,13 +36,19 @@
           <span>Temporal aggr.</span> {{ temporalAggregation }}
         </div>
         <div class="provider">
-          <img :src="providerLogo" :alt="dataset.provider_name" :title="dataset.provider_name"/>
+          <img
+            :src="providerLogo"
+            :alt="dataset.provider_name"
+            :title="dataset.provider_name"
+          />
         </div>
       </div>
     </div>
     <div class="extra text is-small grid grid--out" v-else>
       <div class="grid-cell grid-cell--col7 grid grid--align-end grid--no-wrap">
-        <div class="license"><span>License</span> {{ dataset.license_name }}</div>
+        <div class="license">
+          <span>License</span> {{ dataset.license_name }}
+        </div>
         <div class="geography">
           <span>Spatial aggr.</span> {{ spatialAggregation }}
         </div>
@@ -43,7 +58,11 @@
           <span>Geometry type</span> {{ geometryType }}
         </div>
         <div class="provider">
-          <img :src="providerLogo" :alt="dataset.provider_name" :title="dataset.provider_name" />
+          <img
+            :src="providerLogo"
+            :alt="dataset.provider_name"
+            :title="dataset.provider_name"
+          />
         </div>
       </div>
     </div>

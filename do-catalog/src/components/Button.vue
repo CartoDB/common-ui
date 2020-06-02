@@ -1,20 +1,25 @@
 <template>
-  <a class="button"
-    :class="[{ 'is-outline': isOutline,
-              'reverse-colors': reverseColors,
-              'extra-border': extraBorder,
-              'is-narrow': narrow,
-              color: color},
-              color
-              ]"
-    :href="url">
+  <a
+    class="button"
+    :class="[
+      {
+        'is-outline': isOutline,
+        'reverse-colors': reverseColors,
+        'extra-border': extraBorder,
+        'is-narrow': narrow,
+        color: color
+      },
+      color
+    ]"
+    :href="url"
+  >
     <slot></slot>
   </a>
 </template>
 
 <script>
 export default {
-  name:"Button",
+  name: 'Button',
   props: {
     url: String,
     isOutline: Boolean,
@@ -23,7 +28,7 @@ export default {
     color: String,
     narrow: Boolean
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
