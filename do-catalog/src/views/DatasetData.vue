@@ -204,7 +204,10 @@ export default {
     fetchVariables() {
       this.$store.dispatch(
         'doCatalog/fetchVariables',
-        this.$route.params.datasetId
+        {
+          id: this.$route.params.datasetId,
+          type: this.$route.params.type
+        }
       );
     },
     findVariableInfo(variableName) {

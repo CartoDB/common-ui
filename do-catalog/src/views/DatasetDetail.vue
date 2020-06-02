@@ -47,7 +47,10 @@ export default {
     fetchKeyVariables() {
       this.$store.dispatch(
         'doCatalog/fetchKeyVariables',
-        this.$route.params.datasetId
+        {
+          id: this.$route.params.datasetId,
+          type: this.$route.params.type
+        }
       );
     }
   },
