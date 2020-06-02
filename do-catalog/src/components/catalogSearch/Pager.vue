@@ -17,6 +17,7 @@
       ...
     </li>
     <li
+      v-if="totalPages > 1"
       @click="goToPage(totalPages - 1)"
       :class="{ active: currentPage === totalPages - 1 }"
     >
@@ -46,8 +47,10 @@ export default {
         } else {
           return [this.currentPage - 1, this.currentPage, this.currentPage + 1];
         }
+      } else if (this.totalPages > 2) {
+        return [this.totalPages - 2];
       } else {
-        return [this.currentPage];
+        return [];
       }
     }
   },
