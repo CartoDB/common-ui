@@ -1,8 +1,8 @@
 <template>
-  <div class="filter-box" :class="{'is-compressed':isCompressed}">
+  <div class="filter-box" :class="{ 'is-compressed': isCompressed }">
     <div class="filter-header" @click="toggleVisibility">
       <div class="expand-button u-mr--16">
-        <img src="../../assets/arrow-navy.svg" alt="Expand">
+        <img src="../../assets/arrow-navy.svg" alt="Expand" />
       </div>
       <div>
         <h3 class="title is-caption">{{ title }}</h3>
@@ -13,7 +13,9 @@
               : `${currentFilter.length} filter`
           }}
           <span>·</span>
-          <button class="title is-small clear-button" @click.stop="clearFilter">Clear</button>
+          <button class="title is-small clear-button" @click.stop="clearFilter">
+            Clear
+          </button>
         </p>
       </div>
     </div>
@@ -46,12 +48,29 @@
               @change="filterChanged($event, option)"
             />
             <span data-v-d1b5b660="" class="checkbox-decoration">
-              <svg data-v-d1b5b660="" viewBox="0 0 12 12" svg-inline="" role="presentation" focusable="false" tabindex="-1" class="checkbox-decorationMedia"><path data-v-d1b5b660="" d="M1.65 3.803l2.84 3.169L10.38.717" fill="none" class="checkbox-check"></path></svg>
+              <svg
+                data-v-d1b5b660=""
+                viewBox="0 0 12 12"
+                svg-inline=""
+                role="presentation"
+                focusable="false"
+                tabindex="-1"
+                class="checkbox-decorationMedia"
+              >
+                <path
+                  data-v-d1b5b660=""
+                  d="M1.65 3.803l2.84 3.169L10.38.717"
+                  fill="none"
+                  class="checkbox-check"
+                ></path>
+              </svg>
             </span>
           </span>
           <span>
             {{ option.name }}
-            <span class="is-txtMidGrey is-small" v-if="option.entity_count">({{ option.entity_count }})</span>
+            <span class="is-txtMidGrey is-small" v-if="option.entity_count"
+              >({{ option.entity_count }})</span
+            >
           </span>
         </label>
       </div>
@@ -88,9 +107,9 @@ export default {
     },
     filteredOptions() {
       const lowercaseFilter = this.filterText.toLowerCase();
-      return [...this.options.values()].filter(opt =>
-        opt.name.toLowerCase().includes(lowercaseFilter)
-      ).sort((a, b) => b.entity_count - a.entity_count);
+      return [...this.options.values()]
+        .filter(opt => opt.name.toLowerCase().includes(lowercaseFilter))
+        .sort((a, b) => b.entity_count - a.entity_count);
     }
   },
   watch: {
@@ -225,7 +244,7 @@ export default {
   border: 0;
   border-radius: 4px;
   background-color: $neutral--100;
-  background-image: url("../../assets/search-placeholder.svg");
+  background-image: url('../../assets/search-placeholder.svg');
   background-repeat: no-repeat;
   background-position: left 12px center;
 

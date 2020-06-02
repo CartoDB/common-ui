@@ -52,7 +52,10 @@ export async function fetchDatasetsList(context) {
 
     // Filters
     for (let key in data.filters) {
-      context.commit('setAvailableFilters', { id: key, options: data.filters[key] });
+      context.commit('setAvailableFilters', {
+        id: key,
+        options: data.filters[key]
+      });
     }
   } catch (error) {
     console.error(`ERROR: ${error}`);

@@ -1,6 +1,6 @@
 <template>
-  <div class="grid u-flex__justify--center">
-    <div class="grid-cell grid-cell--col7 main-column">
+  <div class="grid grid-cell u-flex__justify--center">
+    <div class="grid-cell grid-cell--col9 main-column">
       <p class="text is-caption is-txtMainTextColor u-mt--32">
         {{ dataset.description }}
       </p>
@@ -104,7 +104,7 @@ export default {
       return this.dataset.is_public_data ? 'Public Data' : 'Premium Data';
     },
     isGeography() {
-      return this.$route.params.type === 'geography'
+      return this.$route.params.type === 'geography';
     },
     geometryType() {
       return geometryTypeName(this.dataset.geom_type);

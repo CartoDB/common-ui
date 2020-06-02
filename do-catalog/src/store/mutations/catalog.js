@@ -37,11 +37,11 @@ export function setAvailableFilters(state, { id, options }) {
     license: 'licenses',
     provider: 'sources'
   };
-  const filtersMap = options.reduce( (acum, elem) => {
+  const filtersMap = options.reduce((acum, elem) => {
     acum.set(elem.id, elem);
     return acum;
   }, new Map());
-  Vue.set(state.filtersAvailable, filterTranslation[id] || id, filtersMap)
+  Vue.set(state.filtersAvailable, filterTranslation[id] || id, filtersMap);
 }
 
 export function setFilter(state, filter) {
