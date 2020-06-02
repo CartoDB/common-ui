@@ -14,7 +14,7 @@ const catalog = {
     filtersAvailable: {},
     filter: {
       searchText: '',
-      limit: process.env.VUE_APP_PAGE_SIZE,
+      limit: process.env.VUE_APP_PAGE_SIZE || 10,
       page: 0,
 
       //TODO: Make this filters dynamic too

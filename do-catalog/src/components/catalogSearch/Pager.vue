@@ -35,10 +35,13 @@ export default {
       count: state => state.doCatalog.datasetsListCount,
       currentPage: state => state.doCatalog.filter.page
     }),
-    totalPages: function() {
-      return Math.ceil(this.count / process.env.VUE_APP_PAGE_SIZE);
+    pageSize() {
+      return process.env.VUE_APP_PAGE_SIZE || 10;
     },
-    middlePages: function() {
+    totalPages() {
+      return Math.ceil(this.count / this.pageSize);
+    },
+    middlePages() {
       if (this.totalPages > 3) {
         if (this.currentPage < 2) {
           return [1, 2];

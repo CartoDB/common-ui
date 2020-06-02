@@ -16,7 +16,7 @@ function filtersToPayload(filter) {
     geographies = [],
     sources = [],
     licenses = [],
-    limit = process.env.VUE_APP_PAGE_SIZE,
+    limit = process.env.VUE_APP_PAGE_SIZE || 10,
     page = 0
   } = filter;
   const offset = page * limit;
