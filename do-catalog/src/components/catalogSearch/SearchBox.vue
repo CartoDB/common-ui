@@ -8,7 +8,7 @@
       v-on:keyup.enter="updateFilter"
     />
     <button class="clear-search" v-if="filterText.length" @click="clearFilter">
-      <img src="../../assets/clear-search.svg" />
+      <img src="../../assets/clear-search.svg" alt="Clear" title="Clear" />
     </button>
     <button
       class="search-button"
@@ -70,6 +70,7 @@ export default {
   display: flex;
   flex-direction: row;
   overflow: hidden;
+  padding: 1px;
   border: 1px solid $neutral--600;
   border-radius: 8px;
 
@@ -82,7 +83,6 @@ export default {
     &:focus {
       border: 0;
       margin: 0;
-      // border: 2px solid $blue--500;
       outline: none;
     }
 
@@ -92,8 +92,10 @@ export default {
     }
   }
 
+  &:focus-within,
   &.active-search {
-    border-color: $engine-blue;
+    padding: 0;
+    border: 2px solid $engine-blue;
   }
 }
 
