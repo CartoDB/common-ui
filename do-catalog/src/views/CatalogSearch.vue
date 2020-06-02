@@ -16,7 +16,7 @@
         <div v-if="loading">
           <LoadingBar></LoadingBar>
         </div>
-        <div v-if="datasetsList.length > 0">
+        <div v-if="datasetsList.length > 0" class="results-container">
           <ul class="datasets-list">
             <DatasetListItem
               v-for="dataset in datasetsList"
@@ -24,10 +24,7 @@
               :dataset="dataset"
             ></DatasetListItem>
           </ul>
-          <ul class="pager">
-            <li v-if="filter.page > 0" @click="goPrevPage">Prev page</li>
-            <li @click="goNextPage">Next page</li>
-          </ul>
+          <Pager class="pager u-mt--48 u-mb--48"></Pager>
         </div>
         <div v-else-if="!loading">
           <div class="empty-result u-mt--36">
@@ -47,34 +44,38 @@
 
 <script>
 import { mapState } from 'vuex';
+import Button from '../components/Button';
 import DatasetListItem from '../components/catalogSearch/DatasetListItem';
 import FilterBox from '../components/catalogSearch/FilterBox';
 import FilterSummary from '../components/catalogSearch/FilterSummary';
-import SearchBox from '../components/catalogSearch/SearchBox';
-import Button from '../components/Button';
 import LoadingBar from '../components/catalogSearch/LoadingBar';
+import Pager from '../components/catalogSearch/Pager'
+import SearchBox from '../components/catalogSearch/SearchBox';
 
 export default {
   name: 'CatalogSearch',
   components: {
+    Button,
     DatasetListItem,
     FilterBox,
     FilterSummary,
-    SearchBox,
-    Button,
-    LoadingBar
+    LoadingBar,
+    Pager,
+    SearchBox
   },
   watch: {
     filter: {
       deep: true,
       handler() {
         this.fetchDatasetsList();
+        window.scrollTo(0, 0);
       }
     }
   },
   computed: {
     ...mapState({
       datasetsList: state => state.doCatalog.datasetsList,
+      count: state => state.doCatalog.datasetsListCount,
       loading: state => state.doCatalog.isFetching,
       filtersAvailable: state => state.doCatalog.filtersAvailable,
       filter: state => state.doCatalog.filter
@@ -83,16 +84,6 @@ export default {
   methods: {
     fetchDatasetsList() {
       this.$store.dispatch('doCatalog/fetchDatasetsList');
-    },
-    goPrevPage() {
-      this.$store.dispatch('doCatalog/updateFilter', {
-        page: this.filter.page - 1
-      });
-    },
-    goNextPage() {
-      this.$store.dispatch('doCatalog/updateFilter', {
-        page: this.filter.page + 1
-      });
     }
   },
   mounted() {
@@ -113,13 +104,16 @@ export default {
     }
   }
 
-  .datasets-list {
-    margin-top: 12px;
-    border-top: 1px solid $neutral--300;
-  }
+  .results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 
-  FilterSummary {
-    margin-top: 4px;
+    .datasets-list {
+      margin-top: 12px;
+      border-top: 1px solid $neutral--300;
+    }  
   }
 
   .empty-result {
