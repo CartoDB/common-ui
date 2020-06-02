@@ -104,6 +104,10 @@ export default {
   border-bottom: 1px solid $neutral--300;
   color: $navy-blue;
 
+  &:hover {
+    background-color: transparentize($color: $blue--100, $amount: 0.52);
+  }
+
   .category {
     margin-bottom: 8px;
 
@@ -118,6 +122,10 @@ export default {
     color: inherit;
     font-size: 20px;
     line-height: 28px;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .description {
