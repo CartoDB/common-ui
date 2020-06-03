@@ -26,7 +26,7 @@
           class="scrollable-table u-mt--24"
           v-if="numberRows > 0 && !isPublicWebsite"
         >
-          <table class="text is-small">
+          <table class="text is-small u-width--100">
             <tr>
               <th></th>
               <th
@@ -41,10 +41,15 @@
             <tr v-for="n in numberRows" :key="n">
               <td class="is-semibold">{{ n - 1 }}</td>
               <td v-for="value in columns" :key="value">
-                <span v-if="tableSample[value][n - 1]">{{
-                  tableSample[value][n - 1]
-                }}</span>
-                <span v-else class="is-txtLightGrey is-italic">null</span>
+                <template v-if="value !== 'geom'">
+                  <span v-if="tableSample[value][n - 1]">{{
+                    tableSample[value][n - 1]
+                  }}</span>
+                  <span v-else class="is-txtLightGrey is-italic">null</span>
+                </template>
+                <template v-else>
+                  <span>GeoJSON</span>
+                </template>
               </td>
             </tr>
           </table>
@@ -167,9 +172,6 @@ export default {
       }
     };
   },
-  mounted() {
-    this.fetchVariables();
-  },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset,
@@ -244,6 +246,9 @@ export default {
     scrollToVariables() {
       window.scrollTo(0, this.$refs.variablesSection.offsetTop);
     }
+  },
+  mounted() {
+    this.fetchVariables();
   }
 };
 </script>
