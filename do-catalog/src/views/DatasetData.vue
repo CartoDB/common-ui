@@ -48,7 +48,7 @@
                   <span v-else class="is-txtLightGrey is-italic">null</span>
                 </template>
                 <template v-else>
-                  <span class="is-txtLightGrey is-italic">Geometry</span>
+                  <span>GeoJSON</span>
                 </template>
               </td>
             </tr>
