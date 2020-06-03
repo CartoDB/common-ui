@@ -20,7 +20,7 @@ export default {
     display: inline-block;
     margin-right: 48px;
     padding: 24px 0;
-    color: $primary-color;
+    color: $color-primary;
     font-family: $title__font-family;
     font-size: 12px;
     font-weight: 600;

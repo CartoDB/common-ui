@@ -95,7 +95,7 @@ export default {
   &:focus-within,
   &.active-search {
     padding: 0;
-    border: 2px solid $primary-color;
+    border: 2px solid $color-primary;
   }
 }
 
@@ -105,7 +105,7 @@ export default {
   cursor: pointer;
 
   &.filled-button {
-    background-color: $primary-color;
+    background-color: $color-primary;
     color: $white;
   }
 }
