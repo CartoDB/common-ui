@@ -198,7 +198,7 @@ export default {
       background-color: $neutral--100;
 
       &:focus-within {
-        border-color: $engine-blue;
+        border-color: $color-primary;
         &,
         input {
           background-color: $white;
@@ -237,7 +237,7 @@ export default {
 }
 
 .clear-button {
-  color: $engine-blue;
+  color: $color-primary;
   cursor: pointer;
 }
 
