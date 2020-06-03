@@ -33,7 +33,7 @@
         </button>
       </div>
       <div class="filter-content">
-        <p class="text is-caption center" v-if="!filteredOptions.length">
+        <p class="text is-caption center" v-if="!filteredOptions.length && !loading">
           Not found
         </p>
         <label
@@ -100,6 +100,7 @@ export default {
   computed: {
     ...mapState({
       filtersAvailable: state => state.doCatalog.filtersAvailable,
+      loading: state => state.doCatalog.isFetching,
       currentFilter(state) {
         return state.doCatalog.filter[this.filter];
       }
