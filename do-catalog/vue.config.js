@@ -1,6 +1,22 @@
 module.exports = {
   lintOnSave: false,
-  css: { extract: false },
+
+  css: {
+    extract: false,
+    loaderOptions: {
+      sass: {
+        prependData: `
+          /* Theme */
+          @import "~@/styles/colors.scss";
+          $color-primary--soft: $blue--100;
+          $color-primary: $blue--500;
+          $color-primary--dark: $blue--700;
+          $color-premium: $yellow--700;
+        `
+      }
+    }
+  },
+
   chainWebpack: config => {
     config.module
       .rule('images')
