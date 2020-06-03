@@ -8,9 +8,9 @@ module.exports = {
         prependData: `
           /* Theme */
           @import "~@/styles/colors.scss";
-          $color-primary--soft: $blue--100;
-          $color-primary: $blue--500;
-          $color-primary--dark: $blue--700;
+          $color-primary: ${process.env.VUE_APP_COLOR_PRIMARY || '$blue--500'};
+          $color-primary--soft: ${process.env.VUE_APP_COLOR_PRIMARY_SOFT || '$blue--100'};
+          $color-primary--dark: ${process.env.VUE_APP_COLOR_PRIMARY_DARK || '$blue--700'};
           $color-premium: $yellow--700;
         `
       }
