@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import {setUrlParameters} from '../../utils/url-parameters';
 
 export function setFetchingState(state) {
   state.isFetching = true;
@@ -50,6 +51,8 @@ export function setFilter(state, filter) {
   if (!filter.page) {
     state.filter.page = 0;
   }
+  console.log("setting param");
+  setUrlParameters(state);
 }
 
 export function removeFilter(state, filter) {
@@ -58,6 +61,7 @@ export function removeFilter(state, filter) {
     state.filter[filter.id].splice(filterPos, 1);
     state.filter.page = 0;
   }
+  setUrlParameters(state);
 }
 
 export function setDatasetsListCount(state, count) {
