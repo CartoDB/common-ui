@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import DatasetHeader from '../components/datasetDetail/DatasetHeader';
 import NavigationTabs from '../components/datasetDetail/NavigationTabs';
 
@@ -33,27 +34,25 @@ export default {
     NavigationTabs
   },
   computed: {
+    ...mapState({
+      dataset: state => state.doCatalog.dataset
+    }),
     isGeography() {
       return this.$route.params.type === 'geography';
     }
   },
   methods: {
     fetchDataset() {
-      this.$store.dispatch('doCatalog/fetchDataset', {
-        id: this.$route.params.datasetId,
-        type: this.$route.params.type
-      });
-    },
-    fetchKeyVariables() {
-      this.$store.dispatch('doCatalog/fetchKeyVariables', {
-        id: this.$route.params.datasetId,
-        type: this.$route.params.type
-      });
+      if (!this.dataset || this.dataset.slug !== this.$route.params.datasetId) {
+        this.$store.dispatch('doCatalog/fetchDataset', {
+          id: this.$route.params.datasetId,
+          type: this.$route.params.type
+        });
+      }
     }
   },
   mounted() {
     this.fetchDataset();
-    this.fetchKeyVariables();
   }
 };
 </script>

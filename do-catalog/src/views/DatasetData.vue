@@ -172,9 +172,6 @@ export default {
       }
     };
   },
-  mounted() {
-    this.fetchVariables();
-  },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset,
@@ -249,6 +246,9 @@ export default {
     scrollToVariables() {
       window.scrollTo(0, this.$refs.variablesSection.offsetTop);
     }
+  },
+  mounted() {
+    this.fetchVariables();
   }
 };
 </script>
