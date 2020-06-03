@@ -1,3 +1,26 @@
+@import 'colors.scss';
+
+/* === THEME === */
+$temp-color-primary: $blue--500;
+$temp-color-primary--soft: $blue--100;
+$temp-color-primary--dark: $blue--700;
+
+@if variable-exists(color-primary) {
+  $temp-color-primary: $color-primary;
+}
+
+@if variable-exists(color-primary--soft) {
+  $temp-color-primary--soft: $color-primary--soft;
+}
+
+@if variable-exists(color-primary--dark) {
+  $temp-color-primary--dark: $color-primary--dark;
+}
+
+$color-primary: $temp-color-primary;
+$color-primary--soft: $temp-color-primary--soft;
+$color-primary--dark: $temp-color-primary--dark;
+
 /* === TYPE === */
 $base__font-family: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
 $title__font-family: 'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
