@@ -23,7 +23,7 @@
       class="extra text is-small grid grid--out"
       v-if="!dataset.is_geography"
     >
-      <div class="grid-cell grid-cell--col7 grid grid--align-end grid--no-wrap">
+      <div class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap">
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
         </div>
@@ -31,7 +31,7 @@
           <span>Geography</span> {{ dataset.geography_name }}
         </div>
       </div>
-      <div class="grid-cell grid-cell--col5 grid grid--align-end grid--space">
+      <div class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space">
         <div class="aggregation">
           <span>Temporal aggr.</span> {{ temporalAggregation }}
         </div>

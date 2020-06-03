@@ -3,9 +3,13 @@
     <header class="grid u-flex__justify--center u-mb--36 u-mt--36">
       <h1 class="grid-cell--col12 title is-title">Data Catalog</h1>
     </header>
-    <div class="grid grid-cell u-flex__justify--center">
-      <div class="grid-cell grid-cell--col4">
+    <div class="grid u-flex__justify--center">
+      <div class="grid-cell grid-cell--col4 grid-cell--col12--tablet dynamic-filtering" :class="{'filter-expanded': filterDetail}">
+        <div class="header-mobile">
+          <img @click="hideFilters()" src="../assets/close-filters.svg" alt="Close">
+        </div>
         <FilterBox
+          class="u-mt--36--tablet"
           title="Countries"
           filter="countries"
           placeholder="country"
@@ -26,9 +30,9 @@
           placeholder="source"
         ></FilterBox>
       </div>
-      <div class="grid-cell grid-cell--col8">
+      <div class="grid-cell grid-cell--col8 grid-cell--col12--tablet">
         <SearchBox></SearchBox>
-        <FilterSummary class="u-mt--4"></FilterSummary>
+        <FilterSummary class="u-mt--4" v-on:toggle-filter-detail="toggleFilterDetail()"></FilterSummary>
         <div v-if="loading">
           <LoadingBar></LoadingBar>
         </div>
@@ -85,6 +89,11 @@ export default {
     Pager,
     SearchBox
   },
+  data() {
+    return {
+      filterDetail: false
+    };
+  },
   watch: {
     filter: {
       deep: true,
@@ -106,6 +115,12 @@ export default {
   methods: {
     fetchDatasetsList() {
       this.$store.dispatch('doCatalog/fetchDatasetsList');
+    },
+    toggleFilterDetail() {
+      this.filterDetail = !this.filterDetail;
+    },
+    hideFilters() {
+      this.filterDetail = false;
     }
   },
   mounted() {
@@ -148,6 +163,38 @@ header {
   hr {
     width: 78px;
     border: 1px solid $neutral--400;
+  }
+}
+
+.header-mobile {
+  display: none;
+}
+
+@media (max-width: $layout-tablet) {
+  .dynamic-filtering {
+    position: fixed;
+    z-index: 1;
+    top: 100%;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    transition: top 0.2s ease-out;
+    background-color: $white;
+
+    &.filter-expanded {
+      top: 0;
+    }
+  }
+
+  .header-mobile {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    width: 100%;
+    padding: 20px 20px 4px;
+    background-color: $white;
+    text-align: right;
   }
 }
 </style>

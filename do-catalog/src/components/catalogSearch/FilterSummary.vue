@@ -5,9 +5,9 @@
         <span class="is-caption is-txtNavyBlue">{{ count }}</span>
         <span class="is-txtMidGrey is-small"> datasets</span>
       </div>
-      <div class="filters-count" v-if="filtersCount">
+      <div class="filters-count" :class="{'filter-selector': filtersCount}">
         <button
-          class="title is-small is-navyBlue u-mr--20 detail-button"
+          class="title is-small is-navyBlue u-mr--20 u-mr--0--tablet detail-button"
           @click="toggleDetails()"
         >
           <img
@@ -17,14 +17,16 @@
           />
           {{ filtersCount }} <span>filters applied</span>
         </button>
-        <Button
-          :isOutline="true"
-          :extraBorder="true"
-          color="engine-blue"
-          @click.native="clearFilters"
-          :narrow="true"
-          >Clear all</Button
-        >
+        <div class="u-hideTablet u-inlineflex">
+          <Button
+            :isOutline="true"
+            :extraBorder="true"
+            color="engine-blue"
+            @click.native="clearFilters"
+            :narrow="true"
+            >Clear all</Button
+          >
+        </div>
       </div>
     </div>
     <transition
@@ -95,6 +97,7 @@ export default {
   methods: {
     toggleDetails() {
       this.showDetails = !this.showDetails;
+      this.$emit('toggle-filter-detail');
     },
     clearFilters() {
       this.$store.dispatch('doCatalog/clearTagFilters');
@@ -133,10 +136,10 @@ export default {
 @import '../../styles/variables';
 
 .filter-summary {
+  transition: box-shadow 0.2s ease-out;
   border-radius: 8px;
   background-color: $white;
   box-shadow: 0 0 0 0 transparent;
-  transition: box-shadow 0.2s ease-out;
 
   .header {
     display: flex;
@@ -144,37 +147,27 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 12px 12px 12px 24px;
+
+    @media (max-width: $layout-tablet) {
+      padding-right: 0;
+      padding-left: 0;
+    }
   }
 
   .extra-container {
     width: 100%;
     padding: 0 12px;
-    background: #fff;
     border-radius: 0 0 8px 8px;
+    background: $white;
   }
 
-  &.highlight {
-    box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
+  @media (min-width: $layout-tablet) {
+    &.highlight {
+      box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
 
-    .expand-icon {
-      transform: rotate(180deg);
-    }
-  }
-}
-
-.detail-button {
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-    box-shadow: none;
-  }
-
-  &.highlight-header {
-    box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
-
-    .expand-icon {
-      transform: rotate(180deg);
+      .expand-icon {
+        transform: rotate(180deg);
+      }
     }
   }
 }
@@ -189,6 +182,14 @@ export default {
     box-shadow: none;
   }
 
+  &.highlight-header {
+    box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.16);
+
+    .expand-icon {
+      transform: rotate(180deg);
+    }
+  }
+
   &:hover {
     background-color: $blue--100;
   }
@@ -196,9 +197,10 @@ export default {
 
 .expand-enter-active,
 .expand-leave-active {
-  transition: height 0.2s ease-out;
   overflow: hidden;
+  transition: height 0.2s ease-out;
 }
+
 .expand-enter,
 .expand-leave-to {
   height: 0;
@@ -222,5 +224,23 @@ $animationFunc: ease;
 .slide-leave-to {
   opacity: 0;
   margin: 0;
+}
+
+.filters-count {
+  display: none;
+
+  &.filter-selector {
+    display: block;
+  }
+
+  @media (max-width: $layout-tablet) {
+    display: block;
+  }
+}
+
+@media (max-width: $layout-tablet) {
+  .extra-container {
+    display: none;
+  }
 }
 </style>

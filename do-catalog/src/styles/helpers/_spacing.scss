@@ -46,4 +46,22 @@ $sizes: (0, 4, 8, 10, 12, 16, 20, 24, 28, 32, 36, 40, 48, 60, 64, 72, 80, 96, 12
   }
 }
 
+@media (max-width: $layout-tablet) {
+  @each $size in $sizes {
+    .u-mt--#{$size}--tablet {
+      margin-top: #{$size}px;
+    }
 
+    .u-mr--#{$size}--tablet {
+      margin-right: #{$size}px;
+    }
+
+    .u-mb--#{$size}--tablet {
+      margin-bottom: #{$size}px;
+    }
+
+    .u-ml--#{$size}--tablet {
+      margin-left: #{$size}px;
+    }
+  }
+}
