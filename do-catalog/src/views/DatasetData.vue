@@ -1,13 +1,13 @@
 <template>
-  <div class="grid u-flex__justify--center">
-    <div class="grid-cell grid-cell--col10 u-mt--28">
+  <div class="grid grid-cell u-flex__justify--center">
+    <div class="grid-cell grid-cell--col12 u-mt--28">
       <h2 class="title is-caption is-txtMainTextColor">
         Data sample
-        <a href="#variables-section" class="is-small"
+        <a @click="scrollToVariables()" class="is-small"
           >View {{ numberColumns }} variables list</a
         >
       </h2>
-      <div class="table-wrapper" ref="tableWrapper">
+      <div class="table-wrapper" ref="tableWrapper" v-if="columns.length">
         <div
           class="tooltip is-small"
           :class="{ first: tooltip.isFirst, last: tooltip.isLast }"
@@ -22,7 +22,10 @@
             <span class="is-semibold">Type:</span> {{ tooltip.type }}
           </p>
         </div>
-        <div class="scrollable-table u-mt--24" v-if="numberRows > 0 && !isPublicWebsite">
+        <div
+          class="scrollable-table u-mt--24"
+          v-if="numberRows > 0 && !isPublicWebsite"
+        >
           <table class="text is-small">
             <tr>
               <th></th>
@@ -38,30 +41,83 @@
             <tr v-for="n in numberRows" :key="n">
               <td class="is-semibold">{{ n - 1 }}</td>
               <td v-for="value in columns" :key="value">
-                <span v-if="tableSample[value][n - 1]">{{ tableSample[value][n - 1] }}</span>
+                <span v-if="tableSample[value][n - 1]">{{
+                  tableSample[value][n - 1]
+                }}</span>
                 <span v-else class="is-txtLightGrey is-italic">null</span>
               </td>
             </tr>
           </table>
         </div>
-        <div class="empty-container grid u-flex__justify--center u-mt--24" v-else>
+        <div
+          class="empty-container grid u-flex__justify--center u-mt--24"
+          v-else
+        >
           <div class="grid-cell--col5">
             <h4 class="title is-body is-txtMidGrey">Sample is not available</h4>
             <p class="text is-caption is-txtMidGrey u-mt--8">
-              <span v-if="numberRows > 0">This data sample is only available for customers.</span>
-              <span v-else>This data sample can’t be shown because the real dataset only contains a few rows.</span>
+              <span v-if="numberRows > 0"
+                >This data sample is only available for customers.</span
+              >
+              <span v-else
+                >This data sample can’t be shown because the real dataset only
+                contains a few rows.</span
+              >
             </p>
             <div>
-              <Button v-if="numberRows > 0" class="u-mt--24" url="https://carto.com/login" :isOutline=false :reverseColors=true>Login</Button>
-              <span v-if="numberRows > 0" class="u-ml--12 u-mr--12 text is-small">or</span>
-              <Button class="u-mt--24" :url="getFormUrl()" :isOutline=true>Contact us for a demo</Button>
+              <Button
+                v-if="numberRows > 0"
+                class="u-mt--24"
+                url="https://carto.com/login"
+                :isOutline="false"
+                :reverseColors="true"
+                >Login</Button
+              >
+              <span
+                v-if="numberRows > 0"
+                class="u-ml--12 u-mr--12 text is-small"
+                >or</span
+              >
+              <Button class="u-mt--24" :url="getFormUrl()" :isOutline="true"
+                >Contact us for a demo</Button
+              >
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="empty-container grid u-flex__justify--center u-mt--24" v-else>
+        <div class="grid-cell--col5">
+          <h4 class="title is-body is-txtMidGrey">Sample is not available</h4>
+          <p class="text is-caption is-txtMidGrey u-mt--8">
+            <span v-if="numberRows > 0"
+              >This data sample is only available for customers.</span
+            >
+            <span v-else
+              >This data sample can’t be shown because the real dataset only
+              contains a few rows.</span
+            >
+          </p>
+          <div>
+            <Button
+              v-if="numberRows > 0"
+              class="u-mt--24"
+              url="https://carto.com/login"
+              :isOutline="false"
+              :reverseColors="true"
+              >Login</Button
+            >
+            <span v-if="numberRows > 0" class="u-ml--12 u-mr--12 text is-small"
+              >or</span
+            >
+            <Button class="u-mt--24" :url="getFormUrl()" :isOutline="true"
+              >Contact us for a demo</Button
+            >
           </div>
         </div>
       </div>
     </div>
 
-    <div class="grid-cell--col10 u-mt--60" id="variables-section">
+    <div class="grid-cell--col12 u-mt--60" ref="variablesSection">
       <h2 class="grid-cell title is-caption is-txtMainTextColor">Variables</h2>
 
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
@@ -135,14 +191,17 @@ export default {
     },
     numberColumns() {
       return this.variables ? this.variables.length : this.columns.length;
+    },
+    isGeography() {
+      return this.$route.params.type === 'geography';
     }
   },
   methods: {
     fetchVariables() {
-      this.$store.dispatch(
-        'doCatalog/fetchVariables',
-        this.$route.params.datasetId
-      );
+      this.$store.dispatch('doCatalog/fetchVariables', {
+        id: this.$route.params.datasetId,
+        type: this.$route.params.type
+      });
     },
     findVariableInfo(variableName) {
       return this.variables.find(e => e.column_name == variableName);
@@ -167,7 +226,7 @@ export default {
         this.tooltip.left = tableBoundingSize.width + 20;
       }
       this.tooltip.description = tooltipInfo.description;
-      this.tooltip.type = tooltipInfo.db_type;      
+      this.tooltip.type = tooltipInfo.db_type;
       this.tooltip.visible = true;
     },
     hideTooltip() {
@@ -176,7 +235,14 @@ export default {
       this.tooltip.isLast = false;
     },
     getFormUrl() {
-      return formUrl(this.dataset.category_name, this.dataset.country_name, this.dataset.data_source_name)
+      return formUrl(
+        this.dataset.category_name,
+        this.dataset.country_name,
+        this.dataset.data_source_name
+      );
+    },
+    scrollToVariables() {
+      window.scrollTo(0, this.$refs.variablesSection.offsetTop);
     }
   }
 };
@@ -187,6 +253,10 @@ export default {
 
 .title a {
   margin-left: 26px;
+}
+
+a {
+  cursor: pointer;
 }
 
 .scrollable-table {
@@ -244,7 +314,7 @@ export default {
   transform: translateX(-50%);
   border: 1px solid $border-color;
   border-radius: 4px;
-  background-color: #FFF;
+  background-color: #fff;
   word-break: break-word;
 
   &::before {
@@ -259,7 +329,7 @@ export default {
     border-top: none;
     border-left: none;
     border-radius: 2px;
-    background-color: #FFF;
+    background-color: #fff;
   }
 
   &.first {

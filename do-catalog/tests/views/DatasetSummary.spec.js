@@ -75,7 +75,7 @@ function createStore(data = dataset.dataset_samples[0]) {
     state: {
       doCatalog: {
         dataset: data,
-        key_variables: keyVariablesSample
+        keyVariables: keyVariablesSample
       }
     }
   });

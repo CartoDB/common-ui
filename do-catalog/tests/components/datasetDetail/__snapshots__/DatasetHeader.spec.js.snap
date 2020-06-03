@@ -2,7 +2,7 @@
 
 exports[`DatasetHeader.vue Renders view properly 1`] = `
 <header class="grid u-flex__justify--center u-mb--36 u-mt--36">
-  <div class="grid-cell grid-cell--col7">
+  <div class="grid-cell grid-cell--col9">
     <nav class="breadcrumbs">
       <p class="text is-caption is-txtMainTextColor"><a class="title is-txtMainTextColor">Demographics</a> /
         <a class="text is-txtMainTextColor">Retail Centrality</a></p>

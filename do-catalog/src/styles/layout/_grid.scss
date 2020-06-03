@@ -22,6 +22,10 @@
     align-items: center;
   }
 
+  &.grid--align-end {
+    align-items: flex-end;
+  }
+
   &.grid--justify-end {
     justify-content: flex-end;
   }

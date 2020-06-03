@@ -11,12 +11,12 @@ const user = {
   computed: {},
   getters: {},
   mutations: {
-    setUserData (state, data) {
+    setUserData(state, data) {
       Object.assign(state, data);
     }
   },
   actions: {
-    setUserData (context, data) {
+    setUserData(context, data) {
       context.commit('setUserData', data);
     }
   }
