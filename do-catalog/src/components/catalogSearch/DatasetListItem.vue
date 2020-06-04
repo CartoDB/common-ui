@@ -31,7 +31,7 @@
           <span>Geography</span> {{ dataset.geography_name }}
         </div>
       </div>
-      <div class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space">
+      <div class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap">
         <div class="aggregation">
           <span>Temporal aggr.</span> {{ temporalAggregation }}
         </div>
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="extra text is-small grid grid--out" v-else>
-      <div class="grid-cell grid-cell--col7 grid grid--align-end grid--no-wrap">
+      <div class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap">
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
         </div>
@@ -53,7 +53,7 @@
           <span>Spatial aggr.</span> {{ spatialAggregation }}
         </div>
       </div>
-      <div class="grid-cell grid-cell--col5 grid grid--align-end grid--space">
+      <div class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap">
         <div class="aggregation">
           <span>Geometry type</span> {{ geometryType }}
         </div>
@@ -158,9 +158,11 @@ export default {
     }
 
     .provider {
+      flex: 0 0 auto;
       display: block;
       width: 36px;
       height: 36px;
+      margin-left: 8px;
 
       img {
         max-width: 100%;
