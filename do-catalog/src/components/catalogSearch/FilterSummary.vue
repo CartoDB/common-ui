@@ -52,6 +52,7 @@
 import { mapState } from 'vuex';
 import FilterDetail from './FilterDetail';
 import Button from '../Button.vue';
+import { filtersMetadata } from '../../utils/constants';
 
 export default {
   name: 'FilterSummary',
@@ -77,7 +78,10 @@ export default {
           filterMap.set(filterId, this.filter[filterId]);
         }
       }
-      return filterMap;
+      // Sort filters
+      return new Map([...filterMap].sort((a, b) => {
+        return filtersMetadata[a[0]].order - filtersMetadata[b[0]].order;
+      }));
     },
     filtersCount() {
       let filterCount = 0;

@@ -10,23 +10,23 @@
         </div>
         <FilterBox
           class="u-mt--36--tablet"
-          title="Countries"
-          filter="countries"
+          :title="getFilterLabel('country')"
+          filter="country"
           placeholder="country"
         ></FilterBox>
         <FilterBox
-          title="Categories"
-          filter="categories"
+          :title="getFilterLabel('category')"
+          filter="category"
           placeholder="category"
         ></FilterBox>
         <FilterBox
-          title="Licenses"
-          filter="licenses"
+          :title="getFilterLabel('license')"
+          filter="license"
           placeholder="license"
         ></FilterBox>
         <FilterBox
-          title="Sources"
-          filter="sources"
+          :title="getFilterLabel('provider')"
+          filter="provider"
           placeholder="source"
         ></FilterBox>
       </div>
@@ -77,6 +77,8 @@ import FilterSummary from '../components/catalogSearch/FilterSummary';
 import LoadingBar from '../components/catalogSearch/LoadingBar';
 import Pager from '../components/catalogSearch/Pager';
 import SearchBox from '../components/catalogSearch/SearchBox';
+import { filtersMetadata } from '../utils/constants';
+import { toTitleCase } from '../utils/string-to-title-case';
 
 export default {
   name: 'CatalogSearch',
@@ -121,6 +123,9 @@ export default {
     },
     hideFilters() {
       this.filterDetail = false;
+    },
+    getFilterLabel(filterId) {
+      return filtersMetadata[filterId] ? filtersMetadata[filterId].label : toTitleCase(filterId);
     }
   },
   mounted() {

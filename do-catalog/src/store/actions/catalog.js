@@ -11,11 +11,11 @@ function filtersToPayload(filter) {
 
   const {
     searchText = '',
-    categories = [],
-    countries = [],
-    geographies = [],
-    sources = [],
-    licenses = [],
+    category = [],
+    country = [],
+    geography = [],
+    provider = [],
+    license = [],
     limit = process.env.VUE_APP_PAGE_SIZE || 10,
     page = 0
   } = filter;
@@ -25,11 +25,11 @@ function filtersToPayload(filter) {
   payload += searchText.length ? `&searchtext=${searchText}` : '';
 
   //TODO: Make this filters dynamic too
-  payload += licenses.length ? `&license=${licenses.join(',')}` : '';
-  payload += categories.length ? `&category=${categories.join(',')}` : '';
-  payload += countries.length ? `&country=${countries.join(',')}` : '';
-  payload += geographies.length ? `&geography=${geographies.join(',')}` : '';
-  payload += sources.length ? `&provider=${sources.join(',')}` : '';
+  payload += license.length ? `&license=${license.join(',')}` : '';
+  payload += category.length ? `&category=${category.join(',')}` : '';
+  payload += country.length ? `&country=${country.join(',')}` : '';
+  payload += geography.length ? `&geography=${geography.join(',')}` : '';
+  payload += provider.length ? `&provider=${provider.join(',')}` : '';
 
   return payload;
 }

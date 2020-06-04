@@ -30,18 +30,11 @@ export function setVariables(state, data) {
 }
 
 export function setAvailableFilters(state, { id, options }) {
-  // TODO:  remove translation when names are unified
-  const filterTranslation = {
-    category: 'categories',
-    country: 'countries',
-    license: 'licenses',
-    provider: 'sources'
-  };
   const filtersMap = options.reduce((acum, elem) => {
     acum.set(elem.id, elem);
     return acum;
   }, new Map());
-  Vue.set(state.filtersAvailable, filterTranslation[id] || id, filtersMap);
+  Vue.set(state.filtersAvailable, id || id, filtersMap);
 }
 
 export function setFilter(state, filter) {
@@ -65,10 +58,10 @@ export function setDatasetsListCount(state, count) {
 }
 
 export function resetTagFilters(state) {
-  state.filter.categories = [];
-  state.filter.countries = [];
-  state.filter.licenses = [];
-  state.filter.sources = [];
+  state.filter.category = [];
+  state.filter.country = [];
+  state.filter.license = [];
+  state.filter.provider = [];
   state.filter.page = 0;
 }
 

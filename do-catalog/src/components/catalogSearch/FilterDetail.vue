@@ -6,7 +6,7 @@
     <ul class="filter-container">
       <li v-for="filter in filters" :key="filter">
         <div class="filter-tag title is-small is-txtNavyBlue u-ml--12 u-mb--12">
-          {{ filterMetadata.get(filter).name }}
+          {{ getOptionName(filter) }}
           <button class="u-ml--8" @click="deleteFilter(filter)">
             <img src="../../assets/close-tag.svg" alt="Delete" />
           </button>
@@ -18,7 +18,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { toTitleCase } from '../../utils/string-to-title-case';
+import { filtersMetadata } from '../../utils/constants';
 
 export default {
   name: 'FilterDetail',
@@ -33,10 +33,14 @@ export default {
       }
     }),
     filterName: function() {
-      return toTitleCase(this.filterId);
+      return filtersMetadata[this.filterId].label;
     }
   },
   methods: {
+    getOptionName(id) {
+      const filter = this.filterMetadata.get(id);
+      return filter ? filter.name : id;
+    },
     deleteFilter(filterValue) {
       this.$store.dispatch('doCatalog/deleteFilter', {
         id: this.filterId,
