@@ -60,7 +60,7 @@
               Still can’t find what you’re looking for? <br />Get help from our
               team
             </p>
-            <Button class="u-mt--24" color="engine-blue">Contact us</Button>
+            <Button class="u-mt--24" color="engine-blue" @click.native="navigateToContact()">Contact us</Button>
           </div>
         </div>
       </div>
@@ -126,6 +126,9 @@ export default {
     },
     getFilterLabel(filterId) {
       return filtersMetadata[filterId] ? filtersMetadata[filterId].label : toTitleCase(filterId);
+    },
+    navigateToContact() {
+      window.open('https://carto.com/contact/', '_blank');
     }
   },
   mounted() {
