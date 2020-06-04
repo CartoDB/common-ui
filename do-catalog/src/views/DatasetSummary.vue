@@ -87,9 +87,23 @@ import { temporalAggregationName } from '../utils/temporal-agregation-name';
 import { geometryTypeName } from '../utils/geometry-type-name';
 import { toTitleCase } from '../utils/string-to-title-case';
 import { updateFrequencyName } from '../utils/update-frequency-name';
+import { sendCustomDimensions } from '../utils/custom-dimensions-ga';
 
 export default {
   name: 'DatasetSummary',
+  watch: {
+    dataset: {
+      handler: function(value) {
+        if(value && value.category_name){
+          sendCustomDimensions(value.category_name,
+                              value.country_name,
+                              value.is_public_data,
+                              value.provider_name)
+        }
+      },
+      immediate: true
+    }
+  },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset,

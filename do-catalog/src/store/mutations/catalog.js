@@ -51,7 +51,6 @@ export function setFilter(state, filter) {
   if (!filter.page) {
     state.filter.page = 0;
   }
-  console.log("setting param");
   setUrlParameters(state);
 }
 
