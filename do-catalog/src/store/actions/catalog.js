@@ -25,11 +25,11 @@ function filtersToPayload(filter) {
   payload += searchText.length ? `&searchtext=${searchText}` : '';
 
   //TODO: Make this filters dynamic too
-  payload += license.length ? `&license=${license.join(',')}` : '';
-  payload += category.length ? `&category=${category.join(',')}` : '';
-  payload += country.length ? `&country=${country.join(',')}` : '';
-  payload += geography.length ? `&geography=${geography.join(',')}` : '';
-  payload += provider.length ? `&provider=${provider.join(',')}` : '';
+  payload += license.length ? `&license=${license.join('&license=')}` : '';
+  payload += category.length ? `&category=${category.join('&category=')}` : '';
+  payload += country.length ? `&country=${country.join('&country=')}` : '';
+  payload += geography.length ? `&geography=${geography.join('&geography=')}` : '';
+  payload += provider.length ? `&provider=${provider.join('&provider=')}` : '';
 
   return payload;
 }
