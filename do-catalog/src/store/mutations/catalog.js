@@ -34,7 +34,7 @@ export function setAvailableFilters(state, { id, options }) {
     acum.set(elem.id, elem);
     return acum;
   }, new Map());
-  Vue.set(state.filtersAvailable, id || id, filtersMap);
+  Vue.set(state.filtersAvailable, id, filtersMap);
 }
 
 export function setFilter(state, filter) {
