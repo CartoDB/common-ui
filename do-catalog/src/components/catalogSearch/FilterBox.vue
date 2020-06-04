@@ -159,7 +159,7 @@ export default {
 }
 
 .filter-box {
-  border-bottom: 1px solid $neutral--300;
+  border-bottom: 1px solid $neutral--400;
 
   .filter-header {
     display: flex;
@@ -181,6 +181,7 @@ export default {
       display: flex;
       margin-bottom: 16px;
       cursor: pointer;
+      color: $navy-blue;
     }
   }
 
@@ -200,6 +201,7 @@ export default {
 
       &:focus-within {
         border-color: $color-primary;
+        
         &,
         input {
           background-color: $white;
@@ -213,6 +215,8 @@ export default {
 
       button {
         display: flex;
+        align-items: center;
+        justify-content: center;
         flex: 0 0 auto;
         margin-right: 6px;
         outline: none;
