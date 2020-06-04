@@ -18,10 +18,10 @@ const catalog = {
       page: 0,
 
       //TODO: Make this filters dynamic too
-      categories: [],
-      countries: [],
-      licenses: [],
-      sources: []
+      category: [],
+      country: [],
+      license: [],
+      provider: []
     }
   },
   computed: {},

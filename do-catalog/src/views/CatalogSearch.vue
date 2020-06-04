@@ -10,23 +10,23 @@
         </div>
         <FilterBox
           class="u-mt--36--tablet"
-          title="Countries"
-          filter="countries"
+          :title="getFilterLabel('country')"
+          filter="country"
           placeholder="country"
         ></FilterBox>
         <FilterBox
-          title="Categories"
-          filter="categories"
+          :title="getFilterLabel('category')"
+          filter="category"
           placeholder="category"
         ></FilterBox>
         <FilterBox
-          title="Licenses"
-          filter="licenses"
+          :title="getFilterLabel('license')"
+          filter="license"
           placeholder="license"
         ></FilterBox>
         <FilterBox
-          title="Sources"
-          filter="sources"
+          :title="getFilterLabel('provider')"
+          filter="provider"
           placeholder="source"
         ></FilterBox>
       </div>
@@ -60,7 +60,7 @@
               Still can’t find what you’re looking for? <br />Get help from our
               team
             </p>
-            <Button class="u-mt--24" color="engine-blue">Contact us</Button>
+            <Button class="u-mt--24" color="engine-blue" @click.native="navigateToContact()">Contact us</Button>
           </div>
         </div>
       </div>
@@ -77,6 +77,8 @@ import FilterSummary from '../components/catalogSearch/FilterSummary';
 import LoadingBar from '../components/catalogSearch/LoadingBar';
 import Pager from '../components/catalogSearch/Pager';
 import SearchBox from '../components/catalogSearch/SearchBox';
+import { filtersMetadata } from '../utils/constants';
+import { toTitleCase } from '../utils/string-to-title-case';
 
 export default {
   name: 'CatalogSearch',
@@ -121,6 +123,12 @@ export default {
     },
     hideFilters() {
       this.filterDetail = false;
+    },
+    getFilterLabel(filterId) {
+      return filtersMetadata[filterId] ? filtersMetadata[filterId].label : toTitleCase(filterId);
+    },
+    navigateToContact() {
+      window.open('https://carto.com/contact/', '_blank');
     }
   },
   mounted() {

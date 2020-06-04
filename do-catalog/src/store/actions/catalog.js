@@ -11,11 +11,11 @@ function filtersToPayload(filter) {
 
   const {
     searchText = '',
-    categories = [],
-    countries = [],
-    geographies = [],
-    sources = [],
-    licenses = [],
+    category = [],
+    country = [],
+    geography = [],
+    provider = [],
+    license = [],
     limit = process.env.VUE_APP_PAGE_SIZE || 10,
     page = 0
   } = filter;
@@ -25,11 +25,11 @@ function filtersToPayload(filter) {
   payload += searchText.length ? `&searchtext=${searchText}` : '';
 
   //TODO: Make this filters dynamic too
-  payload += licenses.length ? `&license=${licenses.join('&license=')}` : '';
-  payload += categories.length ? `&category=${categories.join('&category=')}` : '';
-  payload += countries.length ? `&country=${countries.join('&country=')}` : '';
-  payload += geographies.length ? `&geography=${geographies.join('&geography=')}` : '';
-  payload += sources.length ? `&provider=${sources.join('&provider=')}` : '';
+  payload += license.length ? `&license=${license.join('&license=')}` : '';
+  payload += category.length ? `&category=${category.join('&category=')}` : '';
+  payload += country.length ? `&country=${country.join('&country=')}` : '';
+  payload += geography.length ? `&geography=${geography.join('&geography=')}` : '';
+  payload += provider.length ? `&provider=${provider.join('&provider=')}` : '';
 
   return payload;
 }
