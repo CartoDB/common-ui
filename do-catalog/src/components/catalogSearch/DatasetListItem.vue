@@ -27,7 +27,7 @@
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
         </div>
-        <div class="geography">
+        <div class="geography" :title="dataset.geography_name">
           <span>Geography</span> {{ dataset.geography_name }}
         </div>
       </div>
@@ -49,7 +49,7 @@
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
         </div>
-        <div class="geography">
+        <div class="geography" :title="spatialAggregation">
           <span>Spatial aggr.</span> {{ spatialAggregation }}
         </div>
       </div>
