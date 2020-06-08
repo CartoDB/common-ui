@@ -154,6 +154,7 @@
 import { mapState } from 'vuex';
 import Button from '../components/Button.vue';
 import { formUrl } from '../utils/form-url';
+import { sendCustomDimensions } from '../utils/custom-dimensions-ga';
 
 export default {
   name: 'DatasetSummary',
@@ -171,6 +172,19 @@ export default {
         type: null
       }
     };
+  },
+  watch: {
+    dataset: {
+      handler: function(value) {
+        if(value && value.category_name){
+          sendCustomDimensions(value.category_name,
+                              value.country_name,
+                              value.is_public_data,
+                              value.provider_name)
+        }
+      },
+      immediate: true
+    }
   },
   computed: {
     ...mapState({
