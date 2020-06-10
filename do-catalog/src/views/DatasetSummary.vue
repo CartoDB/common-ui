@@ -60,14 +60,14 @@
             {{ temporalAggregation }}
           </p>
         </li>
-        <li class="u-mb--32 u-mb--12--tablet" v-else>
+        <!-- <li class="u-mb--32 u-mb--12--tablet" v-else>
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Spatial aggregation
           </h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ spatialAggregation }}
           </p>
-        </li>
+        </li> -->
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Update Frequency
