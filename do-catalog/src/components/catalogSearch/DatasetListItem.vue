@@ -1,8 +1,9 @@
 <template>
   <li class="list-item">
     <div class="category title is-small">
-      {{ dataset.country_name }}<span>·</span
-      >{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
+      {{ dataset.country_name }}
+      <span>·</span>{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
+      <span>·</span>{{ dataset.provider_name }}
     </div>
     <div class="info u-mr--72">
       <h3 class="title is-body u-mb--8">
