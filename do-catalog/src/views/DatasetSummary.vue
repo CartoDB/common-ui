@@ -23,7 +23,7 @@
     <div class="grid-cell grid-cell--col2 grid-cell--col12--tablet sidebar">
       <ul class="side-characteristics">
         <li class="u-mb--32 u-mb--12--tablet">
-          <h4 class="text is-small is-txtSoftGrey u-mb--10">Licence</h4>
+          <h4 class="text is-small is-txtSoftGrey u-mb--10">License</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ datasetPrivacy }}
           </p>
