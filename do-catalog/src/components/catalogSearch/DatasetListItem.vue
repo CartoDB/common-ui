@@ -49,14 +49,14 @@
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
         </div>
-        <div class="geography" :title="spatialAggregation">
-          <span>Spatial aggr.</span> {{ spatialAggregation }}
-        </div>
-      </div>
-      <div class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap">
+        <!-- <div class="geography" :title="dataset.spatial_aggregation_name">
+          <span>Spatial aggr.</span> {{ dataset.spatial_aggregation_name }}
+        </div> -->
         <div class="aggregation">
           <span>Geometry type</span> {{ geometryType }}
         </div>
+      </div>
+      <div class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap grid--reverse">
         <div class="provider">
           <img
             :src="providerLogo"
@@ -88,9 +88,6 @@ export default {
     },
     geometryType() {
       return geometryTypeName(this.dataset.geom_type);
-    },
-    spatialAggregation() {
-      return toTitleCase(this.dataset.spatial_aggregation);
     }
   }
 };
@@ -155,6 +152,10 @@ export default {
 
     .license {
       margin-right: 24px;
+    }
+
+    .grid--reverse {
+      flex-direction: row-reverse;
     }
 
     .provider {
