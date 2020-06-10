@@ -90,7 +90,9 @@ export default {
       return geometryTypeName(this.dataset.geom_type);
     },
     spatialAggregation() {
-      return toTitleCase(this.dataset.spatial_aggregation);
+      return this.dataset.spatial_aggregation
+        ? toTitleCase(this.dataset.spatial_aggregation)
+        : '-';
     }
   }
 };
