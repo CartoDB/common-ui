@@ -50,7 +50,7 @@
           <span>License</span> {{ dataset.license_name }}
         </div>
         <div class="geography" :title="spatialAggregation">
-          <span>Spatial aggr.</span> {{ spatialAggregation }}
+          <span>Spatial aggr.</span> {{ dataset.spatial_aggregation_name }}
         </div>
       </div>
       <div class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap">
@@ -88,9 +88,6 @@ export default {
     },
     geometryType() {
       return geometryTypeName(this.dataset.geom_type);
-    },
-    spatialAggregation() {
-      return toTitleCase(this.dataset.spatial_aggregation);
     }
   }
 };
