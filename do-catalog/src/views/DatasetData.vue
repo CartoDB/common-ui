@@ -156,7 +156,7 @@ export default {
     },
     tableSample() {
       if (this.tableKey) {
-        return this.dataset.summary_json[this.tableKey].head
+        return this.dataset.summary_json[this.tableKey].tail
       }
       return {}
     },

@@ -10,6 +10,7 @@
           class="u-mt--24"
           :url="contactUrl"
           :isOutline="true"
+          :blank="true"
         >
           Contact us for a demo
         </Button
