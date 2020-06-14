@@ -9,23 +9,35 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: '',
     name: 'do-catalog',
-    component: CatalogSearch
+    component: CatalogSearch,
+    meta: {
+      title: () => 'Data Observatory Catalog | CARTO'
+    }
   },
   {
-    path: '/datasets/:type/:datasetId',
+    path: ':type/:datasetId',
     component: DatasetDetail,
+    meta: {
+      title: () => 'Data Observatory Catalog | CARTO'
+    },
     children: [
       {
         path: 'data',
         name: 'do-dataset-data',
-        component: DatasetData
+        component: DatasetData,
+        meta: {
+          title: () => 'Data Observatory Catalog | CARTO'
+        }
       },
       {
         path: '',
         name: 'do-dataset-summary',
-        component: DatasetSummary
+        component: DatasetSummary,
+        meta: {
+          title: () => 'Data Observatory Catalog | CARTO'
+        }
       }
     ]
   }
