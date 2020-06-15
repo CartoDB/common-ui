@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 
 import DOCatalogComponent from '../dist/do-catalog.umd.min';
 
-class DOCatalog {
+export class DOCatalog {
   constructor(target, { baseUrl, userData, requestDatasetCallback } = {}) {
     this.target = target;
     this.baseUrl = baseUrl || '/';
@@ -45,5 +45,3 @@ class DOCatalog {
     }).$mount(this.target);
   }
 }
-
-export default DOCatalog;
