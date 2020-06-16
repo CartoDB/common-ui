@@ -46,7 +46,7 @@ exports[`DatasetSummary.vue Renders view properly 1`] = `
   <div class="grid-cell grid-cell--col2 sidebar">
     <ul class="side-characteristics">
       <li class="u-mb--32">
-        <h4 class="text is-small is-txtSoftGrey u-mb--10">Licence</h4>
+        <h4 class="text is-small is-txtSoftGrey u-mb--10">License</h4>
         <p class="text is-caption is-txtMainTextColor">
           Premium Data
         </p>

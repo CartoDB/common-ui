@@ -99,6 +99,9 @@ export default {
           dataset: this.dataset
         });
       }
+      //GTM event trigger
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({'event': 'requestDataset'});
     }
   }
 };

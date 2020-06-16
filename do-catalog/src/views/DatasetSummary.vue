@@ -23,7 +23,7 @@
     <div class="grid-cell grid-cell--col2 grid-cell--col12--tablet sidebar">
       <ul class="side-characteristics">
         <li class="u-mb--32 u-mb--12--tablet">
-          <h4 class="text is-small is-txtSoftGrey u-mb--10">Licence</h4>
+          <h4 class="text is-small is-txtSoftGrey u-mb--10">License</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ datasetPrivacy }}
           </p>
@@ -60,14 +60,14 @@
             {{ temporalAggregation }}
           </p>
         </li>
-        <li class="u-mb--32 u-mb--12--tablet" v-else>
+        <!-- <li class="u-mb--32 u-mb--12--tablet" v-else>
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Spatial aggregation
           </h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ spatialAggregation }}
           </p>
-        </li>
+        </li> -->
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Update Frequency
@@ -87,9 +87,23 @@ import { temporalAggregationName } from '../utils/temporal-agregation-name';
 import { geometryTypeName } from '../utils/geometry-type-name';
 import { toTitleCase } from '../utils/string-to-title-case';
 import { updateFrequencyName } from '../utils/update-frequency-name';
+import { sendCustomDimensions } from '../utils/custom-dimensions-ga';
 
 export default {
   name: 'DatasetSummary',
+  watch: {
+    dataset: {
+      handler: function(value) {
+        if(value && value.category_name){
+          sendCustomDimensions(value.category_name,
+                              value.country_name,
+                              value.is_public_data,
+                              value.provider_name)
+        }
+      },
+      immediate: true
+    }
+  },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset,
@@ -113,8 +127,8 @@ export default {
       return geometryTypeName(this.dataset.geom_type);
     },
     spatialAggregation() {
-      return this.dataset.spatial_aggregation
-        ? toTitleCase(this.dataset.spatial_aggregation)
+      return this.dataset.spatial_aggregation_name
+        ? this.dataset.spatial_aggregation_name
         : '-';
     }
   },

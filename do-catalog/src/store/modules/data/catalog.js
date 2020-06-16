@@ -1,7 +1,7 @@
 import * as CatalogActions from '../../actions/catalog';
 import * as CatalogMutations from '../../mutations/catalog';
 
-const catalog = {
+export const catalog = {
   namespaced: true,
   state: {
     isFetching: false,
@@ -10,7 +10,7 @@ const catalog = {
     datasetsListCount: 0,
     dataset: {},
     keyVariables: {},
-    variables: {},
+    variables: [],
     filtersAvailable: {},
     filter: {
       searchText: '',
@@ -50,5 +50,3 @@ const catalog = {
     clearTagFilters: CatalogActions.clearTagFilters
   }
 };
-
-export default catalog;

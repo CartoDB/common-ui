@@ -2,6 +2,7 @@ module.exports = {
   runtimeCompiler: true,
   lintOnSave: false,
   filenameHashing: false,
+  runtimeCompiler: true,
 
   css: {
     extract: false,
