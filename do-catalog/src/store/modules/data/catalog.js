@@ -22,7 +22,8 @@ export const catalog = {
       country: [],
       license: [],
       provider: []
-    }
+    },
+    subscriptionInfo: {}
   },
   computed: {},
   getters: {},
@@ -38,7 +39,9 @@ export const catalog = {
     setDatasetsListCount: CatalogMutations.setDatasetsListCount,
     resetTagFilters: CatalogMutations.resetTagFilters,
     resetDatasetsList: CatalogMutations.resetDatasetsList,
-    resetDataset: CatalogMutations.resetDataset
+    resetDataset: CatalogMutations.resetDataset,
+    setSubscriptionInfo: CatalogMutations.setSubscriptionInfo,
+    resetSubscriptionInfo: CatalogMutations.resetSubscriptionInfo
   },
   actions: {
     fetchDatasetsList: CatalogActions.fetchDatasetsList,
@@ -47,6 +50,7 @@ export const catalog = {
     fetchVariables: CatalogActions.fetchVariables,
     updateFilter: CatalogActions.updateFilter,
     deleteFilter: CatalogActions.deleteFilter,
-    clearTagFilters: CatalogActions.clearTagFilters
+    clearTagFilters: CatalogActions.clearTagFilters,
+    fetchSubscriptionInfo: CatalogActions.fetchSubscriptionInfo
   }
 };

@@ -1,63 +1,111 @@
 <template>
-  <div v-if="isOpen" class="modal">
+  <div
+    v-if="isOpen"
+    class="modal u-flex u-flex__justify--center u-flex__align--center"
+  >
     <div @click="closeModal()" class="close-modal">
       <img src="../assets/modal/close.svg" alt="close" />
     </div>
 
-    <div class="grid u-flex__justify--center u-mt--120">
-      <div class="grid-cell--col6 u-align--center">
-        <img src="../assets/modal/data-request.svg" alt="Request data" />
-        <h2 class="title is-sectiontitle is-txtNavyBlue u-mt--24">
-          Confirm your request
-        </h2>
-        <p class="text is-caption is-txtNavyBlue u-mt--12">
-          You are going to request a subscription to the following dataset and
-          its geography.
-        </p>
-        <p class="title is-small is-txtNavyBlue u-flex u-mt--48">
+    <div class="grid u-flex__justify--center">
+      <div class="grid-cell--col6">
+        <div class="u-align--center">
           <img
-            class="u-mr--8"
-            src="../assets/modal/db-icon.svg"
-            alt="Dataset selected"
+            v-if="getHeaderIcon"
+            :src="require('../assets/modal/' + getHeaderIcon)"
+            alt="Request data"
           />
-          1 Dataset
-        </p>
-        <ul class="u-mt--10 data-request-container">
-          <li class="u-flex data-request-card u-mb--24">
-            <div class="card-info u-mr--16">
-              <h4 class="text is-caption is-txtNavyBlue">{{ dataset.name }}</h4>
-              <p
-                class="text is-small is-txtNavyBlue is-semibold u-mt--4 u-flex"
-              >
-                <img
-                  class="u-mr--8"
-                  src="../assets/modal/provider.svg"
-                  alt="Provider"
-                />
-                {{ dataset.provider_name }}
-              </p>
-            </div>
-            <div
-              class="dataset-type-container"
-              :class="{ 'public-data': dataset.is_public_data }"
-            >
-              <span class="dataset-type title">{{ datasetPrivacy }}</span>
-            </div>
-          </li>
+          <h2 class="title is-sectiontitle is-txtNavyBlue u-mt--24">
+            {{ getTitle }}
+          </h2>
+          <p class="text is-caption is-txtNavyBlue u-mt--12">
+            {{ getSubTitle }}
+          </p>
+        </div>
+        <ul>
+          <DatasetListItem
+            :key="dataset.slug"
+            :dataset="dataset"
+          ></DatasetListItem>
         </ul>
 
-        <p class="text is-caption is-txtNavyBlue u-mt--16">
-          After confirming this request, a
-          <span class="is-semibold">CARTO team member will contact you</span> to
-          give you more information about this dataset and solve other doubts
-          you may have.
+        <p
+          v-if="currentMode === 'request'"
+          class="text is-caption is-txtNavyBlue u-mt--16 u-align--center"
+        >
+        Once you confirm your request, a
+          <span class="is-semibold">CARTO team member will get in touch</span>
+          to give you more information and go over any questions you may have.
+        </p>
+
+        <p
+          v-else-if="currentMode === 'unsubscribe'"
+          class="text is-caption is-txtNavyBlue u-mt--16"
+        >
+        If you unsubcribe pellentesque diam nisi, faucibus varius enim mollis sit amet. Cras nec varius magna, in dignissim diam:
+        <ul class="u-mt--20 u-ml--32" style="list-style: disc;">
+          <li>
+            If you imported the dataset, it will disappear from <span class="is-semibold">your datasets</span> list.
+          </li>
+          <li>
+            All <span class="is-semibold">maps</span> where you are using the dataset will be removed.
+          </li>
+          <li>
+            The dataset will stop working in
+            <span class="is-semibold">apps</span> where it is being used through
+            API.
+          </li>
+        </ul>
+        </p>
+
+        <p
+          v-else-if="currentMode === 'unsubscribe'"
+          class="text is-caption is-txtNavyBlue u-mt--16 u-flex u-flex__justify--center u-flex__align-cen"
+        >
+          <img class="u-mr--12" src="../assets/check.svg" alt="check" />
+          Your subscription request has been added to your subscriptions.
         </p>
 
         <div class="grid u-flex__justify--center u-mt--32">
-          <Button class="u-mr--16" @click.native="requestDataset()"
+          <Button @click.native="closeModal()" :isOutline="true" :color="currentMode === 'unsubscribe' ? 'navy-blue' : ''" class="noBorder">{{ getCloseText }}</Button>
+          <!-- <Button class="u-ml--16" @click.native="requestDataset()"
             >Confirm request</Button
-          >
-          <Button @click.native="closeModal()" :isOutline="true">Cancel</Button>
+          > -->
+          <Button
+            v-if="currentMode === 'subscribe'"
+            @click.native="subscribe()"
+            class="u-ml--16"
+            >
+            Confirm subscription
+          </Button>
+
+            <Button
+              v-else-if="currentMode === 'unsubscribe'"
+              @click.native="unsubscribe()"
+              class="u-ml--16"
+              :color="'red'"
+              >
+              Confirm unsubscription
+            </Button>
+
+            <Button
+              v-else-if="currentMode === 'request'"
+              @click.native="request()"
+              class="u-ml--16"
+              >
+              Confirm request
+            </Button>
+
+            <Button
+              v-else-if="currentMode === 'subscribed' || currentMode === 'requested'"
+              @click.native="closeModal()"
+              class="u-ml--16"
+              :color="'green'"
+              >
+              <img class="u-mr--12" src="../assets/check_white.svg" alt="check" />
+              Check your subscriptions
+            </Button>
+
         </div>
       </div>
     </div>
@@ -67,15 +115,29 @@
 <script>
 import { mapState } from 'vuex';
 import Button from './Button.vue';
+import DatasetListItem from './catalogSearch/DatasetListItem';
 
 export default {
   name: 'ModalSubscription',
   components: {
-    Button
+    Button,
+    DatasetListItem
   },
   props: {
     isOpen: Boolean,
-    dataset: Object
+    dataset: Object,
+    mode: {
+      type: String,
+      required: false,
+      validator: value => {
+        return ['subscribe', 'unsubscribe', 'request'].indexOf(value) !== -1;
+      }
+    }
+  },
+  data() {
+    return {
+      currentMode: null
+    };
   },
   computed: {
     ...mapState({
@@ -83,6 +145,54 @@ export default {
     }),
     datasetPrivacy() {
       return this.dataset.is_public_data ? 'Public data' : 'Premium';
+    },
+    getHeaderIcon() {
+      if (this.currentMode === 'subscribe') {
+        return 'subsc-add-icon.svg';
+      } else if (this.currentMode === 'unsubscribe') {
+        return 'subsc-unsubsc-icon.svg';
+      } else if (this.currentMode === 'request') {
+        return 'data-request.svg';
+      } else if (this.currentMode === 'subscribed') {
+        return 'subsc-subscribed-icon.svg';
+      } else if (this.currentMode === 'requested') {
+        return 'subsc-requested-icon.svg';
+      }
+      return null;
+    },
+    getTitle() {
+      if (this.currentMode === 'subscribe') {
+        return 'Confirm your subscription';
+      } else if (this.currentMode === 'unsubscribe') {
+        return 'Confirm your unsubscription';
+      } else if (this.currentMode === 'request') {
+        return 'Confirm your request';
+      } else if (this.currentMode === 'subscribed') {
+        return 'Subscription confirmed';
+      } else if (this.currentMode === 'requested') {
+        return 'Subscription request confirmed';
+      }
+      return '';
+    },
+    getSubTitle() {
+      if (this.currentMode === 'subscribe') {
+        return 'You are going to subscribe to the following dataset:';
+      } else if (this.currentMode === 'unsubscribe') {
+        return 'You are going to unsubscribe to the following dataset:';
+      } else if (this.currentMode === 'request') {
+        return 'You are going to request a subscription to the following dataset:';
+      } else if (this.currentMode === 'subscribed') {
+        return 'Your subscription has been activated successfully.';
+      } else if (this.currentMode === 'requested') {
+        return 'We have received your subscription request and we will contact you really soon about the following dataset:';
+      }
+      return '';
+    },
+    getCloseText() {
+      if (this.currentMode === 'subscribed' || this.currentMode === 'requested') {
+        return 'Close';
+      }
+      return 'Cancel';
     }
   },
   methods: {
@@ -102,6 +212,14 @@ export default {
       //GTM event trigger
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({'event': 'requestDataset'});
+    },
+    subscribe() {},
+    unsubscribe() {},
+    request() {}
+  },
+  watch: {
+    mode() {
+      this.currentMode = this.mode;
     }
   }
 };
@@ -118,6 +236,7 @@ export default {
   width: 100vw;
   height: 100vh;
   background-color: rgba($white, 0.96);
+  overflow-y: auto;
 }
 
 .close-modal {
@@ -129,38 +248,17 @@ export default {
   cursor: pointer;
 }
 
-.data-request-card {
-  padding: 16px 16px 20px 24px;
-  border: 1px solid $neutral--300;
-  border-radius: 4px;
-  background-color: $white;
-}
-
-.dataset-type-container {
-  align-self: flex-start;
-  margin-left: auto;
-  padding: 2px 8px;
-  border-radius: 2px;
-  background-color: $premium-yellow;
-
-  &.public-data {
-    background-color: $neutral--300;
-  }
-}
-
-.dataset-type {
-  font-size: 10px;
-  letter-spacing: 0.83px;
-  line-height: 16px;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.data-request-container {
-  border-bottom: 1px solid $neutral--300;
-}
-
 .u-align--center {
   text-align: center;
+}
+
+.list-item {
+  border: none;
+  margin: 42px 0;
+  background-color: $white;
+  box-shadow: 0 4px 16px 0 rgba(44,44,44,0.16);
+  &:hover {
+    background-color: $white;
+  }
 }
 </style>

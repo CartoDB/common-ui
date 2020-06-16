@@ -78,3 +78,11 @@ export function resetDataset(state) {
   state.keyVariables = {};
   state.variables = {};
 }
+
+export function setSubscriptionInfo(state, data) {
+  state.subscriptionInfo = data;
+}
+
+export function resetSubscriptionInfo(state) {
+  state.subscriptionInfo = {};
+}
