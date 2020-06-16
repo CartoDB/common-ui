@@ -2,10 +2,10 @@
   <div class="grid grid-cell u-flex__justify--center wrap-reverse--tablet">
     <div class="grid-cell grid-cell--col9 grid-cell--col12--tablet main-column">
       <p class="text is-caption is-txtMainTextColor u-mt--32 u-mt--12--tablet">
-        {{ dataset.description }}
+        {{ dataset.description || "No description available." }}
       </p>
 
-      <div class="key-variables u-mt--32">
+      <div class="key-variables u-mt--32" v-if="keyVariables.length">
         <h5 class="title is-caption is-txtMainTextColor">
           Key variables
           <router-link :to="{ name: 'do-dataset-data' }" class="is-small"
@@ -40,13 +40,7 @@
             {{ dataset.provider_name }}
           </p>
         </li>
-        <li class="u-mb--32 u-mb--12--tablet" v-if="!isGeography">
-          <h4 class="text is-small is-txtSoftGrey u-mb--10">Geography</h4>
-          <p class="text is-caption is-txtMainTextColor">
-            {{ dataset.geography_name }}
-          </p>
-        </li>
-        <li class="u-mb--32 u-mb--12--tablet" v-else>
+        <li class="u-mb--32 u-mb--12--tablet" v-if="isGeography">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Geometry type</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ geometryType }}
@@ -74,6 +68,22 @@
           </h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ updateFrequency }}
+          </p>
+        </li>
+        <li class="u-mb--32 u-mb--12--tablet" v-if="!isGeography && dataset.geography_id">
+          <h4 class="text is-small is-txtSoftGrey u-mb--10">Associated Geography</h4>
+          <p class="text is-caption">
+            <router-link 
+              :to="{
+                name: 'do-dataset-summary',
+                params: {
+                  datasetId: dataset.geography_id,
+                  type: 'geography'
+                }
+              }"
+            >
+              {{ dataset.geography_name }}
+            </router-link>
           </p>
         </li>
       </ul>
