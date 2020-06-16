@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: '',
     name: 'do-catalog',
     component: CatalogSearch,
     meta: {
@@ -17,7 +17,7 @@ const routes = [
     }
   },
   {
-    path: '/:type/:datasetId',
+    path: ':type/:datasetId',
     component: DatasetDetail,
     meta: {
       title: () => 'Data Observatory Catalog | CARTO'
@@ -47,7 +47,11 @@ function createRouter() {
   const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes,
+    routes: [{
+      path: '/',
+      component: { template: '<router-view></router-view>' },
+      children: [...routes]
+    }],
     scrollBehavior(to, from, savedPosition) {
       if (savedPosition) {
         return savedPosition;
