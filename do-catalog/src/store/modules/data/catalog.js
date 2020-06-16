@@ -10,7 +10,7 @@ export const catalog = {
     datasetsListCount: 0,
     dataset: {},
     keyVariables: {},
-    variables: {},
+    variables: [],
     filtersAvailable: {},
     filter: {
       searchText: '',

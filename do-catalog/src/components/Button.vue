@@ -11,6 +11,7 @@
       color
     ]"
     :href="url"
+    :target="blank ? '_blank': ''"
   >
     <slot></slot>
   </a>
@@ -25,7 +26,8 @@ export default {
     reverseColors: Boolean,
     extraBorder: Boolean,
     color: String,
-    narrow: Boolean
+    narrow: Boolean,
+    blank: Boolean
   }
 };
 </script>

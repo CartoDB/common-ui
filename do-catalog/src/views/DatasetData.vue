@@ -1,12 +1,17 @@
 <template>
-  <div class="grid grid-cell u-flex__justify--center">
+  <div v-if="!isFetching" class="grid grid-cell u-flex__justify--center">
     <div class="grid-cell grid-cell--col12 u-mt--28">
-      <h2 class="title is-caption is-txtMainTextColor">
-        Data sample
-        <a @click="scrollToVariables()" class="is-small"
-          >View {{ numberColumns }} variables list</a
-        >
-      </h2>
+      <div class="u-flex u-flex__justify--between">
+        <h2 class="title is-caption is-txtMainTextColor">
+          Data sample
+          <a v-if="variables && variables.length > 0" @click="scrollToVariables()" class="is-small">View {{ numberColumns }} variables list</a>
+        </h2>
+        <div class="is-small text txtMainTextColor">
+          <span class="source u-flex u-flex__align--center" v-if="source">(*) Sample not available: this preview is for <i class="is-semibold is-italic">{{source}}</i></span>
+          <span class="grey" v-else-if="numberRows > 0">First {{numberRows}} rows</span>
+          <span class="grey" v-else>Not available</span>
+        </div>
+      </div>
       <div class="table-wrapper" ref="tableWrapper" v-if="columns.length">
         <div
           class="tooltip is-small"
@@ -22,15 +27,12 @@
             <span class="is-semibold">Type:</span> {{ tooltip.type }}
           </p>
         </div>
-        <div
-          class="scrollable-table u-mt--24"
-          v-if="numberRows > 0 && !isPublicWebsite"
-        >
+        <div v-if="numberRows > 0" class="scrollable-table u-mt--24">
           <table class="text is-small u-width--100">
             <tr>
               <th></th>
               <th
-                @mouseover="showTooltip(value, $event)"
+                @mousemove="showTooltip(value, $event)"
                 @mouseleave="hideTooltip"
                 v-for="value in columns"
                 :key="value"
@@ -42,7 +44,7 @@
               <td class="is-semibold">{{ n - 1 }}</td>
               <td v-for="value in columns" :key="value">
                 <template v-if="value !== 'geom'">
-                  <span v-if="tableSample[value][n - 1]">{{
+                  <span v-if="tableSample[value][n - 1] !== null && tableSample[value][n - 1] !== undefined">{{
                     tableSample[value][n - 1]
                   }}</span>
                   <span v-else class="is-txtLightGrey is-italic">null</span>
@@ -54,75 +56,16 @@
             </tr>
           </table>
         </div>
-        <div
-          class="empty-container grid u-flex__justify--center u-mt--24"
-          v-else
-        >
-          <div class="grid-cell--col5 grid-cell--col8--tablet">
-            <h4 class="title is-body is-txtMidGrey">Sample is not available</h4>
-            <p class="text is-caption is-txtMidGrey u-mt--8">
-              <span v-if="numberRows > 0"
-                >This data sample is only available for customers.</span
-              >
-              <span v-else
-                >This data sample can’t be shown because the real dataset only
-                contains a few rows.</span
-              >
-            </p>
-            <div>
-              <Button
-                v-if="numberRows > 0"
-                class="u-mt--24"
-                url="https://carto.com/login"
-                :isOutline="false"
-                :reverseColors="true"
-                >Login</Button
-              >
-              <span
-                v-if="numberRows > 0"
-                class="u-ml--12 u-mr--12 text is-small"
-                >or</span
-              >
-              <Button class="u-mt--24" :url="getFormUrl()" :isOutline="true"
-                >Contact us for a demo</Button
-              >
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="empty-container grid u-flex__justify--center u-mt--24" v-else>
-        <div class="grid-cell--col5">
-          <h4 class="title is-body is-txtMidGrey">Sample is not available</h4>
-          <p class="text is-caption is-txtMidGrey u-mt--8">
-            <span v-if="numberRows > 0"
-              >This data sample is only available for customers.</span
-            >
-            <span v-else
-              >This data sample can’t be shown because the real dataset only
-              contains a few rows.</span
-            >
-          </p>
-          <div>
-            <Button
-              v-if="numberRows > 0"
-              class="u-mt--24"
-              url="https://carto.com/login"
-              :isOutline="false"
-              :reverseColors="true"
-              >Login</Button
-            >
-            <span v-if="numberRows > 0" class="u-ml--12 u-mr--12 text is-small"
-              >or</span
-            >
-            <Button class="u-mt--24" :url="getFormUrl()" :isOutline="true"
-              >Contact us for a demo</Button
-            >
-          </div>
-        </div>
-      </div>
+      <NotAvailable v-else
+        :title="'Sample is not available'"
+        :description="'This data sample can’t be shown because the real dataset only contains a few rows.'"
+        :contactUrl="getFormUrl()"
+        :mode="'contact'"
+      ></NotAvailable>
     </div>
 
-    <div class="grid-cell--col12 u-mt--60" ref="variablesSection">
+    <div v-if="variables && variables.length > 0" class="grid-cell--col12 u-mt--60" ref="variablesSection">
       <h2 class="grid-cell title is-caption is-txtMainTextColor">Variables</h2>
 
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
@@ -152,14 +95,14 @@
 
 <script>
 import { mapState } from 'vuex';
-import Button from '../components/Button.vue';
+import NotAvailable from '../components/NotAvailable.vue';
 import { formUrl } from '../utils/form-url';
 import { sendCustomDimensions } from '../utils/custom-dimensions-ga';
 
 export default {
   name: 'DatasetSummary',
   components: {
-    Button
+    NotAvailable
   },
   data() {
     return {
@@ -189,15 +132,33 @@ export default {
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset,
-      variables: state => state.doCatalog.variables
+      variables: state => state.doCatalog.variables,
+      isFetching: state => state.doCatalog.isFetching
     }),
     isPublicWebsite() {
       return !(this.$store.state.user && this.$store.state.user.id);
     },
+    tableKey() {
+      if (this.dataset && this.dataset.summary_json) {
+        if (this.dataset.summary_json.glimpses) {
+          return 'glimpses'
+        } else if (this.dataset.summary_json.default_glimpses) {
+          return 'default_glimpses'
+        }
+      }
+      return null
+    },
+    source() {
+      if (this.tableKey === 'default_glimpses') {
+        return this.dataset.summary_json[this.tableKey].source
+      }
+      return null
+    },
     tableSample() {
-      return this.dataset && this.dataset.summary_json
-        ? this.dataset.summary_json.glimpses.head
-        : {};
+      if (this.tableKey) {
+        return this.dataset.summary_json[this.tableKey].tail
+      }
+      return {}
     },
     columns() {
       return this.tableSample ? Object.keys(this.tableSample) : [];
@@ -225,22 +186,27 @@ export default {
     showTooltip(variableName, event) {
       let tooltipInfo = this.findVariableInfo(variableName);
       let tableBoundingSize = this.$refs.tableWrapper.getBoundingClientRect();
-      let targetBoundingSize = event.target.getBoundingClientRect();
-      this.tooltip.left = targetBoundingSize.left - tableBoundingSize.left;
-      if (this.tooltip.left < 60) {
+      // let targetBoundingSize = event.target.getBoundingClientRect();
+      // this.tooltip.left = targetBoundingSize.left - tableBoundingSize.left;
+      this.tooltip.left = event.clientX - 22;
+      if (this.tooltip.left < 140) {
         this.tooltip.isFirst = true;
+        this.tooltip.left -= 26
       } else if (tableBoundingSize.width - this.tooltip.left < 120) {
         this.tooltip.isLast = true;
-        this.tooltip.left += targetBoundingSize.width;
+        // this.tooltip.left += targetBoundingSize.width;
+        this.tooltip.left += 26
       } else {
-        this.tooltip.left += targetBoundingSize.width / 2;
+        this.tooltip.isFirst = false;
+        this.tooltip.isLast = false;
+        // this.tooltip.left += targetBoundingSize.width / 2;
       }
 
-      if (this.tooltip.left < -20) {
-        this.tooltip.left = -20;
-      } else if (tableBoundingSize.width - this.tooltip.left < -20) {
-        this.tooltip.left = tableBoundingSize.width + 20;
-      }
+      // if (this.tooltip.left < -20) {
+      //   this.tooltip.left = -20;
+      // } else if (tableBoundingSize.width - this.tooltip.left < -20) {
+      //   this.tooltip.left = tableBoundingSize.width + 20;
+      // }
       this.tooltip.description = tooltipInfo.description;
       this.tooltip.type = tooltipInfo.db_type;
       this.tooltip.visible = true;
@@ -285,8 +251,8 @@ a {
   td,
   th {
     padding: 12px 24px 12px 8px;
+    white-space: nowrap;
   }
-
   tr:nth-child(even) {
     background-color: $color-primary--soft;
   }
@@ -368,11 +334,13 @@ a {
     }
   }
 }
-
-.empty-container {
-  padding: 36px 0 48px;
-  border-radius: 6px;
-  background-color: $blue--100;
-  text-align: center;
+.grey {
+  opacity: 0.48;
+}
+.source {
+  &:after {
+    content: url('../assets/interface-alert-triangle.svg');
+    margin-left: 12px;
+  }
 }
 </style>
