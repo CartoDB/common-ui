@@ -1,5 +1,7 @@
 module.exports = {
+  runtimeCompiler: true,
   lintOnSave: false,
+  filenameHashing: false,
   runtimeCompiler: true,
 
   css: {
@@ -21,6 +23,8 @@ module.exports = {
   },
 
   chainWebpack: config => {
+    config.optimization.delete('splitChunks')
+
     config.module
       .rule('images')
       .use('url-loader')
@@ -34,5 +38,13 @@ module.exports = {
       .use()
       .loader('url-loader')
       .options({ limit: 51200 });
+  },
+
+  configureWebpack: {
+    output: {
+      library: 'doCatalog',
+      libraryTarget: 'umd',
+      filename: 'do-catalog.js'
+    }
   }
 };

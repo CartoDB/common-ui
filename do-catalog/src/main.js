@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import DOCatalogHome from './App.vue';
+
 import createRouter from './router';
 import store from './store';
 
