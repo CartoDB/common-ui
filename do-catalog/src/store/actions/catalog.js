@@ -129,8 +129,8 @@ export function clearTagFilters(context) {
   context.commit('resetTagFilters');
 }
 
-export async function fetchSubscriptionInfo(context, { id, type, api_key }) {
-  let url = `${baseUrl}/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${api_key}`;
+export async function fetchSubscriptionInfo(context, { id, type }) {
+  let url = `${baseUrl}/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
   try {
     const response = await fetch(url);
     const data = await response.json();

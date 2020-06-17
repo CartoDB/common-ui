@@ -151,8 +151,7 @@ export default {
       if (this.dataset && this.dataset.id && !this.isPublicWebsite) {
         this.$store.dispatch('doCatalog/fetchSubscriptionInfo', {
           id: this.dataset.id,
-          type: this.isGeography ? 'geography' : 'dataset',
-          api_key: this.$store.state.user.api_key
+          type: this.isGeography ? 'geography' : 'dataset'
         });
       }
     }
