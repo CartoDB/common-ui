@@ -109,17 +109,20 @@ export default {
       return this.$route.params.type === 'geography';
     },
     getSubscriptionStatus() {
-      if (this.subscriptionInfo.id) {
-        if (!this.isPublicWebsite && this.subscriptionInfo.status) {
-          return this.subscriptionInfo.status;
-        }
-        if (this.isPublicWebsite || !this.$store.state.user.is_enterprise) {
-          return 'interested';
-        } else if (this.$store.state.user.is_enterprise) {
-          return this.dataset.is_public_data
-            ? 'free_subscription'
-            : 'request_subscription';
-        }
+      const possibleLicenceStates = ['requested', 'active', 'expired'];
+      if (
+        !this.isPublicWebsite &&
+        this.subscriptionInfo.status &&
+        possibleLicenceStates.indexOf(this.subscriptionInfo.status) >= 0
+      ) {
+        return this.subscriptionInfo.status;
+      }
+      if (this.isPublicWebsite || !this.$store.state.user.is_enterprise) {
+        return 'interested';
+      } else if (this.$store.state.user.is_enterprise) {
+        return this.dataset.is_public_data
+          ? 'free_subscription'
+          : 'request_subscription';
       }
       return null;
     }
@@ -141,7 +144,7 @@ export default {
       this.modalOpen = false;
     },
     fetchSubscriptionInfo() {
-      if (this.dataset && this.dataset.id) {
+      if (this.dataset && this.dataset.id && !this.isPublicWebsite) {
         this.$store.dispatch('doCatalog/fetchSubscriptionInfo', {
           id: this.dataset.id,
           type: this.isGeography ? 'geography' : 'dataset',
