@@ -119,7 +119,10 @@ export default {
       }
       if (this.isPublicWebsite || !this.$store.state.user.is_enterprise) {
         return 'interested';
-      } else if (this.$store.state.user.is_enterprise) {
+      } else if (
+        this.$store.state.user.is_enterprise &&
+        this.dataset.is_public_data !== undefined
+      ) {
         return this.dataset.is_public_data
           ? 'free_subscription'
           : 'request_subscription';
