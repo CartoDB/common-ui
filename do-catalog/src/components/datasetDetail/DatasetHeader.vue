@@ -112,6 +112,7 @@ export default {
       const possibleLicenceStates = ['requested', 'active', 'expired'];
       if (
         !this.isPublicWebsite &&
+        this.subscriptionInfo &&
         this.subscriptionInfo.status &&
         possibleLicenceStates.indexOf(this.subscriptionInfo.status) >= 0
       ) {
