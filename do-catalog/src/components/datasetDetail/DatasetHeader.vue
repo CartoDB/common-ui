@@ -110,6 +110,7 @@ export default {
       return this.$route.params.type === 'geography';
     },
     getSubscriptionStatus() {
+      const is_enterprise = true
       const possibleLicenceStates = ['requested', 'active', 'expired'];
       if (
         !this.isPublicWebsite &&
@@ -119,10 +120,10 @@ export default {
       ) {
         return this.subscriptionInfo.status;
       }
-      if (this.isPublicWebsite || !this.$store.state.user.is_enterprise) {
+      if (this.isPublicWebsite || !is_enterprise) {
         return 'interested';
       } else if (
-        this.$store.state.user.is_enterprise &&
+        is_enterprise &&
         this.dataset.is_public_data !== undefined
       ) {
         return this.dataset.is_public_data
