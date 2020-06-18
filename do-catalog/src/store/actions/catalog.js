@@ -139,7 +139,7 @@ export async function fetchSubscriptionInfo(context, { id, type }) {
   //   console.error(`ERROR: ${error}`);
   // }
   return new Promise(resolve => {
-    resolve({
+    const info = {
       id: id,
       estimated_delivery_days: 0,
       subscription_list_price: 0,
@@ -149,6 +149,8 @@ export async function fetchSubscriptionInfo(context, { id, type }) {
       licenses_link: null,
       rights: null,
       type: type
-    });
+    }
+    context.commit('setSubscriptionInfo', info);
+    resolve();
   });
 }
