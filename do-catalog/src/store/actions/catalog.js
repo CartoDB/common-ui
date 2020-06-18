@@ -130,12 +130,25 @@ export function clearTagFilters(context) {
 }
 
 export async function fetchSubscriptionInfo(context, { id, type }) {
-  let url = `${baseUrl}/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    context.commit('setSubscriptionInfo', data);
-  } catch (error) {
-    console.error(`ERROR: ${error}`);
-  }
+  // let url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
+  // try {
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   context.commit('setSubscriptionInfo', data);
+  // } catch (error) {
+  //   console.error(`ERROR: ${error}`);
+  // }
+  return new Promise(resolve => {
+    resolve({
+      id: id,
+      estimated_delivery_days: 0,
+      subscription_list_price: 0,
+      tos: null,
+      tos_link: null,
+      licenses: null,
+      licenses_link: null,
+      rights: null,
+      type: type
+    });
+  });
 }
