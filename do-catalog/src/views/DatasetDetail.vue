@@ -53,6 +53,9 @@ export default {
   },
   mounted() {
     this.fetchDataset();
+  },
+  destroyed() {
+    this.$store.commit('doCatalog/resetDataset');
   }
 };
 </script>

@@ -1,10 +1,11 @@
 import 'whatwg-fetch';
 
 const baseUrl =
-  'https://cmonteserin-do-st.carto-staging.com/api/v4/data/observatory/'; // "https://public.carto.com"
-const entitiesEndpoint = 'metadata/entities';
-const datasetsEndpoint = 'metadata/datasets';
-const geographiesEndpoint = 'metadata/geographies';
+  'https://cmonteserin-do-st.carto-staging.com/api/v4/'; // "https://public.carto.com"
+const entitiesEndpoint = 'data/observatory/metadata/entities';
+const datasetsEndpoint = 'data/observatory/metadata/datasets';
+const geographiesEndpoint = 'data/observatory/metadata/geographies';
+const subscriptionsEndpoint = 'do/subscription_info';
 
 function filtersToPayload(filter) {
   let payload = '';
@@ -126,4 +127,15 @@ export function deleteFilter(context, filter) {
 
 export function clearTagFilters(context) {
   context.commit('resetTagFilters');
+}
+
+export async function fetchSubscriptionInfo(context, { id, type }) {
+  let url = `${baseUrl}/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    context.commit('setSubscriptionInfo', data);
+  } catch (error) {
+    console.error(`ERROR: ${error}`);
+  }
 }

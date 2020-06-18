@@ -58,6 +58,14 @@ export default {
   &.engine-blue {
     background-color: $engine-blue;
   }
+
+  &.red {
+    background-color: $red--600;
+  }
+
+  &.green {
+    background-color: $green--400;
+  }
 }
 
 .reverse-colors {
@@ -97,6 +105,20 @@ export default {
     border-color: $engine-blue;
     background: transparent;
     color: $engine-blue;
+  }
+
+  &.navy-blue {
+    border-color: $navy-blue;
+    background-color: transparent;
+    color: $navy-blue;
+  }
+
+  &.noBorder {
+    border: none;
+  }
+
+  .noCursor {
+    cursor: initial;
   }
 }
 </style>

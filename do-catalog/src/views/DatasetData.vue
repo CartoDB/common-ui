@@ -186,27 +186,18 @@ export default {
     showTooltip(variableName, event) {
       let tooltipInfo = this.findVariableInfo(variableName);
       let tableBoundingSize = this.$refs.tableWrapper.getBoundingClientRect();
-      // let targetBoundingSize = event.target.getBoundingClientRect();
-      // this.tooltip.left = targetBoundingSize.left - tableBoundingSize.left;
       this.tooltip.left = event.clientX - 22;
       if (this.tooltip.left < 140) {
         this.tooltip.isFirst = true;
-        this.tooltip.left -= 26
+        this.tooltip.left -= 26;
       } else if (tableBoundingSize.width - this.tooltip.left < 120) {
         this.tooltip.isLast = true;
-        // this.tooltip.left += targetBoundingSize.width;
-        this.tooltip.left += 26
+        this.tooltip.left += 26;
       } else {
         this.tooltip.isFirst = false;
         this.tooltip.isLast = false;
-        // this.tooltip.left += targetBoundingSize.width / 2;
       }
 
-      // if (this.tooltip.left < -20) {
-      //   this.tooltip.left = -20;
-      // } else if (tableBoundingSize.width - this.tooltip.left < -20) {
-      //   this.tooltip.left = tableBoundingSize.width + 20;
-      // }
       this.tooltip.description = tooltipInfo.description;
       this.tooltip.type = tooltipInfo.db_type;
       this.tooltip.visible = true;
