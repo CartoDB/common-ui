@@ -49,7 +49,7 @@
             <img class="u-ml--12" src="../../assets/check.svg" alt="check" />
           </Button>
           <span
-            @click.native="showModal('unsubscribe')"
+            @click="showModal('unsubscribe')"
             class="text is-small is-txtSoftGrey u-mt--8 underline"
             >Unsubscribe</span
           >
@@ -75,6 +75,7 @@
       :isOpen="modalOpen"
       :dataset="dataset"
       :mode="modalMode"
+      @statusChanged="changeStatus"
     ></ModalSubscription>
   </header>
 </template>
@@ -154,6 +155,15 @@ export default {
           type: this.isGeography ? 'geography' : 'dataset'
         });
       }
+    },
+    changeStatus(status) {
+      if (status === 'unsubscribe') {
+        this.fetchSubscriptionInfo();
+      } else {
+        const subscriptionInfo = { ...this.subscriptionInfo };
+        subscriptionInfo.status = status;
+        this.$store.commit('doCatalog/setSubscriptionInfo', subscriptionInfo);
+      }
     }
   },
   watch: {
@@ -179,5 +189,6 @@ export default {
 
 .underline {
   text-decoration: underline;
+  cursor: pointer;
 }
 </style>

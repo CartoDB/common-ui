@@ -213,9 +213,18 @@ export default {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({'event': 'requestDataset'});
     },
-    subscribe() {},
-    unsubscribe() {},
-    request() {}
+    subscribe() {
+      this.currentMode = 'subscribed'
+      this.$emit('statusChanged', 'active')
+    },
+    unsubscribe() {
+      this.$emit('statusChanged', 'unsubscribe')
+      this.closeModal()
+    },
+    request() {
+      this.currentMode = 'requested'
+      this.$emit('statusChanged', 'requested')
+    }
   },
   watch: {
     mode() {
