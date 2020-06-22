@@ -11,6 +11,7 @@
         </router-link>
       </div>
     </div>
+    <DatasetActionsBar class="u-mt--12"></DatasetActionsBar>
     <DatasetHeader></DatasetHeader>
     <div class="grid grid-cell u-flex__justify--center">
       <NavigationTabs class="grid-cell--col12">
@@ -24,12 +25,14 @@
 
 <script>
 import { mapState } from 'vuex';
+import DatasetActionsBar from '../components/datasetDetail/DatasetActionsBar';
 import DatasetHeader from '../components/datasetDetail/DatasetHeader';
 import NavigationTabs from '../components/datasetDetail/NavigationTabs';
 
 export default {
   name: 'DatasetDetail',
   components: {
+    DatasetActionsBar,
     DatasetHeader,
     NavigationTabs
   },
@@ -65,11 +68,10 @@ export default {
 
 .navigation-header {
   padding: 24px 0;
+  border-bottom: 1px solid $neutral--300;
 
   .back-link {
     display: flex;
   }
-
-  border-bottom: 1px solid $neutral--300;
 }
 </style>
