@@ -11,7 +11,11 @@
         </router-link>
       </div>
     </div>
-    <DatasetActionsBar class="u-mt--12"></DatasetActionsBar>
+    <DatasetActionsBar
+      v-if="subscription"
+      :subscription="subscription"
+      class="u-mt--12"
+    ></DatasetActionsBar>
     <DatasetHeader></DatasetHeader>
     <div class="grid grid-cell u-flex__justify--center">
       <NavigationTabs class="grid-cell--col12">
@@ -40,6 +44,11 @@ export default {
     ...mapState({
       dataset: state => state.doCatalog.dataset
     }),
+    subscription() {
+      return this.$store.getters['doCatalog/getSubscriptionByDataset'](
+        this.dataset.id
+      );
+    },
     isGeography() {
       return this.$route.params.type === 'geography';
     }
@@ -55,6 +64,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.dispatch('doCatalog/fetchSubscriptionsList');
     this.fetchDataset();
   },
   destroyed() {

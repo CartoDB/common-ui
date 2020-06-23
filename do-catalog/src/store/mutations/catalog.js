@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {setUrlParameters} from '../../utils/url-parameters';
+import { setUrlParameters } from '../../utils/url-parameters';
 
 export function setFetchingState(state) {
   state.isFetching = true;
@@ -79,8 +79,16 @@ export function resetDataset(state) {
   state.variables = {};
 }
 
+export function setSubscriptionsList(state, data) {
+  state.subscriptionsList = data;
+}
+
 export function setSubscriptionInfo(state, data) {
   state.subscriptionInfo = data;
+}
+
+export function resetSubscriptionsList(state) {
+  state.subscriptionsList = [];
 }
 
 export function resetSubscriptionInfo(state) {

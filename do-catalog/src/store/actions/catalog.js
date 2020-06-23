@@ -1,11 +1,11 @@
 import 'whatwg-fetch';
 
-const baseUrl =
-  'https://cmonteserin-do-st.carto-staging.com/api/v4/'; // "https://public.carto.com"
+const baseUrl = 'https://cmonteserin-do-st.carto-staging.com/api/v4/'; // "https://public.carto.com"
 const entitiesEndpoint = 'data/observatory/metadata/entities';
 const datasetsEndpoint = 'data/observatory/metadata/datasets';
 const geographiesEndpoint = 'data/observatory/metadata/geographies';
-const subscriptionsEndpoint = 'do/subscription_info';
+const subscriptionsEndpoint = 'do/subscriptions';
+const subscriptionInfoEndpoint = 'do/subscription_info';
 
 function filtersToPayload(filter) {
   let payload = '';
@@ -29,7 +29,9 @@ function filtersToPayload(filter) {
   payload += license.length ? `&license=${license.join('&license=')}` : '';
   payload += category.length ? `&category=${category.join('&category=')}` : '';
   payload += country.length ? `&country=${country.join('&country=')}` : '';
-  payload += geography.length ? `&geography=${geography.join('&geography=')}` : '';
+  payload += geography.length
+    ? `&geography=${geography.join('&geography=')}`
+    : '';
   payload += provider.length ? `&provider=${provider.join('&provider=')}` : '';
 
   return payload;
@@ -129,8 +131,19 @@ export function clearTagFilters(context) {
   context.commit('resetTagFilters');
 }
 
+export async function fetchSubscriptionsList(context) {
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}?api_key=${context.rootState.user.api_key}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    context.commit('setSubscriptionsList', data.subscriptions || []);
+  } catch (error) {
+    console.error(`ERROR: ${error}`);
+  }
+}
+
 export async function fetchSubscriptionInfo(context, { id, type }) {
-  let url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionInfoEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
   try {
     const response = await fetch(url);
     const data = await response.json();

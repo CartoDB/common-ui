@@ -4,9 +4,16 @@
       <h1 class="grid-cell--col12 title is-title">Data Catalog</h1>
     </header>
     <div class="grid u-flex__justify--center">
-      <div class="grid-cell grid-cell--col4 grid-cell--col12--tablet dynamic-filtering" :class="{'filter-expanded': filterDetail}">
+      <div
+        class="grid-cell grid-cell--col4 grid-cell--col12--tablet dynamic-filtering"
+        :class="{ 'filter-expanded': filterDetail }"
+      >
         <div class="header-mobile">
-          <img @click="hideFilters()" src="../assets/close-filters.svg" alt="Close">
+          <img
+            @click="hideFilters()"
+            src="../assets/close-filters.svg"
+            alt="Close"
+          />
         </div>
         <FilterBox
           class="u-mt--36--tablet"
@@ -32,7 +39,10 @@
       </div>
       <div class="grid-cell grid-cell--col8 grid-cell--col12--tablet">
         <SearchBox></SearchBox>
-        <FilterSummary class="u-mt--4" v-on:toggle-filter-detail="toggleFilterDetail()"></FilterSummary>
+        <FilterSummary
+          class="u-mt--4"
+          v-on:toggle-filter-detail="toggleFilterDetail()"
+        ></FilterSummary>
         <div v-if="loading">
           <LoadingBar></LoadingBar>
         </div>
@@ -60,7 +70,12 @@
               Still can’t find what you’re looking for? <br />Get help from our
               team
             </p>
-            <Button class="u-mt--24" color="engine-blue" @click.native="navigateToContact()">Contact us</Button>
+            <Button
+              class="u-mt--24"
+              color="engine-blue"
+              @click.native="navigateToContact()"
+              >Contact us</Button
+            >
           </div>
         </div>
       </div>
@@ -125,7 +140,9 @@ export default {
       this.filterDetail = false;
     },
     getFilterLabel(filterId) {
-      return filtersMetadata[filterId] ? filtersMetadata[filterId].label : toTitleCase(filterId);
+      return filtersMetadata[filterId]
+        ? filtersMetadata[filterId].label
+        : toTitleCase(filterId);
     },
     navigateToContact() {
       window.open('https://carto.com/contact/', '_blank');
