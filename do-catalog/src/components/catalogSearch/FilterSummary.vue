@@ -5,7 +5,7 @@
         <span class="is-caption is-txtNavyBlue">{{ count }}</span>
         <span class="is-txtMidGrey is-small"> datasets</span>
       </div>
-      <div class="filters-count" :class="{'filter-selector': filtersCount}">
+      <div class="filters-count" :class="{ 'filter-selector': filtersCount }">
         <button
           class="title is-small is-navyBlue u-mr--20 u-mr--0--tablet detail-button"
           @click="toggleDetails()"
@@ -79,9 +79,11 @@ export default {
         }
       }
       // Sort filters
-      return new Map([...filterMap].sort((a, b) => {
-        return filtersMetadata[a[0]].order - filtersMetadata[b[0]].order;
-      }));
+      return new Map(
+        [...filterMap].sort((a, b) => {
+          return filtersMetadata[a[0]].order - filtersMetadata[b[0]].order;
+        })
+      );
     },
     filtersCount() {
       let filterCount = 0;

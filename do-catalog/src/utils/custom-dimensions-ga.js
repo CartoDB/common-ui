@@ -1,9 +1,9 @@
-export function sendCustomDimensions(category, country, isPublic, provider, isGeography) {
+export function sendCustomDimensions(category, country, isPublic, provider) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
-    'country': country,
-    'category': category,
-    'license': isPublic ? 'Public Data' : 'Premium Data',
-    'provider': provider
-  });   
+    country: country,
+    category: category,
+    license: isPublic ? 'Public Data' : 'Premium Data',
+    provider: provider
+  });
 }

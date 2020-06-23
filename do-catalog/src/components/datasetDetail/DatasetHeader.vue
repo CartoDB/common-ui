@@ -1,5 +1,7 @@
 <template>
-  <header class="grid u-flex__justify--center u-mb--36 u-mb--20--tablet u-mt--36">
+  <header
+    class="grid u-flex__justify--center u-mb--36 u-mb--20--tablet u-mt--36"
+  >
     <div class="grid-cell grid-cell--col9 grid-cell--col8--tablet">
       <nav class="breadcrumbs">
         <p class="text is-caption is-txtMainTextColor" v-if="!isGeography">

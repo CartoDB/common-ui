@@ -6,12 +6,12 @@
         'is-outline': isOutline,
         'reverse-colors': reverseColors,
         'extra-border': extraBorder,
-        'is-narrow': narrow,
+        'is-narrow': narrow
       },
       color
     ]"
     :href="url"
-    :target="blank ? '_blank': ''"
+    :target="blank ? '_blank' : ''"
   >
     <slot></slot>
   </a>
