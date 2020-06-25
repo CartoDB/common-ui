@@ -16,25 +16,12 @@
           />
         </div>
         <FilterBox
+          v-for="category in filterCategories"
+          :key="category"
           class="u-mt--36--tablet"
-          :title="getFilterLabel('country')"
-          filter="country"
-          placeholder="country"
-        ></FilterBox>
-        <FilterBox
-          :title="getFilterLabel('category')"
-          filter="category"
-          placeholder="category"
-        ></FilterBox>
-        <FilterBox
-          :title="getFilterLabel('license')"
-          filter="license"
-          placeholder="license"
-        ></FilterBox>
-        <FilterBox
-          :title="getFilterLabel('provider')"
-          filter="provider"
-          placeholder="source"
+          :title="getFilterLabel(category)"
+          :filter="category"
+          :placeholder="category"
         ></FilterBox>
       </div>
       <div class="grid-cell grid-cell--col8 grid-cell--col12--tablet">
@@ -127,7 +114,10 @@ export default {
       loading: state => state.doCatalog.isFetching,
       filtersAvailable: state => state.doCatalog.filtersAvailable,
       filter: state => state.doCatalog.filter
-    })
+    }),
+    filterCategories() {
+      return Object.keys(this.filtersAvailable);
+    }
   },
   methods: {
     fetchDatasetsList() {

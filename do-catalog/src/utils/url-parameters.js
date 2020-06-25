@@ -5,28 +5,23 @@ export function setUrlParameters(state) {
     window.location.host +
     window.location.pathname;
 
-  const countries = state.filter.countries
-    ? state.filter.countries.join(',')
-    : '';
-  const categories = state.filter.categories
-    ? state.filter.categories.join(',')
-    : '';
-  const licenses = state.filter.licenses ? state.filter.licenses.join(',') : '';
-  const sources = state.filter.sources ? state.filter.sources.join(',') : '';
-  const search = state.filter.searchText
-    ? encodeURIComponent(state.filter.searchText)
-    : '';
-  const page = state.filter.page ? state.filter.page + 1 : '0';
+  let urlParams = '';
 
-  let params = [];
-  countries != '' ? params.push(`country=${countries}`) : '';
-  categories != '' ? params.push(`category=${categories}`) : '';
-  licenses != '' ? params.push(`license=${licenses}`) : '';
-  sources != '' ? params.push(`source=${sources}`) : '';
-  search != '' ? params.push(`search=${search}`) : '';
-  page > 1 ? params.push(`page=${page}`) : '';
+  const categories = state.filter.categories;
+  for (let cat in categories) {
+    urlParams += categories[cat] && categories[cat].length
+      ? `&${cat}=${categories[cat].join(`,`)}`
+      : '';
+  }
 
-  const urlParams = params.join('&');
+  urlParams += state.filter.searchText
+    ? `&search=${encodeURIComponent(state.filter.searchText)}`
+    : '';
+
+  urlParams += state.filter.page
+    ? `&page=${state.filter.page+1}`
+    : '';
+
   const finalUrl = urlParams != '' ? `${baseUrl}?${urlParams}` : baseUrl;
 
   window.history.pushState(null, null, finalUrl);

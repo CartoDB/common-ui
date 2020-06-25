@@ -52,9 +52,7 @@ export default {
       this.updateFilter();
     },
     updateFilter() {
-      this.$store.dispatch('doCatalog/updateFilter', {
-        searchText: this.filterText
-      });
+      this.$store.dispatch('doCatalog/setSearchText', this.filterText);
     }
   },
   mounted() {
