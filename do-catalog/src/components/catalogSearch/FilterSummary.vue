@@ -45,6 +45,29 @@
         ></FilterDetail>
       </div>
     </transition>
+    <div
+      v-if="showFilterSuggestions && filterSuggestion"
+      class="filter-suggestion grid grid--no-wrap grid--align-center grid--space text is-small"
+    >
+      <p>
+        You can find
+        <strong class="is-semibold"
+          >{{ filterSuggestion.option.entity_count }} more datasets</strong
+        >
+        in the
+        <em class="is-italic">{{ filterSuggestion.option.name }}</em> option
+        from the {{ getFilterLabel(filterSuggestion.category) }} list.
+        <button
+          class="text is-small is-semibold is-txtPrimary"
+          @click="activeSuggestedFilter(filterSuggestion)"
+        >
+          Include {{ filterSuggestion.option.name }} datasets
+        </button>
+      </p>
+      <button @click="closeFilterSuggestion()">
+        <img src="../../assets/close-suggestion.svg" alt="Close" />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -53,6 +76,7 @@ import { mapState } from 'vuex';
 import FilterDetail from './FilterDetail';
 import Button from '../Button.vue';
 import { filtersMetadata } from '../../utils/constants';
+import { toTitleCase } from '../../utils/string-to-title-case';
 
 export default {
   name: 'FilterSummary',
@@ -62,7 +86,8 @@ export default {
   },
   data() {
     return {
-      showDetails: false
+      showDetails: false,
+      showFilterSuggestions: true
     };
   },
   computed: {
@@ -91,6 +116,41 @@ export default {
         filterCount += this.filter[filterId].length;
       }
       return filterCount;
+    },
+    highlightedFilters() {
+      const filterMap = {};
+      for (let filterId in this.filtersAvailable) {
+        filterMap[filterId] = new Map();
+        this.filtersAvailable[filterId].forEach((filter, key) => {
+          if (filter.highlighted) {
+            filterMap[filterId].set(key, filter);
+          }
+        });
+      }
+      return filterMap;
+    },
+    filterSuggestion() {
+      for (let key of [...this.filtersApplied.keys()]) {
+        if (this.highlightedFilters[key]) {
+          const highlightedFilterKeys = [
+            ...this.highlightedFilters[key].keys()
+          ];
+          if (highlightedFilterKeys.length) {
+            const containsHighlightedFilter = this.filtersApplied
+              .get(key)
+              .some(filter => highlightedFilterKeys.includes(filter));
+            if (!containsHighlightedFilter) {
+              return {
+                option: this.highlightedFilters[key].get(
+                  highlightedFilterKeys[0]
+                ),
+                category: key
+              };
+            }
+          }
+        }
+      }
+      return undefined;
     }
   },
   watch: {
@@ -107,6 +167,25 @@ export default {
     },
     clearFilters() {
       this.$store.dispatch('doCatalog/clearTagFilters');
+    },
+    getFilterLabel(filterId) {
+      return filtersMetadata[filterId]
+        ? filtersMetadata[filterId].label
+        : toTitleCase(filterId);
+    },
+    closeFilterSuggestion() {
+      this.showFilterSuggestions = false;
+    },
+    activeSuggestedFilter(suggestedFilter) {
+      const newFilter = {};
+      const currentFilter = this.$store.state.doCatalog.filter[
+        suggestedFilter.category
+      ];
+      newFilter[suggestedFilter.category] = [
+        ...currentFilter,
+        suggestedFilter.option.id
+      ];
+      this.$store.dispatch('doCatalog/updateFilter', newFilter);
     },
 
     // Vue transition to force precalculate height
@@ -241,6 +320,16 @@ $animationFunc: ease;
 
   @media (max-width: $layout-tablet) {
     display: block;
+  }
+}
+
+.filter-suggestion {
+  padding: 8px 12px 8px 24px;
+  background-color: $neutral--100;
+  color: $navy-blue;
+
+  button {
+    cursor: pointer;
   }
 }
 

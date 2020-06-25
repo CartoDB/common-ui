@@ -20,10 +20,9 @@
       </div>
     </div>
     <div class="filter-options">
-      <div class="options-filter u-mb--4">
+      <div v-if="options.size > 10" class="options-filter u-mb--4">
         <input
           class="filter-input"
-          v-if="options.size > 10"
           type="text"
           :placeholder="`Find a ${placeholder}`"
           v-model="filterText"
@@ -41,6 +40,7 @@
         </p>
         <label
           class="text is-caption"
+          :class="{ highlighted: option.highlighted }"
           v-for="option in filteredOptions"
           :key="option.id"
         >
@@ -115,7 +115,15 @@ export default {
       const lowercaseFilter = this.filterText.toLowerCase();
       return [...this.options.values()]
         .filter(opt => opt.name.toLowerCase().includes(lowercaseFilter))
-        .sort((a, b) => b.entity_count - a.entity_count);
+        .sort((a, b) => {
+          if (a.highlighted === b.highlighted) {
+            return b.entity_count - a.entity_count;
+          } else if (a.highlighted) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
     }
   },
   watch: {
@@ -185,6 +193,12 @@ export default {
       margin-bottom: 16px;
       cursor: pointer;
       color: $navy-blue;
+
+      &.highlighted + label:not(.highlighted) {
+        padding-top: 16px;
+        border-top: 1px solid
+          transparentize($color: $neutral--400, $amount: 0.5);
+      }
     }
   }
 

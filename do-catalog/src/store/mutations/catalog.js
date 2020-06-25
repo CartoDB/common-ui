@@ -31,11 +31,16 @@ export function setVariables(state, data) {
 }
 
 export function setAvailableFilters(state, { id, options }) {
+  // Filter options to highlight (handmade so far)
+  const highlightedFilter = {
+    glo: true
+  };
   const filtersMap = options.reduce((acum, elem) => {
+    elem.highlighted = highlightedFilter[elem.id] || false;
     acum.set(elem.id, elem);
     return acum;
   }, new Map());
-  Vue.set(state.filtersAvailable, id, filtersMap);
+  state.filtersAvailable = { ...state.filtersAvailable, [id]: filtersMap };
 }
 
 export function setFilter(state, filter) {
