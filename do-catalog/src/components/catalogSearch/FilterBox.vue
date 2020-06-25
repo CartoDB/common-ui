@@ -194,9 +194,10 @@ export default {
       cursor: pointer;
       color: $navy-blue;
 
-      &.highlighted + label:not(.highlighted){
+      &.highlighted + label:not(.highlighted) {
         padding-top: 16px;
-        border-top: 1px solid transparentize($color: $neutral--400, $amount: .5);
+        border-top: 1px solid
+          transparentize($color: $neutral--400, $amount: 0.5);
       }
     }
   }

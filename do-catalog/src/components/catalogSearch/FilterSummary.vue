@@ -76,6 +76,7 @@ import { mapState } from 'vuex';
 import FilterDetail from './FilterDetail';
 import Button from '../Button.vue';
 import { filtersMetadata } from '../../utils/constants';
+import { toTitleCase } from '../../utils/string-to-title-case';
 
 export default {
   name: 'FilterSummary',
@@ -149,6 +150,7 @@ export default {
           }
         }
       }
+      return undefined;
     }
   },
   watch: {
