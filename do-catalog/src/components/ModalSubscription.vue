@@ -33,30 +33,33 @@
           v-if="currentMode === 'request'"
           class="text is-caption is-txtNavyBlue u-mt--16 u-align--center"
         >
-        Once you confirm your request, a
+          Once you confirm your request, a
           <span class="is-semibold">CARTO team member will get in touch</span>
           to give you more information and go over any questions you may have.
         </p>
 
-        <p
+        <div
           v-else-if="currentMode === 'unsubscribe'"
           class="text is-caption is-txtNavyBlue u-mt--16"
         >
-        If you unsubcribe pellentesque diam nisi, faucibus varius enim mollis sit amet. Cras nec varius magna, in dignissim diam:
-        <ul class="u-mt--20 u-ml--32" style="list-style: disc;">
-          <li>
-            If you imported the dataset, it will disappear from <span class="is-semibold">your datasets</span> list.
-          </li>
-          <li>
-            All <span class="is-semibold">maps</span> where you are using the dataset will be removed.
-          </li>
-          <li>
-            The dataset will stop working in
-            <span class="is-semibold">apps</span> where it is being used through
-            API.
-          </li>
-        </ul>
-        </p>
+          If you unsubcribe pellentesque diam nisi, faucibus varius enim mollis
+          sit amet. Cras nec varius magna, in dignissim diam:
+          <ul class="u-mt--20 u-ml--32" style="list-style: disc;">
+            <li>
+              If you imported the dataset, it will disappear from
+              <span class="is-semibold">your datasets</span> list.
+            </li>
+            <li>
+              All <span class="is-semibold">maps</span> where you are using the
+              dataset will be removed.
+            </li>
+            <li>
+              The dataset will stop working in
+              <span class="is-semibold">apps</span> where it is being used
+              through API.
+            </li>
+          </ul>
+        </div>
 
         <p
           v-else-if="currentMode === 'unsubscribe'"
@@ -67,7 +70,13 @@
         </p>
 
         <div class="grid u-flex__justify--center u-mt--32">
-          <Button @click.native="closeModal()" :isOutline="true" :color="currentMode === 'unsubscribe' ? 'navy-blue' : ''" class="noBorder">{{ getCloseText }}</Button>
+          <Button
+            @click.native="closeModal()"
+            :isOutline="true"
+            :color="currentMode === 'unsubscribe' ? 'navy-blue' : ''"
+            class="noBorder"
+            >{{ getCloseText }}</Button
+          >
           <!-- <Button class="u-ml--16" @click.native="requestDataset()"
             >Confirm request</Button
           > -->
@@ -75,37 +84,38 @@
             v-if="currentMode === 'subscribe'"
             @click.native="subscribe()"
             class="u-ml--16"
-            >
+          >
             Confirm subscription
           </Button>
 
-            <Button
-              v-else-if="currentMode === 'unsubscribe'"
-              @click.native="unsubscribe()"
-              class="u-ml--16"
-              :color="'red'"
-              >
-              Confirm unsubscription
-            </Button>
+          <Button
+            v-else-if="currentMode === 'unsubscribe'"
+            @click.native="unsubscribe()"
+            class="u-ml--16"
+            :color="'red'"
+          >
+            Confirm unsubscription
+          </Button>
 
-            <Button
-              v-else-if="currentMode === 'request'"
-              @click.native="request()"
-              class="u-ml--16"
-              >
-              Confirm request
-            </Button>
+          <Button
+            v-else-if="currentMode === 'request'"
+            @click.native="request()"
+            class="u-ml--16"
+          >
+            Confirm request
+          </Button>
 
-            <Button
-              v-else-if="currentMode === 'subscribed' || currentMode === 'requested'"
-              @click.native="closeModal()"
-              class="u-ml--16"
-              :color="'green'"
-              >
-              <img class="u-mr--12" src="../assets/check_white.svg" alt="check" />
-              Check your subscriptions
-            </Button>
-
+          <Button
+            v-else-if="
+              currentMode === 'subscribed' || currentMode === 'requested'
+            "
+            @click.native="closeModal()"
+            class="u-ml--16"
+            :color="'green'"
+          >
+            <img class="u-mr--12" src="../assets/check_white.svg" alt="check" />
+            Check your subscriptions
+          </Button>
         </div>
       </div>
     </div>
@@ -189,7 +199,10 @@ export default {
       return '';
     },
     getCloseText() {
-      if (this.currentMode === 'subscribed' || this.currentMode === 'requested') {
+      if (
+        this.currentMode === 'subscribed' ||
+        this.currentMode === 'requested'
+      ) {
         return 'Close';
       }
       return 'Cancel';
@@ -211,7 +224,7 @@ export default {
       }
       //GTM event trigger
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({'event': 'requestDataset'});
+      window.dataLayer.push({ event: 'requestDataset' });
     },
     subscribe() {},
     unsubscribe() {},
@@ -256,7 +269,7 @@ export default {
   border: none;
   margin: 42px 0;
   background-color: $white;
-  box-shadow: 0 4px 16px 0 rgba(44,44,44,0.16);
+  box-shadow: 0 4px 16px 0 rgba(44, 44, 44, 0.16);
   &:hover {
     background-color: $white;
   }

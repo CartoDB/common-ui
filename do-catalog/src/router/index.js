@@ -47,11 +47,13 @@ function createRouter() {
   const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes: [{
-      path: '/',
-      component: { template: '<router-view></router-view>' },
-      children: [...routes]
-    }],
+    routes: [
+      {
+        path: '/',
+        component: { template: '<router-view></router-view>' },
+        children: [...routes]
+      }
+    ],
     scrollBehavior(to, from, savedPosition) {
       if (savedPosition) {
         return savedPosition;

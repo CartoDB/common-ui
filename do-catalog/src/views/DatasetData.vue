@@ -4,11 +4,21 @@
       <div class="u-flex u-flex__justify--between">
         <h2 class="title is-caption is-txtMainTextColor">
           Data sample
-          <a v-if="variables && variables.length > 0" @click="scrollToVariables()" class="is-small">View {{ numberColumns }} variables list</a>
+          <a
+            v-if="variables && variables.length > 0"
+            @click="scrollToVariables()"
+            class="is-small"
+            >View {{ numberColumns }} variables list</a
+          >
         </h2>
         <div class="is-small text txtMainTextColor">
-          <span class="source u-flex u-flex__align--center" v-if="source">(*) Sample not available: this preview is for <i class="is-semibold is-italic">{{source}}</i></span>
-          <span class="grey" v-else-if="numberRows > 0">First {{numberRows}} rows</span>
+          <span class="source u-flex u-flex__align--center" v-if="source"
+            >(*) Sample not available: this preview is for
+            <i class="is-semibold is-italic">{{ source }}</i></span
+          >
+          <span class="grey" v-else-if="numberRows > 0"
+            >First {{ numberRows }} rows</span
+          >
           <span class="grey" v-else>Not available</span>
         </div>
       </div>
@@ -44,9 +54,13 @@
               <td class="is-semibold">{{ n - 1 }}</td>
               <td v-for="value in columns" :key="value">
                 <template v-if="value !== 'geom'">
-                  <span v-if="tableSample[value][n - 1] !== null && tableSample[value][n - 1] !== undefined">{{
-                    tableSample[value][n - 1]
-                  }}</span>
+                  <span
+                    v-if="
+                      tableSample[value][n - 1] !== null &&
+                        tableSample[value][n - 1] !== undefined
+                    "
+                    >{{ tableSample[value][n - 1] }}</span
+                  >
                   <span v-else class="is-txtLightGrey is-italic">null</span>
                 </template>
                 <template v-else>
@@ -57,22 +71,37 @@
           </table>
         </div>
       </div>
-      <NotAvailable v-else
+      <NotAvailable
+        v-else
         :title="'Sample is not available'"
-        :description="'This data sample can’t be shown because the real dataset only contains a few rows.'"
+        :description="
+          'This data sample can’t be shown because the real dataset only contains a few rows.'
+        "
         :contactUrl="getFormUrl()"
         :mode="'contact'"
       ></NotAvailable>
     </div>
 
-    <div v-if="variables && variables.length > 0" class="grid-cell--col12 u-mt--60" ref="variablesSection">
+    <div
+      v-if="variables && variables.length > 0"
+      class="grid-cell--col12 u-mt--60"
+      ref="variablesSection"
+    >
       <h2 class="grid-cell title is-caption is-txtMainTextColor">Variables</h2>
 
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
         <li class="grid title is-txtMidGrey header-row">
           <div class="grid-cell grid-cell--col4">Column Name</div>
-          <div class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile">Description</div>
-          <div class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile">Type</div>
+          <div
+            class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile"
+          >
+            Description
+          </div>
+          <div
+            class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile"
+          >
+            Type
+          </div>
         </li>
 
         <li
@@ -83,10 +112,16 @@
           <div class="grid-cell grid-cell--col4 is-semibold name-cell">
             {{ variable.column_name }}
           </div>
-          <div class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile">
+          <div
+            class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile"
+          >
             {{ variable.description }}
           </div>
-          <div class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile">{{ variable.db_type }}</div>
+          <div
+            class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile"
+          >
+            {{ variable.db_type }}
+          </div>
         </li>
       </ul>
     </div>
@@ -119,11 +154,13 @@ export default {
   watch: {
     dataset: {
       handler: function(value) {
-        if(value && value.category_name){
-          sendCustomDimensions(value.category_name,
-                              value.country_name,
-                              value.is_public_data,
-                              value.provider_name)
+        if (value && value.category_name) {
+          sendCustomDimensions(
+            value.category_name,
+            value.country_name,
+            value.is_public_data,
+            value.provider_name
+          );
         }
       },
       immediate: true
@@ -141,24 +178,24 @@ export default {
     tableKey() {
       if (this.dataset && this.dataset.summary_json) {
         if (this.dataset.summary_json.glimpses) {
-          return 'glimpses'
+          return 'glimpses';
         } else if (this.dataset.summary_json.default_glimpses) {
-          return 'default_glimpses'
+          return 'default_glimpses';
         }
       }
-      return null
+      return null;
     },
     source() {
       if (this.tableKey === 'default_glimpses') {
-        return this.dataset.summary_json[this.tableKey].source
+        return this.dataset.summary_json[this.tableKey].source;
       }
-      return null
+      return null;
     },
     tableSample() {
       if (this.tableKey) {
-        return this.dataset.summary_json[this.tableKey].tail
+        return this.dataset.summary_json[this.tableKey].tail;
       }
-      return {}
+      return {};
     },
     columns() {
       return this.tableSample ? Object.keys(this.tableSample) : [];

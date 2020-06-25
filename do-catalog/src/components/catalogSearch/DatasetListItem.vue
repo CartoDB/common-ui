@@ -2,7 +2,8 @@
   <li class="list-item">
     <div class="category title is-small">
       {{ dataset.country_name }}
-      <span>·</span>{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
+      <span>·</span
+      >{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
       <span>·</span>{{ dataset.provider_name }}
     </div>
     <div class="info u-mr--72">
@@ -24,7 +25,9 @@
       class="extra text is-small grid grid--out"
       v-if="!dataset.is_geography"
     >
-      <div class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap">
+      <div
+        class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
+      >
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
         </div>
@@ -32,7 +35,9 @@
           <span>Geography</span> {{ dataset.geography_name }}
         </div>
       </div>
-      <div class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap">
+      <div
+        class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
+      >
         <div class="aggregation">
           <span>Temporal aggr.</span> {{ temporalAggregation }}
         </div>
@@ -46,7 +51,9 @@
       </div>
     </div>
     <div class="extra text is-small grid grid--out" v-else>
-      <div class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap">
+      <div
+        class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
+      >
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
         </div>
@@ -57,7 +64,9 @@
           <span>Geometry type</span> {{ geometryType }}
         </div>
       </div>
-      <div class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap grid--reverse">
+      <div
+        class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap grid--reverse"
+      >
         <div class="provider">
           <img
             :src="providerLogo"
@@ -73,7 +82,6 @@
 <script>
 import { temporalAggregationName } from '../../utils/temporal-agregation-name';
 import { geometryTypeName } from '../../utils/geometry-type-name';
-import { toTitleCase } from '../../utils/string-to-title-case';
 
 export default {
   name: 'DatasetListItem',

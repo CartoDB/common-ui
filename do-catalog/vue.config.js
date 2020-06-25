@@ -2,7 +2,6 @@ module.exports = {
   runtimeCompiler: true,
   lintOnSave: false,
   filenameHashing: false,
-  runtimeCompiler: true,
 
   css: {
     extract: false,
@@ -23,7 +22,7 @@ module.exports = {
   },
 
   chainWebpack: config => {
-    config.optimization.delete('splitChunks')
+    config.optimization.delete('splitChunks');
 
     config.module
       .rule('images')

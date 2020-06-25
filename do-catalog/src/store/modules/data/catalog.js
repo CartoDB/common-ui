@@ -23,10 +23,10 @@ export const catalog = {
       license: [],
       provider: []
     },
+    subscriptionsList: [],
     subscriptionInfo: {}
   },
   computed: {},
-  getters: {},
   mutations: {
     setFetchingState: CatalogMutations.setFetchingState,
     setDatasetsList: CatalogMutations.setDatasetsList,
@@ -40,7 +40,9 @@ export const catalog = {
     resetTagFilters: CatalogMutations.resetTagFilters,
     resetDatasetsList: CatalogMutations.resetDatasetsList,
     resetDataset: CatalogMutations.resetDataset,
+    setSubscriptionsList: CatalogMutations.setSubscriptionsList,
     setSubscriptionInfo: CatalogMutations.setSubscriptionInfo,
+    resetSubscriptionsList: CatalogMutations.resetSubscriptionsList,
     resetSubscriptionInfo: CatalogMutations.resetSubscriptionInfo
   },
   actions: {
@@ -51,6 +53,14 @@ export const catalog = {
     updateFilter: CatalogActions.updateFilter,
     deleteFilter: CatalogActions.deleteFilter,
     clearTagFilters: CatalogActions.clearTagFilters,
+    fetchSubscriptionsList: CatalogActions.fetchSubscriptionsList,
     fetchSubscriptionInfo: CatalogActions.fetchSubscriptionInfo
+  },
+  getters: {
+    getSubscriptionByDataset: state => datasetId => {
+      return state.subscriptionsList
+        ? state.subscriptionsList.find(elem => elem.id === datasetId)
+        : undefined;
+    }
   }
 };
