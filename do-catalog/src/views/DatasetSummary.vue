@@ -2,7 +2,7 @@
   <div class="grid grid-cell u-flex__justify--center wrap-reverse--tablet">
     <div class="grid-cell grid-cell--col9 grid-cell--col12--tablet main-column">
       <p class="text is-caption is-txtMainTextColor u-mt--32 u-mt--12--tablet">
-        {{ dataset.description || "No description available." }}
+        {{ dataset.description || 'No description available.' }}
       </p>
 
       <div class="key-variables u-mt--32" v-if="keyVariables.length">
@@ -70,10 +70,15 @@
             {{ updateFrequency }}
           </p>
         </li>
-        <li class="u-mb--32 u-mb--12--tablet" v-if="!isGeography && dataset.geography_id">
-          <h4 class="text is-small is-txtSoftGrey u-mb--10">Associated Geography</h4>
+        <li
+          class="u-mb--32 u-mb--12--tablet"
+          v-if="!isGeography && dataset.geography_id"
+        >
+          <h4 class="text is-small is-txtSoftGrey u-mb--10">
+            Associated Geography
+          </h4>
           <p class="text is-caption">
-            <router-link 
+            <router-link
               :to="{
                 name: 'do-dataset-summary',
                 params: {
@@ -95,7 +100,6 @@
 import { mapState } from 'vuex';
 import { temporalAggregationName } from '../utils/temporal-agregation-name';
 import { geometryTypeName } from '../utils/geometry-type-name';
-import { toTitleCase } from '../utils/string-to-title-case';
 import { updateFrequencyName } from '../utils/update-frequency-name';
 import { sendCustomDimensions } from '../utils/custom-dimensions-ga';
 
@@ -104,11 +108,13 @@ export default {
   watch: {
     dataset: {
       handler: function(value) {
-        if(value && value.category_name){
-          sendCustomDimensions(value.category_name,
-                              value.country_name,
-                              value.is_public_data,
-                              value.provider_name)
+        if (value && value.category_name) {
+          sendCustomDimensions(
+            value.category_name,
+            value.country_name,
+            value.is_public_data,
+            value.provider_name
+          );
         }
       },
       immediate: true
@@ -217,7 +223,12 @@ export default {
       right: 0;
       width: 72px;
       height: 100%;
-      background-image: linear-gradient(90deg, rgba($white, 0) 0, $white 70%, $white 100%);
+      background-image: linear-gradient(
+        90deg,
+        rgba($white, 0) 0,
+        $white 70%,
+        $white 100%
+      );
       pointer-events: none;
     }
   }

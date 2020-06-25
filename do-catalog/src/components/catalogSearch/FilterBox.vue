@@ -32,7 +32,10 @@
         </button>
       </div>
       <div class="filter-content">
-        <p class="text is-caption center" v-if="!filteredOptions.length && !loading">
+        <p
+          class="text is-caption center"
+          v-if="!filteredOptions.length && !loading"
+        >
           Not found
         </p>
         <label
@@ -214,7 +217,7 @@ export default {
 
       &:focus-within {
         border-color: $color-primary;
-        
+
         &,
         input {
           background-color: $white;

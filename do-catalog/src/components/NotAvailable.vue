@@ -1,21 +1,21 @@
 <template>
   <div class="empty-container grid u-flex__justify--center u-mt--24">
     <div class="grid-cell--col5 grid-cell--col8--tablet">
-      <h4 class="title is-body is-txtMidGrey">{{title}}</h4>
+      <h4 class="title is-body is-txtMidGrey">{{ title }}</h4>
       <p class="text is-caption is-txtMidGrey u-mt--8">
-        <span>{{description}}</span>
+        <span>{{ description }}</span>
       </p>
       <div>
-        <Button v-if="mode === 'contact' && contactUrl"
+        <Button
+          v-if="mode === 'contact' && contactUrl"
           class="u-mt--24"
           :url="contactUrl"
           :isOutline="true"
           :blank="true"
         >
           Contact us for a demo
-        </Button
-        >
-        <template v-else-if="mode === 'login'" >
+        </Button>
+        <template v-else-if="mode === 'login'">
           <Button
             class="u-mt--24"
             url="https://carto.com/login"
@@ -63,7 +63,7 @@ export default {
       type: String,
       required: true,
       validator: value => {
-        return ['contact', 'login'].indexOf(value) !== -1
+        return ['contact', 'login'].indexOf(value) !== -1;
       }
     }
   }
