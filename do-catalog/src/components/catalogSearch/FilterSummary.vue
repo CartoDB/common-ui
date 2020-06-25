@@ -327,6 +327,10 @@ $animationFunc: ease;
   padding: 8px 12px 8px 24px;
   background-color: $neutral--100;
   color: $navy-blue;
+
+  button {
+    cursor: pointer;
+  }
 }
 
 @media (max-width: $layout-tablet) {
