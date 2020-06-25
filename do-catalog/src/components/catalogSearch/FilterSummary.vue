@@ -47,7 +47,7 @@
     </transition>
     <div
       v-if="showFilterSuggestions && filterSuggestion"
-      class="filter-suggestion grid grid--align-center grid--space text is-small"
+      class="filter-suggestion grid grid--no-wrap grid--align-center grid--space text is-small"
     >
       <p>
         You can find
@@ -65,7 +65,7 @@
         </button>
       </p>
       <button @click="closeFilterSuggestion()">
-        <img src="../../assets/close.svg" alt="Close" />
+        <img src="../../assets/close-suggestion.svg" alt="Close" />
       </button>
     </div>
   </div>
