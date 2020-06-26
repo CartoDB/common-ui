@@ -1,10 +1,14 @@
 <template>
   <li class="list-item">
-    <div class="category title is-small">
-      {{ dataset.country_name }}
-      <span>·</span
-      >{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
-      <span>·</span>{{ dataset.provider_name }}
+    <div class="category title is-small grid grid--space">
+      <div>
+        <span class="country">{{ dataset.country_name }}</span>
+        <span>·</span
+        >{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
+      </div>
+      <div>
+        {{ dataset.provider_name }}
+      </div>
     </div>
     <div class="info u-mr--72">
       <h3 class="title is-body u-mb--8">
@@ -22,24 +26,24 @@
       <p class="description text">{{ dataset.description }}</p>
     </div>
     <div
-      class="extra text is-small grid grid--out"
+      class="extra text is-small grid u-mt--16"
       v-if="!dataset.is_geography"
     >
       <div
-        class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
+        class="grid-cell--col7 grid grid--align-end grid--no-wrap"
       >
         <div class="license">
-          <span>License</span> {{ dataset.license_name }}
+          <p>License</p> {{ dataset.license_name }}
         </div>
         <div class="geography" :title="dataset.placetype_name">
-          <span>Placetype</span> {{ dataset.placetype_name }}
+          <p>Placetype</p> {{ dataset.placetype_name }}
         </div>
       </div>
       <div
-        class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
+        class="grid-cell--col5 grid grid--align-end grid--space grid--no-wrap"
       >
         <div class="aggregation">
-          <span>Temporal aggr.</span> {{ temporalAggregation }}
+          <p>Temporal aggr.</p> {{ temporalAggregation }}
         </div>
         <div class="provider">
           <img
@@ -50,22 +54,22 @@
         </div>
       </div>
     </div>
-    <div class="extra text is-small grid grid--out" v-else>
+    <div class="extra text is-small grid u-mt--16" v-else>
       <div
-        class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
+        class="grid-cell--col7 grid grid--align-end grid--no-wrap"
       >
         <div class="license">
-          <span>License</span> {{ dataset.license_name }}
+          <p>License</p> {{ dataset.license_name }}
         </div>
         <div class="geography" :title="dataset.placetype_name">
-          <span>Placetype</span> {{ dataset.placetype_name }}
+          <p>Placetype</p> {{ dataset.placetype_name }}
         </div>
       </div>
       <div
-        class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
+        class="grid-cell--col5 grid grid--align-end grid--space grid--no-wrap"
       >
         <div class="aggregation">
-          <span>Geometry type</span> {{ geometryType }}
+          <p>Geometry type</p> {{ geometryType }}
         </div>
         <div class="provider">
           <img
@@ -117,9 +121,13 @@ export default {
   .category {
     margin-bottom: 8px;
 
-    span {
+    span:not(.country) {
       margin: 0 8px;
       color: $neutral--600;
+    }
+
+    .country {
+      text-transform: uppercase;
     }
   }
 
@@ -155,7 +163,7 @@ export default {
       }
     }
 
-    span {
+    p {
       color: $neutral--600;
     }
 

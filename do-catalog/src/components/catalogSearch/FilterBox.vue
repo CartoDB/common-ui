@@ -22,7 +22,7 @@
     <div class="filter-options">
       <div v-if="options.size > 10" class="options-filter u-mb--4">
         <input
-          class="filter-input"
+          class="filter-input text is-small"
           type="text"
           :placeholder="`Find a ${placeholder}`"
           v-model="filterText"
@@ -117,7 +117,15 @@ export default {
         .filter(opt => opt.name.toLowerCase().includes(lowercaseFilter))
         .sort((a, b) => {
           if (a.highlighted === b.highlighted) {
-            return b.entity_count - a.entity_count;
+            if (a.entity_count !== b.entity_count) {
+              return b.entity_count - a.entity_count;
+            } else {
+              return a.name !== b.name
+                ? a.name < b.name
+                  ? -1
+                  : 1
+                : 0;
+            }
           } else if (a.highlighted) {
             return -1;
           } else {
@@ -175,7 +183,8 @@ export default {
   .filter-header {
     display: flex;
     align-items: center;
-    padding: 24px 0 24px 20px;
+    height: 72px;
+    padding-left: 20px;
     cursor: pointer;
 
     &:hover {
