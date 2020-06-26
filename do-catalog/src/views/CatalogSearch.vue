@@ -116,7 +116,11 @@ export default {
       filter: state => state.doCatalog.filter
     }),
     filterCategories() {
-      return Object.keys(this.filtersAvailable);
+      return Object.keys(this.filtersAvailable).sort((a, b) => {
+        const orderA = filtersMetadata[a] ? filtersMetadata[a].order : Number.MAX_VALUE;
+        const orderB = filtersMetadata[b] ? filtersMetadata[b].order : Number.MAX_VALUE;
+        return orderA - orderB;
+      });
     }
   },
   methods: {
