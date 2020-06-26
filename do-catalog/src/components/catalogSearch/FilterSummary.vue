@@ -93,7 +93,7 @@ export default {
   computed: {
     ...mapState({
       count: state => state.doCatalog.datasetsListCount,
-      filter: state => state.doCatalog.filter,
+      filter: state => state.doCatalog.filter.categories,
       filtersAvailable: state => state.doCatalog.filtersAvailable
     }),
     filtersApplied() {
@@ -178,7 +178,7 @@ export default {
     },
     activeSuggestedFilter(suggestedFilter) {
       const newFilter = {};
-      const currentFilter = this.$store.state.doCatalog.filter[
+      const currentFilter = this.$store.state.doCatalog.filter.categories[
         suggestedFilter.category
       ];
       newFilter[suggestedFilter.category] = [

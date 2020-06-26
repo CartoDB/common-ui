@@ -31,8 +31,8 @@
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
         </div>
-        <div class="geography" :title="dataset.geography_name">
-          <span>Geography</span> {{ dataset.geography_name }}
+        <div class="geography" :title="dataset.placetype_name">
+          <span>Placetype</span> {{ dataset.placetype_name }}
         </div>
       </div>
       <div
@@ -57,16 +57,16 @@
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
         </div>
-        <!-- <div class="geography" :title="dataset.spatial_aggregation_name">
-          <span>Spatial aggr.</span> {{ dataset.spatial_aggregation_name }}
-        </div> -->
-        <div class="aggregation">
-          <span>Geometry type</span> {{ geometryType }}
+        <div class="geography" :title="dataset.placetype_name">
+          <span>Placetype</span> {{ dataset.placetype_name }}
         </div>
       </div>
       <div
-        class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap grid--reverse"
+        class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
       >
+        <div class="aggregation">
+          <span>Geometry type</span> {{ geometryType }}
+        </div>
         <div class="provider">
           <img
             :src="providerLogo"

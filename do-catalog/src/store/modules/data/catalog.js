@@ -16,12 +16,7 @@ export const catalog = {
       searchText: '',
       limit: process.env.VUE_APP_PAGE_SIZE || 10,
       page: 0,
-
-      //TODO: Make this filters dynamic too
-      category: [],
-      country: [],
-      license: [],
-      provider: []
+      categories: {}
     },
     subscriptionsList: [],
     subscriptionInfo: {}
@@ -36,6 +31,8 @@ export const catalog = {
     setAvailableFilters: CatalogMutations.setAvailableFilters,
     setFilter: CatalogMutations.setFilter,
     removeFilter: CatalogMutations.removeFilter,
+    setSearchText: CatalogMutations.setSearchText,
+    setPage: CatalogMutations.setPage,
     setDatasetsListCount: CatalogMutations.setDatasetsListCount,
     resetTagFilters: CatalogMutations.resetTagFilters,
     resetDatasetsList: CatalogMutations.resetDatasetsList,
@@ -52,6 +49,8 @@ export const catalog = {
     fetchVariables: CatalogActions.fetchVariables,
     updateFilter: CatalogActions.updateFilter,
     deleteFilter: CatalogActions.deleteFilter,
+    setSearchText: CatalogActions.setSearchText,
+    setPage: CatalogActions.setPage,
     clearTagFilters: CatalogActions.clearTagFilters,
     fetchSubscriptionsList: CatalogActions.fetchSubscriptionsList,
     fetchSubscriptionInfo: CatalogActions.fetchSubscriptionInfo

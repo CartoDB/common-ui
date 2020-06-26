@@ -12,27 +12,20 @@ function filtersToPayload(filter) {
 
   const {
     searchText = '',
-    category = [],
-    country = [],
-    geography = [],
-    provider = [],
-    license = [],
     limit = process.env.VUE_APP_PAGE_SIZE || 10,
-    page = 0
+    page = 0,
+    categories = {}
   } = filter;
   const offset = page * limit;
 
   payload += `?limit=${limit}&offset=${offset}`;
   payload += searchText.length ? `&searchtext=${searchText}` : '';
 
-  //TODO: Make this filters dynamic too
-  payload += license.length ? `&license=${license.join('&license=')}` : '';
-  payload += category.length ? `&category=${category.join('&category=')}` : '';
-  payload += country.length ? `&country=${country.join('&country=')}` : '';
-  payload += geography.length
-    ? `&geography=${geography.join('&geography=')}`
-    : '';
-  payload += provider.length ? `&provider=${provider.join('&provider=')}` : '';
+  for (let cat in categories) {
+    payload += categories[cat] && categories[cat].length
+      ? `&${cat}=${categories[cat].join(`&${cat}=`)}`
+      : '';
+  }
 
   return payload;
 }
@@ -125,6 +118,14 @@ export function updateFilter(context, filter) {
 
 export function deleteFilter(context, filter) {
   context.commit('removeFilter', filter);
+}
+
+export function setSearchText(context, searchText) {
+  context.commit('setSearchText', searchText);
+}
+
+export function setPage(context, page) {
+  context.commit('setPage', page);
 }
 
 export function clearTagFilters(context) {

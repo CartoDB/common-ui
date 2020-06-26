@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     goToPage(pageNum) {
-      this.$store.dispatch('doCatalog/updateFilter', { page: pageNum });
+      this.$store.dispatch('doCatalog/setPage', pageNum);
     }
   }
 };

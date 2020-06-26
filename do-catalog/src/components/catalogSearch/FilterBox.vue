@@ -105,7 +105,7 @@ export default {
       filtersAvailable: state => state.doCatalog.filtersAvailable,
       loading: state => state.doCatalog.isFetching,
       currentFilter(state) {
-        return state.doCatalog.filter[this.filter];
+        return state.doCatalog.filter.categories[this.filter] || [];
       }
     }),
     options() {

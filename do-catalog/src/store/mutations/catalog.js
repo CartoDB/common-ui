@@ -35,17 +35,24 @@ export function setAvailableFilters(state, { id, options }) {
   const highlightedFilter = {
     glo: true
   };
+
+  // Set filter options
   const filtersMap = options.reduce((acum, elem) => {
     elem.highlighted = highlightedFilter[elem.id] || false;
     acum.set(elem.id, elem);
     return acum;
   }, new Map());
   state.filtersAvailable = { ...state.filtersAvailable, [id]: filtersMap };
+
+  // Init filters if needed
+  if (!state.filter.categories[id]) {
+    state.filter.categories[id] = [];
+  }
 }
 
 export function setFilter(state, filter) {
-  const newFilter = Object.assign(state.filter, filter);
-  state.filter = newFilter;
+  const newFilter = Object.assign({...state.filter.categories}, filter);
+  state.filter.categories = newFilter;
   if (!filter.page) {
     state.filter.page = 0;
   }
@@ -53,11 +60,21 @@ export function setFilter(state, filter) {
 }
 
 export function removeFilter(state, filter) {
-  const filterPos = state.filter[filter.id].indexOf(filter.value);
+  const filterPos = state.filter.categories[filter.id].indexOf(filter.value);
   if (filterPos > -1) {
-    state.filter[filter.id].splice(filterPos, 1);
+    state.filter.categories[filter.id].splice(filterPos, 1);
     state.filter.page = 0;
   }
+  setUrlParameters(state);
+}
+
+export function setSearchText(state, searchText) {
+  state.filter.searchText = searchText;
+  setUrlParameters(state);
+}
+
+export function setPage(state, page) {
+  state.filter.page = page;
   setUrlParameters(state);
 }
 
@@ -66,11 +83,11 @@ export function setDatasetsListCount(state, count) {
 }
 
 export function resetTagFilters(state) {
-  state.filter.category = [];
-  state.filter.country = [];
-  state.filter.license = [];
-  state.filter.provider = [];
+  for (let category in state.filter.categories) {
+    state.filter.categories[category] = [];
+  }
   state.filter.page = 0;
+  setUrlParameters(state);
 }
 
 export function resetDatasetsList(state) {
