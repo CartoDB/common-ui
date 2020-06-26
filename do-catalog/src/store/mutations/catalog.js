@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { setUrlParameters } from '../../utils/url-parameters';
+import { filtersHighlighted } from '../../utils/constants';
 
 export function setFetchingState(state) {
   state.isFetching = true;
@@ -31,14 +32,12 @@ export function setVariables(state, data) {
 }
 
 export function setAvailableFilters(state, { id, options }) {
-  // Filter options to highlight (handmade so far)
-  const highlightedFilter = {
-    glo: true
-  };
+  // Load extra filters metadata for highlighted options
+  const optionsMetadata = filtersHighlighted[id] || {};
 
   // Set filter options
   const filtersMap = options.reduce((acum, elem) => {
-    elem.highlighted = highlightedFilter[elem.id] || false;
+    elem.highlighted = optionsMetadata[elem.id] || false;
     acum.set(elem.id, elem);
     return acum;
   }, new Map());

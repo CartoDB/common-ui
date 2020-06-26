@@ -5,3 +5,9 @@ export const filtersMetadata = {
   provider: { label: 'Sources', order: 4 },
   placetype: { label: 'Placetype', order: 5 }
 };
+
+export const filtersHighlighted = {
+  country: {
+    glo: true
+  }
+};
