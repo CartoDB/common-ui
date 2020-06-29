@@ -222,22 +222,26 @@ export default {
     },
     showTooltip(variableName, event) {
       let tooltipInfo = this.findVariableInfo(variableName);
-      let tableBoundingSize = this.$refs.tableWrapper.getBoundingClientRect();
-      this.tooltip.left = event.clientX - 22;
-      if (this.tooltip.left < 140) {
-        this.tooltip.isFirst = true;
-        this.tooltip.left -= 26;
-      } else if (tableBoundingSize.width - this.tooltip.left < 120) {
-        this.tooltip.isLast = true;
-        this.tooltip.left += 26;
-      } else {
-        this.tooltip.isFirst = false;
-        this.tooltip.isLast = false;
-      }
+      if (tooltipInfo) {
+        let tableBoundingSize = this.$refs.tableWrapper.getBoundingClientRect();
+        this.tooltip.left = event.clientX - 22;
+        if (this.tooltip.left < 140) {
+          this.tooltip.isFirst = true;
+          this.tooltip.left -= 26;
+        } else if (tableBoundingSize.width - this.tooltip.left < 120) {
+          this.tooltip.isLast = true;
+          this.tooltip.left += 26;
+        } else {
+          this.tooltip.isFirst = false;
+          this.tooltip.isLast = false;
+        }
 
-      this.tooltip.description = tooltipInfo.description;
-      this.tooltip.type = tooltipInfo.db_type;
-      this.tooltip.visible = true;
+        this.tooltip.description = tooltipInfo.description;
+        this.tooltip.type = tooltipInfo.db_type;
+        this.tooltip.visible = true;
+      } else {
+        this.hideTooltip();
+      }
     },
     hideTooltip() {
       this.tooltip.visible = false;
@@ -252,7 +256,11 @@ export default {
       );
     },
     scrollToVariables() {
-      window.scrollTo(0, this.$refs.variablesSection.offsetTop);
+      window.scrollTo({
+        top: this.$refs.variablesSection.offsetTop,
+        left: 0,
+        behavior: 'smooth'
+      });
     }
   },
   mounted() {
