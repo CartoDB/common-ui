@@ -1,12 +1,12 @@
 <template>
   <div class="filter-box" :class="{ 'is-compressed': isCompressed }">
     <div class="filter-header" @click="toggleVisibility">
-      <div class="expand-button u-mr--16">
+      <div class="expand-button u-flex u-flex__align--center u-flex__justify--center u-mr--12">
         <img src="../../assets/arrow-navy.svg" alt="Expand" />
       </div>
       <div>
         <h3 class="title is-caption">{{ title }}</h3>
-        <p class="title is-small" v-if="currentFilter.length">
+        <p class="title is-small u-pt--4" v-if="currentFilter.length">
           {{
             currentFilter.length > 1
               ? `${currentFilter.length} filters`
@@ -175,7 +175,7 @@ export default {
   .filter-header {
     display: flex;
     align-items: center;
-    padding: 24px 0 24px 20px;
+    padding: 16px 0 16px 16px;
     cursor: pointer;
 
     &:hover {
@@ -245,6 +245,11 @@ export default {
         }
       }
     }
+  }
+
+  .expand-button {
+    width: 24px;
+    height: 24px;
   }
 
   &.is-compressed {

@@ -1,10 +1,12 @@
 <template>
   <li class="list-item">
-    <div class="category title is-small">
-      {{ dataset.country_name }}
-      <span>·</span
-      >{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
-      <span>·</span>{{ dataset.provider_name }}
+    <div class="category title is-small u-flex u-flex__justify--between">
+      <div>
+        {{ dataset.country_name ? dataset.country_name.toUpperCase() : '' }}
+        <span>·</span
+        >{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
+      </div>
+      {{ dataset.provider_name }}
     </div>
     <div class="info u-mr--72">
       <h3 class="title is-body u-mb--8">
@@ -22,11 +24,11 @@
       <p class="description text">{{ dataset.description }}</p>
     </div>
     <div
-      class="extra text is-small grid grid--out"
+      class="extra u-mt--16 text is-small grid grid--out"
       v-if="!dataset.is_geography"
     >
       <div
-        class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
+        class="nowrap grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
       >
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
@@ -36,7 +38,7 @@
         </div>
       </div>
       <div
-        class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
+        class="u-pl--10 grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
       >
         <div class="aggregation">
           <span>Temporal aggr.</span> {{ temporalAggregation }}
@@ -50,9 +52,9 @@
         </div>
       </div>
     </div>
-    <div class="extra text is-small grid grid--out" v-else>
+    <div class="extra u-mt--16 text is-small grid grid--out" v-else>
       <div
-        class="grid-cell grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
+        class="nowrap grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
       >
         <div class="license">
           <span>License</span> {{ dataset.license_name }}
@@ -62,7 +64,7 @@
         </div>
       </div>
       <div
-        class="grid-cell grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
+        class="u-pl--10 grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
       >
         <div class="aggregation">
           <span>Geometry type</span> {{ geometryType }}
@@ -146,7 +148,7 @@ export default {
   .extra {
     width: 100%;
 
-    .grid-cell > div {
+    .nowrap > div {
       white-space: nowrap;
 
       &.geography {
@@ -157,6 +159,8 @@ export default {
 
     span {
       color: $neutral--600;
+      display: block;
+      margin-bottom: 4px;
     }
 
     .license {

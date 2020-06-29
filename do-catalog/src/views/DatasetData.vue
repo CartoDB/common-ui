@@ -224,7 +224,12 @@ export default {
       let tooltipInfo = this.findVariableInfo(variableName);
       if (tooltipInfo) {
         let tableBoundingSize = this.$refs.tableWrapper.getBoundingClientRect();
-        this.tooltip.left = event.clientX - 22;
+        // this.tooltip.left = event.clientX - 22;
+        // this.tooltip.left = event.target.offsetLeft + event.offsetX;
+        this.tooltip.left =
+          event.target.getBoundingClientRect().left -
+          this.$refs.tableWrapper.getBoundingClientRect().left +
+          event.offsetX;
         if (this.tooltip.left < 140) {
           this.tooltip.isFirst = true;
           this.tooltip.left -= 26;

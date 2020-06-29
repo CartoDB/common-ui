@@ -68,7 +68,6 @@ export default {
   display: flex;
   flex-direction: row;
   overflow: hidden;
-  padding: 1px;
   border: 1px solid $neutral--600;
   border-radius: 8px;
 
