@@ -78,16 +78,13 @@
           left: calc(50% - 12px);
           width: 24px;
           height: 24px;
-          // animation: radioIn 300ms;
           border-radius: 3px;
           opacity: 1;
-          // animation-fill-mode: forwards;
           background: $checkbox__bg-color--selected;
         }
 
         .checkbox-check {
           stroke-dashoffset: 0;
-          // animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 300ms forwards;
         }
       }
     }
