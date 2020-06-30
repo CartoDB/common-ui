@@ -116,9 +116,9 @@ export default {
   &.noBorder {
     border: none;
   }
+}
 
-  .noCursor {
-    cursor: initial;
-  }
+.noCursor {
+  cursor: initial;
 }
 </style>

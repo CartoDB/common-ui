@@ -18,8 +18,7 @@ export const catalog = {
       page: 0,
       categories: {}
     },
-    subscriptionsList: [],
-    subscriptionInfo: {}
+    subscriptionsList: []
   },
   computed: {},
   mutations: {
@@ -39,8 +38,7 @@ export const catalog = {
     resetDataset: CatalogMutations.resetDataset,
     setSubscriptionsList: CatalogMutations.setSubscriptionsList,
     setSubscriptionInfo: CatalogMutations.setSubscriptionInfo,
-    resetSubscriptionsList: CatalogMutations.resetSubscriptionsList,
-    resetSubscriptionInfo: CatalogMutations.resetSubscriptionInfo
+    resetSubscriptionsList: CatalogMutations.resetSubscriptionsList
   },
   actions: {
     fetchDatasetsList: CatalogActions.fetchDatasetsList,
@@ -53,7 +51,8 @@ export const catalog = {
     setPage: CatalogActions.setPage,
     clearTagFilters: CatalogActions.clearTagFilters,
     fetchSubscriptionsList: CatalogActions.fetchSubscriptionsList,
-    fetchSubscriptionInfo: CatalogActions.fetchSubscriptionInfo
+    fetchSubscribe: CatalogActions.fetchSubscribe,
+    fetchUnSubscribe: CatalogActions.fetchUnSubscribe
   },
   getters: {
     getSubscriptionByDataset: state => datasetId => {
