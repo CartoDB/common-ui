@@ -63,6 +63,7 @@ export function removeFilter(state, filter) {
   state.filter.categories[filter.id] = state.filter.categories[
     filter.id
   ].filter(f => f.id !== filter.value.id);
+  state.filter.page = 0;
   setUrlParameters(state);
 }
 
