@@ -1,6 +1,6 @@
 <template>
   <li class="list-item">
-    <div class="category title is-small u-flex u-flex__justify--between">
+    <div class="category title is-small grid grid--space">
       <div>
         <span class="country">{{ dataset.country_name }}</span>
         <span>·</span
@@ -26,11 +26,11 @@
       <p class="description text">{{ dataset.description }}</p>
     </div>
     <div
-      class="extra u-mt--16 text is-small grid grid--out"
+      class="extra text is-small grid u-mt--16"
       v-if="!dataset.is_geography"
     >
       <div
-        class="nowrap grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
+        class="grid-cell--col7 grid grid--align-end grid--no-wrap"
       >
         <div class="license">
           <p>License</p> {{ dataset.license_name }}
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div
-        class="u-pl--10 grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
+        class="grid-cell--col5 grid grid--align-end grid--space grid--no-wrap"
       >
         <div class="aggregation">
           <p>Temporal aggr.</p> {{ temporalAggregation }}
@@ -54,9 +54,9 @@
         </div>
       </div>
     </div>
-    <div class="extra u-mt--16 text is-small grid grid--out" v-else>
+    <div class="extra text is-small grid u-mt--16" v-else>
       <div
-        class="nowrap grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
+        class="grid-cell--col7 grid grid--align-end grid--no-wrap"
       >
         <div class="license">
           <p>License</p> {{ dataset.license_name }}
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div
-        class="u-pl--10 grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
+        class="grid-cell--col5 grid grid--align-end grid--space grid--no-wrap"
       >
         <div class="aggregation">
           <p>Geometry type</p> {{ geometryType }}
