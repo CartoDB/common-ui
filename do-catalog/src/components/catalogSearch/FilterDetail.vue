@@ -4,9 +4,9 @@
       {{ filterName }}
     </div>
     <ul class="filter-container">
-      <li v-for="filter in filters" :key="filter">
+      <li v-for="filter in filters" :key="filter.id">
         <div class="filter-tag title is-small is-txtNavyBlue u-ml--12 u-mb--12">
-          {{ getOptionName(filter) }}
+          {{ filter.name }}
           <button class="u-ml--8" @click="deleteFilter(filter)">
             <img src="../../assets/close-tag.svg" alt="Delete" />
           </button>
@@ -37,12 +37,8 @@ export default {
     }
   },
   methods: {
-    getOptionName(id) {
-      const filter = this.filterMetadata.get(id);
-      return filter ? filter.name : id;
-    },
     deleteFilter(filterValue) {
-      this.$store.dispatch('doCatalog/deleteFilter', {
+      this.$store.commit('doCatalog/removeFilter', {
         id: this.filterId,
         value: filterValue
       });

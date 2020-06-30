@@ -47,8 +47,6 @@ export const catalog = {
     fetchDataset: CatalogActions.fetchDataset,
     fetchKeyVariables: CatalogActions.fetchKeyVariables,
     fetchVariables: CatalogActions.fetchVariables,
-    updateFilter: CatalogActions.updateFilter,
-    deleteFilter: CatalogActions.deleteFilter,
     setSearchText: CatalogActions.setSearchText,
     setPage: CatalogActions.setPage,
     clearTagFilters: CatalogActions.clearTagFilters,

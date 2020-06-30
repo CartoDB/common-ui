@@ -10,7 +10,7 @@ export function setUrlParameters(state) {
   const categories = state.filter.categories;
   for (let cat in categories) {
     urlParams += categories[cat] && categories[cat].length
-      ? `&${cat}=${categories[cat].join(`,`)}`
+      ? `&${cat}=${categories[cat].map(c => c.id).join(`,`)}`
       : '';
   }
 

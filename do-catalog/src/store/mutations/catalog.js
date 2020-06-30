@@ -60,11 +60,9 @@ export function setFilter(state, filter) {
 }
 
 export function removeFilter(state, filter) {
-  const filterPos = state.filter.categories[filter.id].indexOf(filter.value);
-  if (filterPos > -1) {
-    state.filter.categories[filter.id].splice(filterPos, 1);
-    state.filter.page = 0;
-  }
+  state.filter.categories[filter.id] = state.filter.categories[
+    filter.id
+  ].filter(f => f.id !== filter.value.id);
   setUrlParameters(state);
 }
 
