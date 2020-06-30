@@ -7,7 +7,7 @@
       </div>
       <div class="filters-count" :class="{ 'filter-selector': filtersCount }">
         <button
-          class="title is-small is-navyBlue u-mr--20 u-mr--0--tablet detail-button"
+          class="title is-small is-navyBlue u-mr--12 u-mr--0--tablet detail-button"
           @click="toggleDetails()"
         >
           <img

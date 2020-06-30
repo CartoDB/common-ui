@@ -74,7 +74,7 @@ export default {
 .filter-tag {
   display: flex;
   align-items: center;
-  padding: 6px 6px 6px 12px;
+  padding: 4px 4px 4px 12px;
   border-radius: 4px;
   background-color: $color-primary--soft;
   white-space: nowrap;
@@ -82,6 +82,10 @@ export default {
   button {
     padding: 0;
     cursor: pointer;
+
+    img {
+      display: block;
+    }
   }
 }
 </style>

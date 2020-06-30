@@ -2,11 +2,13 @@
   <li class="list-item">
     <div class="category title is-small u-flex u-flex__justify--between">
       <div>
-        {{ dataset.country_name ? dataset.country_name.toUpperCase() : '' }}
+        <span class="country">{{ dataset.country_name }}</span>
         <span>·</span
         >{{ dataset.is_geography ? 'Geography' : dataset.category_name }}
       </div>
-      {{ dataset.provider_name }}
+      <div>
+        {{ dataset.provider_name }}
+      </div>
     </div>
     <div class="info u-mr--72">
       <h3 class="title is-body u-mb--8">
@@ -31,17 +33,17 @@
         class="nowrap grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
       >
         <div class="license">
-          <span>License</span> {{ dataset.license_name }}
+          <p>License</p> {{ dataset.license_name }}
         </div>
         <div class="geography" :title="dataset.placetype_name">
-          <span>Placetype</span> {{ dataset.placetype_name }}
+          <p>Placetype</p> {{ dataset.placetype_name }}
         </div>
       </div>
       <div
         class="u-pl--10 grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
       >
         <div class="aggregation">
-          <span>Temporal aggr.</span> {{ temporalAggregation }}
+          <p>Temporal aggr.</p> {{ temporalAggregation }}
         </div>
         <div class="provider">
           <img
@@ -57,17 +59,17 @@
         class="nowrap grid-cell--col7 grid-cell--col12--tablet u-mt--24--tablet grid grid--align-end grid--no-wrap"
       >
         <div class="license">
-          <span>License</span> {{ dataset.license_name }}
+          <p>License</p> {{ dataset.license_name }}
         </div>
         <div class="geography" :title="dataset.placetype_name">
-          <span>Placetype</span> {{ dataset.placetype_name }}
+          <p>Placetype</p> {{ dataset.placetype_name }}
         </div>
       </div>
       <div
         class="u-pl--10 grid-cell--col5 grid-cell--col12--tablet u-mt--4--tablet grid grid--align-end grid--space grid--no-wrap"
       >
         <div class="aggregation">
-          <span>Geometry type</span> {{ geometryType }}
+          <p>Geometry type</p> {{ geometryType }}
         </div>
         <div class="provider">
           <img
@@ -119,9 +121,13 @@ export default {
   .category {
     margin-bottom: 8px;
 
-    span {
+    span:not(.country) {
       margin: 0 8px;
       color: $neutral--600;
+    }
+
+    .country {
+      text-transform: uppercase;
     }
   }
 
@@ -157,7 +163,7 @@ export default {
       }
     }
 
-    span {
+    p {
       color: $neutral--600;
       display: block;
       margin-bottom: 4px;

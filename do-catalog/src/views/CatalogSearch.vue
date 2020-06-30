@@ -103,6 +103,10 @@ export default {
       deep: true,
       handler() {
         this.fetchDatasetsList();
+      }
+    },
+    currentPage: {
+      handler() {
         window.scrollTo(0, 0);
       }
     }
@@ -113,7 +117,8 @@ export default {
       count: state => state.doCatalog.datasetsListCount,
       loading: state => state.doCatalog.isFetching,
       filtersAvailable: state => state.doCatalog.filtersAvailable,
-      filter: state => state.doCatalog.filter
+      filter: state => state.doCatalog.filter,
+      currentPage: state => state.doCatalog.filter.page
     }),
     filterCategories() {
       return Object.keys(this.filtersAvailable).sort((a, b) => {
