@@ -23,7 +23,7 @@ function filtersToPayload(filter) {
 
   for (let cat in categories) {
     payload += categories[cat] && categories[cat].length
-      ? `&${cat}=${categories[cat].join(`&${cat}=`)}`
+      ? `&${cat}=${categories[cat].map(c => c.id).join(`&${cat}=`)}`
       : '';
   }
 
@@ -110,14 +110,6 @@ export async function fetchVariables(context, { id, type }) {
   } catch (error) {
     console.error(`ERROR: ${error}`);
   }
-}
-
-export function updateFilter(context, filter) {
-  context.commit('setFilter', filter);
-}
-
-export function deleteFilter(context, filter) {
-  context.commit('removeFilter', filter);
 }
 
 export function setSearchText(context, searchText) {

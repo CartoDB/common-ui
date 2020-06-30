@@ -49,7 +49,7 @@
               class="checkbox-input"
               type="checkbox"
               name="option.id"
-              :checked="currentFilter.includes(option.id)"
+              :checked="currentFilter.find(f => f.id === option.id)"
               @change="filterChanged($event, option)"
             />
             <span data-v-d1b5b660="" class="checkbox-decoration">
@@ -95,7 +95,7 @@ export default {
   },
   data() {
     return {
-      model: new Set(),
+      // model: new Set(),
       filterText: '',
       isCompressed: false
     };
@@ -134,31 +134,21 @@ export default {
         });
     }
   },
-  watch: {
-    currentFilter: {
-      deep: true,
-      handler() {
-        this.model = new Set(this.currentFilter);
-      }
-    }
-  },
   methods: {
     filterChanged(event, option) {
-      if (this.model.has(option.id)) {
-        this.model.delete(option.id);
-      } else {
-        this.model.add(option.id);
-      }
-      this.updateFilter();
-    },
-    updateFilter() {
       const newFilter = {};
-      newFilter[this.filter] = [...this.model.values()];
-      this.$store.dispatch('doCatalog/updateFilter', newFilter);
+      newFilter[this.filter] = [...this.currentFilter];
+      if (newFilter[this.filter].find(f => f.id === option.id)) {
+        newFilter[this.filter] = newFilter[this.filter].filter(f => f.id !== option.id);
+      } else {
+        newFilter[this.filter].push({ id: option.id, name: option.name });
+      }
+      this.$store.commit('doCatalog/setFilter', newFilter);
     },
     clearFilter() {
-      this.model.clear();
-      this.updateFilter();
+      const newFilter = {};
+      newFilter[this.filter] = [];
+      this.$store.commit('doCatalog/setFilter', newFilter);
     },
     clearOptionsFilter() {
       this.filterText = '';

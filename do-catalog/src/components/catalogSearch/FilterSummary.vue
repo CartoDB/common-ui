@@ -138,7 +138,7 @@ export default {
           if (highlightedFilterKeys.length) {
             const containsHighlightedFilter = this.filtersApplied
               .get(key)
-              .some(filter => highlightedFilterKeys.includes(filter));
+              .some(filter => highlightedFilterKeys.includes(filter.id));
             if (!containsHighlightedFilter) {
               return {
                 option: this.highlightedFilters[key].get(
@@ -183,9 +183,9 @@ export default {
       ];
       newFilter[suggestedFilter.category] = [
         ...currentFilter,
-        suggestedFilter.option.id
+        {id:suggestedFilter.option.id, name:suggestedFilter.option.name}
       ];
-      this.$store.dispatch('doCatalog/updateFilter', newFilter);
+      this.$store.commit('doCatalog/setFilter', newFilter);
     },
 
     // Vue transition to force precalculate height
