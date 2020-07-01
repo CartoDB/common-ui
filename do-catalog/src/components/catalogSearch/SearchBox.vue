@@ -67,14 +67,16 @@ export default {
 .search-box {
   display: flex;
   flex-direction: row;
+  align-items: center;
   overflow: hidden;
+  height: 48px;
   padding: 1px;
   border: 1px solid $neutral--600;
   border-radius: 8px;
 
   input[type='text'] {
     flex: 1 1 auto;
-    padding: 12px 16px;
+    padding: 10px 16px;
     border: 0;
     color: $navy-blue;
 

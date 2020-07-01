@@ -5,7 +5,7 @@
     </header>
     <div class="grid u-flex__justify--center">
       <div
-        class="grid-cell grid-cell--col4 grid-cell--col12--tablet dynamic-filtering"
+        class="u-pr--10 grid-cell--col4 grid-cell--col12--tablet dynamic-filtering"
         :class="{ 'filter-expanded': filterDetail }"
       >
         <div class="header-mobile">
@@ -103,6 +103,10 @@ export default {
       deep: true,
       handler() {
         this.fetchDatasetsList();
+      }
+    },
+    currentPage: {
+      handler() {
         window.scrollTo(0, 0);
       }
     }
@@ -113,7 +117,8 @@ export default {
       count: state => state.doCatalog.datasetsListCount,
       loading: state => state.doCatalog.isFetching,
       filtersAvailable: state => state.doCatalog.filtersAvailable,
-      filter: state => state.doCatalog.filter
+      filter: state => state.doCatalog.filter,
+      currentPage: state => state.doCatalog.filter.page
     }),
     filterCategories() {
       return Object.keys(this.filtersAvailable).sort((a, b) => {

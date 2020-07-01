@@ -7,7 +7,7 @@
       </div>
       <div class="filters-count" :class="{ 'filter-selector': filtersCount }">
         <button
-          class="title is-small is-navyBlue u-mr--20 u-mr--0--tablet detail-button"
+          class="title is-small is-navyBlue u-mr--12 u-mr--0--tablet detail-button"
           @click="toggleDetails()"
         >
           <img
@@ -138,7 +138,7 @@ export default {
           if (highlightedFilterKeys.length) {
             const containsHighlightedFilter = this.filtersApplied
               .get(key)
-              .some(filter => highlightedFilterKeys.includes(filter));
+              .some(filter => highlightedFilterKeys.includes(filter.id));
             if (!containsHighlightedFilter) {
               return {
                 option: this.highlightedFilters[key].get(
@@ -183,9 +183,9 @@ export default {
       ];
       newFilter[suggestedFilter.category] = [
         ...currentFilter,
-        suggestedFilter.option.id
+        {id:suggestedFilter.option.id, name:suggestedFilter.option.name}
       ];
-      this.$store.dispatch('doCatalog/updateFilter', newFilter);
+      this.$store.commit('doCatalog/setFilter', newFilter);
     },
 
     // Vue transition to force precalculate height

@@ -52,7 +52,7 @@ export default {
   }
 
   &.is-narrow {
-    padding: 8px 16px;
+    padding: 6px 16px;
   }
 
   &.engine-blue {
@@ -79,6 +79,7 @@ export default {
 
 .is-outline {
   border: 1px solid $button-outline__border-color;
+  padding: 9px 16px;
   background: transparent;
   color: $button-outline__color;
 
@@ -95,10 +96,6 @@ export default {
   &:hover,
   &:focus {
     background-color: rgba($black, 0.02);
-  }
-
-  &.extra-border {
-    border-width: 2px;
   }
 
   &.engine-blue {

@@ -1,12 +1,12 @@
 <template>
   <div class="filter-box" :class="{ 'is-compressed': isCompressed }">
     <div class="filter-header" @click="toggleVisibility">
-      <div class="expand-button u-mr--16">
+      <div class="expand-button u-flex u-flex__align--center u-flex__justify--center u-mr--12">
         <img src="../../assets/arrow-navy.svg" alt="Expand" />
       </div>
       <div>
         <h3 class="title is-caption">{{ title }}</h3>
-        <p class="title is-small" v-if="currentFilter.length">
+        <p class="title is-small u-pt--4" v-if="currentFilter.length">
           {{
             currentFilter.length > 1
               ? `${currentFilter.length} filters`
@@ -22,7 +22,7 @@
     <div class="filter-options">
       <div v-if="options.size > 10" class="options-filter u-mb--4">
         <input
-          class="filter-input"
+          class="filter-input text is-small"
           type="text"
           :placeholder="`Find a ${placeholder}`"
           v-model="filterText"
@@ -49,7 +49,7 @@
               class="checkbox-input"
               type="checkbox"
               name="option.id"
-              :checked="currentFilter.includes(option.id)"
+              :checked="currentFilter.find(f => f.id === option.id)"
               @change="filterChanged($event, option)"
             />
             <span data-v-d1b5b660="" class="checkbox-decoration">
@@ -95,7 +95,7 @@ export default {
   },
   data() {
     return {
-      model: new Set(),
+      // model: new Set(),
       filterText: '',
       isCompressed: false
     };
@@ -117,7 +117,15 @@ export default {
         .filter(opt => opt.name.toLowerCase().includes(lowercaseFilter))
         .sort((a, b) => {
           if (a.highlighted === b.highlighted) {
-            return b.entity_count - a.entity_count;
+            if (a.entity_count !== b.entity_count) {
+              return b.entity_count - a.entity_count;
+            } else {
+              return a.name !== b.name
+                ? a.name < b.name
+                  ? -1
+                  : 1
+                : 0;
+            }
           } else if (a.highlighted) {
             return -1;
           } else {
@@ -126,31 +134,21 @@ export default {
         });
     }
   },
-  watch: {
-    currentFilter: {
-      deep: true,
-      handler() {
-        this.model = new Set(this.currentFilter);
-      }
-    }
-  },
   methods: {
     filterChanged(event, option) {
-      if (this.model.has(option.id)) {
-        this.model.delete(option.id);
-      } else {
-        this.model.add(option.id);
-      }
-      this.updateFilter();
-    },
-    updateFilter() {
       const newFilter = {};
-      newFilter[this.filter] = [...this.model.values()];
-      this.$store.dispatch('doCatalog/updateFilter', newFilter);
+      newFilter[this.filter] = [...this.currentFilter];
+      if (newFilter[this.filter].find(f => f.id === option.id)) {
+        newFilter[this.filter] = newFilter[this.filter].filter(f => f.id !== option.id);
+      } else {
+        newFilter[this.filter].push({ id: option.id, name: option.name });
+      }
+      this.$store.commit('doCatalog/setFilter', newFilter);
     },
     clearFilter() {
-      this.model.clear();
-      this.updateFilter();
+      const newFilter = {};
+      newFilter[this.filter] = [];
+      this.$store.commit('doCatalog/setFilter', newFilter);
     },
     clearOptionsFilter() {
       this.filterText = '';
@@ -175,7 +173,10 @@ export default {
   .filter-header {
     display: flex;
     align-items: center;
-    padding: 24px 0 24px 20px;
+    // TODO: REVIEW
+    padding: 16px 0 16px 16px;
+    height: 72px;
+    padding-left: 20px;
     cursor: pointer;
 
     &:hover {
@@ -245,6 +246,11 @@ export default {
         }
       }
     }
+  }
+
+  .expand-button {
+    width: 24px;
+    height: 24px;
   }
 
   &.is-compressed {
