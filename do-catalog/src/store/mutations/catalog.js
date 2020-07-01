@@ -111,7 +111,3 @@ export function setSubscriptionInfo(state, data) {
 export function resetSubscriptionsList(state) {
   state.subscriptionsList = [];
 }
-
-export function resetSubscriptionInfo(state) {
-  state.subscriptionInfo = {};
-}

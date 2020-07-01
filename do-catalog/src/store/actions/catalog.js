@@ -5,7 +5,6 @@ const entitiesEndpoint = 'data/observatory/metadata/entities';
 const datasetsEndpoint = 'data/observatory/metadata/datasets';
 const geographiesEndpoint = 'data/observatory/metadata/geographies';
 const subscriptionsEndpoint = 'do/subscriptions';
-const subscriptionInfoEndpoint = 'do/subscription_info';
 
 function filtersToPayload(filter) {
   let payload = '';
@@ -135,13 +134,22 @@ export async function fetchSubscriptionsList(context) {
   }
 }
 
-export async function fetchSubscriptionInfo(context, { id, type }) {
-  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionInfoEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
+export async function fetchSubscribe(context, { id, type }) {
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-    context.commit('setSubscriptionInfo', data);
+    const response = await fetch(url, { method: 'POST' });
+    return response.status === 200 || response.status === 204;
   } catch (error) {
-    console.error(`ERROR: ${error}`);
+    return false;
+  }
+}
+
+export async function fetchUnSubscribe(context, { id, type }) {
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
+  try {
+    const response = await fetch(url, { method: 'DELETE' });
+    return response.status === 200 || response.status === 204;
+  } catch (error) {
+    return false;
   }
 }

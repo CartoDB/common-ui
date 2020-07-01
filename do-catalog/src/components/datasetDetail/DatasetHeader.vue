@@ -51,7 +51,7 @@
             <img class="u-ml--12" src="../../assets/check.svg" alt="check" />
           </Button>
           <span
-            @click.native="showModal('unsubscribe')"
+            @click="showModal('unsubscribe')"
             class="text is-small is-txtSoftGrey u-mt--8 underline"
             >Unsubscribe</span
           >
@@ -65,10 +65,10 @@
         </Button>
       </div>
       <p
-        v-if="subscriptionInfo.status !== 'active'"
+        v-if="subscriptionInfo && subscriptionInfo.status !== 'active'"
         class="text is-small is-txtMainTextColor u-mt--16 right-align"
       >
-        Any questions? <a href="/">Contact</a>
+        Any questions? <a href="https://carto.com/request-live-demo/" target="_blank">Contact</a>
       </p>
     </div>
 
@@ -76,6 +76,7 @@
       @closeModal="hideModal()"
       :isOpen="modalOpen"
       :dataset="dataset"
+      :type="getDatasetType()"
       :mode="modalMode"
     ></ModalSubscription>
   </header>
@@ -101,9 +102,13 @@ export default {
   },
   computed: {
     ...mapState({
-      dataset: state => state.doCatalog.dataset,
-      subscriptionInfo: state => state.doCatalog.subscriptionInfo
+      dataset: state => state.doCatalog.dataset
     }),
+    subscriptionInfo() {
+      return this.$store.getters['doCatalog/getSubscriptionByDataset'](
+        this.dataset.id
+      );
+    },
     isPublicWebsite() {
       return !(this.$store.state.user && this.$store.state.user.id);
     },
@@ -149,22 +154,9 @@ export default {
       this.modalMode = null;
       this.modalOpen = false;
     },
-    fetchSubscriptionInfo() {
-      if (this.dataset && this.dataset.id && !this.isPublicWebsite) {
-        this.$store.dispatch('doCatalog/fetchSubscriptionInfo', {
-          id: this.dataset.id,
-          type: this.isGeography ? 'geography' : 'dataset'
-        });
-      }
+    getDatasetType() {
+      return this.isGeography ? 'geography' : 'dataset';
     }
-  },
-  watch: {
-    dataset() {
-      this.fetchSubscriptionInfo();
-    }
-  },
-  destroyed() {
-    this.$store.commit('doCatalog/resetSubscriptionInfo');
   }
 };
 </script>
@@ -181,5 +173,6 @@ export default {
 
 .underline {
   text-decoration: underline;
+  cursor: pointer;
 }
 </style>

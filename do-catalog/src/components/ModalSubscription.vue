@@ -105,17 +105,18 @@
             Confirm request
           </Button>
 
-          <Button
-            v-else-if="
-              currentMode === 'subscribed' || currentMode === 'requested'
-            "
-            @click.native="closeModal()"
-            class="u-ml--16"
-            :color="'green'"
-          >
-            <img class="u-mr--12" src="../assets/check_white.svg" alt="check" />
-            Check your subscriptions
-          </Button>
+          <router-link
+            v-else-if="currentMode === 'subscribed' || currentMode === 'requested'"
+            :to="{ name: 'subscriptions' }">
+              <Button
+                @click.native="closeModal()"
+                class="u-ml--16"
+                :color="'green'"
+              >
+                <img class="u-mr--12" src="../assets/check_white.svg" alt="check" />
+                Check your subscriptions
+              </Button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -136,6 +137,13 @@ export default {
   props: {
     isOpen: Boolean,
     dataset: Object,
+    type: {
+      type: String,
+      required: true,
+      validator: value => {
+        return ['geography', 'dataset'].indexOf(value) !== -1;
+      }
+    },
     mode: {
       type: String,
       required: false,
@@ -226,9 +234,39 @@ export default {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: 'requestDataset' });
     },
-    subscribe() {},
-    unsubscribe() {},
-    request() {}
+    async subscribe() {
+      if (
+        await this.$store.dispatch('doCatalog/fetchSubscribe', {
+          id: this.dataset.id,
+          type: this.type
+        })
+      ) {
+        await this.$store.dispatch('doCatalog/fetchSubscriptionsList');
+        this.currentMode = 'subscribed';
+      }
+    },
+    async unsubscribe() {
+      if (
+        await this.$store.dispatch('doCatalog/fetchUnSubscribe', {
+          id: this.dataset.id,
+          type: this.type
+        })
+      ) {
+        await this.$store.dispatch('doCatalog/fetchSubscriptionsList');
+        this.closeModal();
+      }
+    },
+    async request() {
+      if (
+        await this.$store.dispatch('doCatalog/fetchSubscribe', {
+          id: this.dataset.id,
+          type: this.type
+        })
+      ) {
+        await this.$store.dispatch('doCatalog/fetchSubscriptionsList');
+        this.currentMode = 'requested';
+      }
+    }
   },
   watch: {
     mode() {
