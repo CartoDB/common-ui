@@ -29,9 +29,54 @@
           ></DatasetListItem>
         </ul>
 
+        <div
+          class="license u-mt--24"
+          v-if="dataset.licenses && dataset.licenses !== ''"
+        >
+          <a :href="dataset.licenses_link" target="_blank">
+            <p class="text is-small is-txtBaseGrey" v-html="dataset.licenses"></p>
+          </a>
+
+          <p v-if="currentMode === 'subscribed' || currentMode === 'requested'"
+            class="text u-mt--16 is-caption-small is-txtNavyBlue u-flex"
+          >
+            <img class="u-mr--12" src="../assets/check.svg" alt="check" />
+            I accepted the License
+          </p>
+
+          <label v-else class="text u-flex u-flex__align--center u-mt--16">
+            <span class="checkbox u-mr--12">
+              <input
+                class="checkbox-input"
+                type="checkbox"
+                name="option.id"
+                v-model="licenseStatus"
+              />
+              <span class="checkbox-decoration">
+                <svg
+                  viewBox="0 0 12 12"
+                  svg-inline=""
+                  role="presentation"
+                  focusable="false"
+                  tabindex="-1"
+                  class="checkbox-decorationMedia"
+                >
+                  <path
+                    data-v-d1b5b660=""
+                    d="M1.65 3.803l2.84 3.169L10.38.717"
+                    fill="none"
+                    class="checkbox-check"
+                  ></path>
+                </svg>
+              </span>
+            </span>
+            <span class="is-txtNavyBlue is-caption-small"> I accept the License </span>
+          </label>
+        </div>
+
         <p
           v-if="currentMode === 'request'"
-          class="text is-caption is-txtNavyBlue u-mt--16 u-align--center"
+          class="text is-caption is-txtNavyBlue u-mt--40 u-align--center"
         >
           Once you confirm your request, a
           <span class="is-semibold">CARTO team member will get in touch</span>
@@ -40,7 +85,7 @@
 
         <div
           v-else-if="currentMode === 'unsubscribe'"
-          class="text is-caption is-txtNavyBlue u-mt--16"
+          class="text is-caption is-txtNavyBlue u-mt--40"
         >
           If you unsubcribe pellentesque diam nisi, faucibus varius enim mollis
           sit amet. Cras nec varius magna, in dignissim diam:
@@ -62,14 +107,14 @@
         </div>
 
         <p
-          v-else-if="currentMode === 'unsubscribe'"
-          class="text is-caption is-txtNavyBlue u-mt--16 u-flex u-flex__justify--center u-flex__align-cen"
+          v-else-if="currentMode === 'requested'"
+          class="text is-caption is-txtNavyBlue u-mt--40 u-flex u-flex__justify--center u-flex__align-cen"
         >
           <img class="u-mr--12" src="../assets/check.svg" alt="check" />
           Your subscription request has been added to your subscriptions.
         </p>
 
-        <div class="grid u-flex__justify--center u-mt--32">
+        <div class="grid u-flex__justify--center u-mt--36">
           <Button
             @click.native="closeModal()"
             :isOutline="true"
@@ -84,6 +129,7 @@
             v-if="currentMode === 'subscribe'"
             @click.native="subscribe()"
             class="u-ml--16"
+            :class="{ 'require-licence': !licenseAccepted }"
           >
             Confirm subscription
           </Button>
@@ -101,6 +147,7 @@
             v-else-if="currentMode === 'request'"
             @click.native="request()"
             class="u-ml--16"
+            :class="{ 'require-licence': !licenseAccepted }"
           >
             Confirm request
           </Button>
@@ -154,7 +201,8 @@ export default {
   },
   data() {
     return {
-      currentMode: null
+      currentMode: null,
+      licenseStatus: false
     };
   },
   computed: {
@@ -214,6 +262,13 @@ export default {
         return 'Close';
       }
       return 'Cancel';
+    },
+    licenseAccepted() {
+      return (
+        !this.dataset.licenses ||
+        this.dataset.licenses === '' ||
+        this.licenseStatus
+      );
     }
   },
   methods: {
@@ -305,11 +360,26 @@ export default {
 
 .list-item {
   border: none;
-  margin: 42px 0;
+  margin-top: 42px;
   background-color: $white;
   box-shadow: 0 4px 16px 0 rgba(44, 44, 44, 0.16);
   &:hover {
     background-color: $white;
   }
+}
+
+.is-caption-small {
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.license {
+  background-color: $neutral--100;
+  padding: 24px;
+}
+
+.require-licence {
+  pointer-events: none;
+  opacity: 0.4;
 }
 </style>
