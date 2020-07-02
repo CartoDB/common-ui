@@ -2,10 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 
-import DOCatalogComponent from '../dist/do-catalog.umd.min';
-
 export class DOCatalog {
   constructor(target, { baseUrl, userData, requestDatasetCallback } = {}) {
+    this.DOCatalogComponent = require('../dist/do-catalog.umd.min')
     this.target = target;
     this.baseUrl = baseUrl || '/';
     this.userData = userData;
@@ -29,8 +28,8 @@ export class DOCatalog {
     Vue.use(Vuex);
 
     // Configure routing
-    DOCatalogComponent.router.options.base = this.baseUrl;
-    DOCatalogComponent.router.history.base = this.baseUrl;
+    this.DOCatalogComponent.router.options.base = this.baseUrl;
+    this.DOCatalogComponent.router.history.base = this.baseUrl;
 
     new Vue({
       data: {
@@ -40,7 +39,7 @@ export class DOCatalog {
         requestDataset: this.requestDatasetCallback
       },
       components: {
-        docatalog: DOCatalogComponent
+        docatalog: this.DOCatalogComponent
       }
     }).$mount(this.target);
   }
