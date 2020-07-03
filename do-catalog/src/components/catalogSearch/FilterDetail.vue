@@ -8,7 +8,7 @@
         <div class="filter-tag title is-small is-txtNavyBlue u-ml--12 u-mb--12">
           {{ filter.name }}
           <button class="u-ml--8" @click="deleteFilter(filter)">
-            <img src="../../assets/close-tag.svg" alt="Delete" />
+            <img :src="icon_by_environment('close-tag.svg')" alt="Delete" />
           </button>
         </div>
       </li>
@@ -19,9 +19,11 @@
 <script>
 import { mapState } from 'vuex';
 import { filtersMetadata } from '../../utils/constants';
+import icon_by_environment from '../../mixins/icon_by_environment';
 
 export default {
   name: 'FilterDetail',
+  mixins: [icon_by_environment],
   props: {
     filterId: String,
     filters: Array

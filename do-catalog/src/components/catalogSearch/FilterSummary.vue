@@ -12,7 +12,7 @@
         >
           <img
             class="u-mr--12 expand-icon"
-            src="../../assets/arrow-blue.svg"
+            :src="icon_by_environment('arrow-blue.svg')"
             alt="Expand"
           />
           {{ filtersCount }} <span>filters applied</span>
@@ -21,7 +21,6 @@
           <Button
             :isOutline="true"
             :extraBorder="true"
-            color="engine-blue"
             @click.native="clearFilters"
             :narrow="true"
             >Clear all</Button
@@ -77,9 +76,11 @@ import FilterDetail from './FilterDetail';
 import Button from '../Button.vue';
 import { filtersMetadata } from '../../utils/constants';
 import { toTitleCase } from '../../utils/string-to-title-case';
+import icon_by_environment from '../../mixins/icon_by_environment';
 
 export default {
   name: 'FilterSummary',
+  mixins: [icon_by_environment],
   components: {
     FilterDetail,
     Button

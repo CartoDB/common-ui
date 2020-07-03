@@ -55,10 +55,6 @@ export default {
     padding: 6px 16px;
   }
 
-  &.engine-blue {
-    background-color: $engine-blue;
-  }
-
   &.red {
     background-color: $red--600;
   }
@@ -87,21 +83,9 @@ export default {
     border-width: 2px;
   }
 
-  &.engine-blue {
-    border-color: $engine-blue;
-    background: transparent;
-    color: $engine-blue;
-  }
-
   &:hover,
   &:focus {
     background-color: rgba($black, 0.02);
-  }
-
-  &.engine-blue {
-    border-color: $engine-blue;
-    background: transparent;
-    color: $engine-blue;
   }
 
   &.navy-blue {

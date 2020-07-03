@@ -27,7 +27,7 @@ export default {
     animation-duration: 2s;
     animation-timing-function: cubic-bezier(0.4, 0.01, 0.165, 0.99);
     animation-iteration-count: infinite;
-    background-color: $engine-blue;
+    background-color: $color-primary;
   }
 }
 
