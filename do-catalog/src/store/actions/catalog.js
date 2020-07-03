@@ -69,9 +69,19 @@ export async function fetchDataset(context, { id, type }) {
   }
 
   try {
-    const response = await fetch(url);
+    let response = await fetch(url);
     const data = await response.json();
-    context.commit('setDataset', data);
+
+    url = baseUrl + entitiesEndpoint + `?id=${data.id}`;
+
+    try {
+      response = await fetch(url);
+      const detailData = await response.json();
+      context.commit('setDataset', { ...data, ...detailData.results[0] });
+
+    } catch (error) {
+      console.error(`ERROR: ${error}`);
+    }
   } catch (error) {
     console.error(`ERROR: ${error}`);
   }

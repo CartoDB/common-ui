@@ -33,9 +33,11 @@
           class="license u-mt--24"
           v-if="dataset.licenses && dataset.licenses !== ''"
         >
-          <a :href="dataset.licenses_link" target="_blank">
-            <p class="text is-small is-txtBaseGrey" v-html="dataset.licenses"></p>
-          </a>
+
+          <p class="text is-small is-txtBaseGrey">
+            {{dataset.licenses}}
+            <a v-if="dataset.licenses_link" class="text is-small" :href="dataset.licenses_link" target="_blank">More info.</a>
+          </p>
 
           <p v-if="currentMode === 'subscribed' || currentMode === 'requested'"
             class="text u-mt--16 is-caption-small is-txtNavyBlue u-flex"
