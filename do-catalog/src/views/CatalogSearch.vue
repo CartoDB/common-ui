@@ -45,7 +45,7 @@
         </div>
         <div v-else-if="!loading">
           <div class="empty-result u-mt--36">
-            <img src="../assets/empty-search.svg" alt="No results" />
+            <img :src="icon_by_environment('empty-search.svg')" alt="No results" />
             <h3 class="title is-body is-txtNavyBlue u-mt--16">
               We couldn’t find anything for your search:
             </h3>
@@ -59,7 +59,6 @@
             </p>
             <Button
               class="u-mt--24"
-              color="engine-blue"
               @click.native="navigateToContact()"
               >Contact us</Button
             >
@@ -81,9 +80,11 @@ import Pager from '../components/catalogSearch/Pager';
 import SearchBox from '../components/catalogSearch/SearchBox';
 import { filtersMetadata } from '../utils/constants';
 import { toTitleCase } from '../utils/string-to-title-case';
+import icon_by_environment from '../mixins/icon_by_environment';
 
 export default {
   name: 'CatalogSearch',
+  mixins: [icon_by_environment],
   components: {
     Button,
     DatasetListItem,
