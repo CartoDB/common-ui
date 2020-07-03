@@ -26,4 +26,5 @@ export default {
 .do-catalog {
   @import './styles/main.scss';
 }
+@import './styles/do-catalog.scss';
 </style>
