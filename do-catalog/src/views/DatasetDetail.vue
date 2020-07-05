@@ -64,7 +64,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('doCatalog/fetchSubscriptionsList');
+    // TODO: commented for DO Catalog soft-release
+    // this.$store.dispatch('doCatalog/fetchSubscriptionsList');
     this.fetchDataset();
   },
   destroyed() {

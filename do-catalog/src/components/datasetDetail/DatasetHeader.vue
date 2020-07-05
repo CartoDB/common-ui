@@ -116,6 +116,9 @@ export default {
       return this.$route.params.type === 'geography';
     },
     getSubscriptionStatus() {
+      // TODO: return always "interesed" for DO Catalog soft-release
+      return 'interested';
+
       const possibleLicenceStates = ['requested', 'active', 'expired'];
       if (
         !this.isPublicWebsite &&
