@@ -1,8 +1,8 @@
 <template>
   <div>
-    <!-- <header class="grid u-flex__justify--center u-mb--36 u-mt--36">
-      <h1 class="grid-cell--col12 title is-title">Data Catalog</h1>
-    </header> -->
+    <header class="grid u-flex__justify--center u-mb--36 u-mt--36">
+      <h1 class="grid-cell--col12 title is-title">Spatial Data Catalog</h1>
+    </header>
     <div class="grid u-flex__justify--center">
       <div
         class="u-pr--10 grid-cell--col4 grid-cell--col12--tablet dynamic-filtering"
