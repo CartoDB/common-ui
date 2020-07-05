@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { setUrlParameters } from '../../utils/url-parameters';
 
 export function setFetchingState(state) {
@@ -51,7 +50,7 @@ export function setAvailableFilters(state, { id, options }) {
 }
 
 export function setFilter(state, filter) {
-  const newFilter = Object.assign({...state.filter.categories}, filter);
+  const newFilter = Object.assign({ ...state.filter.categories }, filter);
   state.filter.categories = newFilter;
   if (!filter.page) {
     state.filter.page = 0;

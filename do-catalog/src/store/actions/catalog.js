@@ -1,35 +1,52 @@
 import 'whatwg-fetch';
 
-const baseUrl = 'https://cmonteserin-do-st.carto-staging.com/api/v4/'; // "https://public.carto.com"
+import { setUrlParameters } from '../../utils/url-parameters';
+
+
+const baseUrl = 'https://public.carto.com/api/v4/';
 const entitiesEndpoint = 'data/observatory/metadata/entities';
 const datasetsEndpoint = 'data/observatory/metadata/datasets';
 const geographiesEndpoint = 'data/observatory/metadata/geographies';
 const subscriptionsEndpoint = 'do/subscriptions';
 
-function filtersToPayload(filter) {
-  let payload = '';
+export function initFilter(context, query) {
+  const filter = {
+    searchText: '',
+    limit: process.env.VUE_APP_PAGE_SIZE || 10,
+    page: 0,
+    categories: {}
+  };
 
-  const {
-    searchText = '',
-    limit = process.env.VUE_APP_PAGE_SIZE || 10,
-    page = 0,
-    categories = {}
-  } = filter;
-  const offset = page * limit;
+  const filterCategories = [
+    'country',
+    'category',
+    'license',
+    'provider',
+    'placetype'
+  ];
 
-  payload += `?limit=${limit}&offset=${offset}`;
-  payload += searchText.length ? `&searchtext=${searchText}` : '';
+  filterCategories.forEach(filterCategory => {
+    if (filterCategory in query) {
+      filter.categories[filterCategory] = query[filterCategory]
+        .split(',')
+        .map(item => ({ id: item }));
+    }
+  });
 
-  for (let cat in categories) {
-    payload += categories[cat] && categories[cat].length
-      ? `&${cat}=${categories[cat].map(c => c.id).join(`&${cat}=`)}`
-      : '';
+  if ('search' in query) {
+    filter.searchText = query.search;
   }
 
-  return payload;
+  if ('page' in query) {
+    filter.page = parseInt(query.page) - 1;
+  }
+
+  context.state.filter = filter;
 }
 
 export async function fetchDatasetsList(context) {
+  setUrlParameters(context.state);
+
   context.commit('resetDatasetsList');
   context.commit('setFetchingState');
 
@@ -78,7 +95,6 @@ export async function fetchDataset(context, { id, type }) {
       response = await fetch(url);
       const detailData = await response.json();
       context.commit('setDataset', { ...data, ...detailData.results[0] });
-
     } catch (error) {
       console.error(`ERROR: ${error}`);
     }
@@ -139,7 +155,10 @@ export async function fetchSubscriptionsList(context, details = false) {
     let response = await fetch(url);
     const data = await response.json();
     if (details && data.subscriptions && data.subscriptions.length > 0) {
-      url = baseUrl + entitiesEndpoint +`?id=${data.subscriptions.map(s => s.id).join('&id=')}`
+      url =
+        baseUrl +
+        entitiesEndpoint +
+        `?id=${data.subscriptions.map(s => s.id).join('&id=')}`;
       try {
         response = await fetch(url);
         const detailData = await response.json();
@@ -179,4 +198,26 @@ export async function fetchUnSubscribe(context, { id, type }) {
   } catch (error) {
     return false;
   }
+}
+
+function filtersToPayload(filter) {
+  let params = [];
+
+  const { searchText, limit, page, categories } = filter;
+  const offset = page * limit;
+
+  for (let key in categories) {
+    if (categories[key].length) {
+      params = params.concat(categories[key].map(item => `${key}=${item.id}`));
+    }
+  }
+
+  if (searchText) {
+    params.push(`searchtext=${encodeURIComponent(searchText)}`);
+  }
+
+  params.push(`limit=${limit}`);
+  params.push(`offset=${offset}`);
+
+  return `?${params.join('&')}`;
 }

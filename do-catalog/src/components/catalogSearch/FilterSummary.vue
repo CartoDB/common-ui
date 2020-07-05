@@ -100,8 +100,15 @@ export default {
     filtersApplied() {
       const filterMap = new Map();
       for (let filterId in this.filtersAvailable) {
-        if (this.filter[filterId].length) {
-          filterMap.set(filterId, this.filter[filterId]);
+        const filterContent = this.filter[filterId].map(item => {
+          const filterAvailable = this.filtersAvailable[filterId].get(item.id);
+          return {
+            id: item.id,
+            name: item.name || filterAvailable && filterAvailable.name
+          };
+        });
+        if (filterContent.length) {
+          filterMap.set(filterId, filterContent);
         }
       }
       // Sort filters
