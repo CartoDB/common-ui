@@ -77,7 +77,7 @@
         :description="
           'This data sample can’t be shown because the real dataset only contains a few rows.'
         "
-        :contactUrl="getFormUrl()"
+        :contactUrl="formURL()"
         :mode="'contact'"
       ></NotAvailable>
     </div>
@@ -131,7 +131,7 @@
 <script>
 import { mapState } from 'vuex';
 import NotAvailable from '../components/NotAvailable.vue';
-import { formUrl } from '../utils/form-url';
+import { formURL } from '../utils/form-url';
 import { sendCustomDimensions } from '../utils/custom-dimensions-ga';
 
 export default {
@@ -251,12 +251,8 @@ export default {
       this.tooltip.isFirst = false;
       this.tooltip.isLast = false;
     },
-    getFormUrl() {
-      return formUrl(
-        this.dataset.category_name,
-        this.dataset.country_name,
-        this.dataset.data_source_name
-      );
+    getFormURL() {
+      return formURL(this.dataset);
     },
     scrollToVariables() {
       window.scrollTo({
