@@ -5,24 +5,26 @@ export function setUrlParameters(state) {
     window.location.host +
     window.location.pathname;
 
-  let urlParams = '';
+  let urlParams = [];
 
   const categories = state.filter.categories;
-  for (let cat in categories) {
-    urlParams += categories[cat] && categories[cat].length
-      ? `&${cat}=${categories[cat].map(c => c.id).join(`,`)}`
-      : '';
+  for (let key in categories) {
+    if (categories[key].length) {
+      urlParams.push(`${key}=${categories[key].map(item => item.id).join()}`);
+    }
   }
 
-  urlParams += state.filter.searchText
-    ? `&search=${encodeURIComponent(state.filter.searchText)}`
-    : '';
+  if (state.filter.searchText) {
+    urlParams.push(`search=${encodeURIComponent(state.filter.searchText)}`);
+  }
 
-  urlParams += state.filter.page
-    ? `&page=${state.filter.page+1}`
-    : '';
+  if (state.filter.page) {
+    urlParams.push(`page=${state.filter.page + 1}`);
+  }
 
-  const finalUrl = urlParams != '' ? `${baseUrl}?${urlParams}` : baseUrl;
+  urlParams = urlParams.join('&');
+
+  const finalUrl = `${baseUrl}${urlParams ? `?${urlParams}` : ''}`;
 
   window.history.pushState(null, null, finalUrl);
 }

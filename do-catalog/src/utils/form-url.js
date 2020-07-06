@@ -1,7 +1,20 @@
-export function formUrl(category, country, datastream) {
-  let formUrl = 'https://carto.com/platform/location-data-streams/form/?';
-  formUrl += category ? `category=${category}&` : '';
-  formUrl += country ? `country=${country}&` : '';
-  formUrl += `datastream=${datastream}`;
-  return encodeURI(formUrl);
+export function formURL(dataset) {
+  const url = 'https://carto.com/platform/spatial-data-catalog/form/';
+  const urlParams = [];
+
+  const params = {
+    category: dataset.category_name,
+    country: dataset.country_name,
+    datastream: dataset.data_source_name,
+    provider: dataset.provider_name,
+    license: dataset.is_public_data ? 'Public' : 'Premium'
+  };
+
+  for (let key in params) {
+    if (params[key]) {
+      urlParams.push(`${key}=${params[key]}`);
+    }
+  }
+
+  return encodeURI(`${url}?${urlParams.join('&')}`);
 }

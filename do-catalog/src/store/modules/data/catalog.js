@@ -41,6 +41,7 @@ export const catalog = {
     resetSubscriptionsList: CatalogMutations.resetSubscriptionsList
   },
   actions: {
+    initFilter: CatalogActions.initFilter,
     fetchDatasetsList: CatalogActions.fetchDatasetsList,
     fetchDataset: CatalogActions.fetchDataset,
     fetchKeyVariables: CatalogActions.fetchKeyVariables,

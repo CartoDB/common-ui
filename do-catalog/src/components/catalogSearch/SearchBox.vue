@@ -43,8 +43,11 @@ export default {
   },
   computed: {
     ...mapState({
-      searchText: state => state.doCatalog.filter.searchText
-    })
+      filter: state => state.doCatalog.filter,
+    }),
+    searchText() {
+      return this.filter.searchText
+    }
   },
   methods: {
     clearFilter() {
@@ -55,8 +58,10 @@ export default {
       this.$store.dispatch('doCatalog/setSearchText', this.filterText);
     }
   },
-  mounted() {
-    this.filterText = this.searchText;
+  watch: {
+    searchText(newValue) {
+      this.filterText = newValue;
+    }
   }
 };
 </script>

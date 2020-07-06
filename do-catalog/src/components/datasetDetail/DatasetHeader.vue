@@ -26,7 +26,7 @@
       <div class="u-flex u-flex__justify--end">
         <Button
           v-if="getSubscriptionStatus === 'interested'"
-          :url="getFormUrl()"
+          :url="getFormURL()"
         >
           I’m interested
         </Button>
@@ -86,7 +86,7 @@
 import { mapState } from 'vuex';
 import Button from '../Button';
 import ModalSubscription from '../ModalSubscription';
-import { formUrl } from '../../utils/form-url';
+import { formURL } from '../../utils/form-url';
 
 export default {
   name: 'DatasetHeader',
@@ -116,6 +116,9 @@ export default {
       return this.$route.params.type === 'geography';
     },
     getSubscriptionStatus() {
+      // TODO: return always "interesed" for DO Catalog soft-release
+      return 'interested';
+
       const possibleLicenceStates = ['requested', 'active', 'expired'];
       if (
         !this.isPublicWebsite &&
@@ -139,12 +142,8 @@ export default {
     }
   },
   methods: {
-    getFormUrl() {
-      return formUrl(
-        this.dataset.category_name,
-        this.dataset.country_name,
-        this.dataset.data_source_name
-      );
+    getFormURL() {
+      return formURL(this.dataset);
     },
     showModal(mode) {
       this.modalMode = mode;
