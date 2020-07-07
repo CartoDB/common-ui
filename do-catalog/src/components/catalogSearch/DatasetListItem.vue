@@ -189,5 +189,13 @@ export default {
       }
     }
   }
+
+  @media (max-width: $layout-tablet) {
+    padding-left: 0;
+    padding-right: 0;
+    .info.u-mr--72 {
+      margin-right: 0;
+    }
+  }
 }
 </style>
