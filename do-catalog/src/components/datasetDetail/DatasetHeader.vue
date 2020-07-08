@@ -2,7 +2,7 @@
   <header
     class="grid u-flex__justify--center u-mb--36 u-mb--20--tablet u-mt--36"
   >
-    <div class="grid-cell grid-cell--col9 grid-cell--col8--tablet">
+    <div class="grid-cell grid-cell--col9 grid-cell--col8--tablet tilte-container">
       <nav class="breadcrumbs">
         <p class="text is-caption is-txtMainTextColor" v-if="!isGeography">
           <span class="title is-txtMainTextColor">{{
@@ -22,7 +22,7 @@
       </h1>
     </div>
 
-    <div class="u-ml--auto grid-cell grid-cell--col3 grid-cell--col4--tablet">
+    <div class="u-ml--auto grid-cell grid-cell--col3 grid-cell--col4--tablet buttons-actions">
       <div class="u-flex u-flex__justify--end">
         <Button
           v-if="getSubscriptionStatus === 'interested'"
@@ -173,5 +173,25 @@ export default {
 .underline {
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media (max-width: $layout-mobile) {
+  .tilte-container.grid-cell--col8--tablet {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+  .buttons-actions {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    min-width: 100%;
+    background-color: $white;
+    box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 68px;
+  }
 }
 </style>

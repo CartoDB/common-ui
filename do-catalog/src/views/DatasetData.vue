@@ -77,7 +77,7 @@
         :description="
           'This data sample can’t be shown because the real dataset only contains a few rows.'
         "
-        :contactUrl="formURL()"
+        :contactUrl="getFormURL()"
         :mode="'contact'"
       ></NotAvailable>
     </div>
