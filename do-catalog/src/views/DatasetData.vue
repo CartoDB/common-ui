@@ -77,7 +77,7 @@
         :description="
           'This data sample can’t be shown because the real dataset only contains a few rows.'
         "
-        :contactUrl="formURL()"
+        :contactUrl="getFormURL()"
         :mode="'contact'"
       ></NotAvailable>
     </div>
@@ -87,7 +87,12 @@
       class="grid-cell--col12 u-mt--60"
       ref="variablesSection"
     >
-      <h2 class="grid-cell title is-caption is-txtMainTextColor">Variables</h2>
+      <div class="u-flex u-flex__align--center u-flex__justify--between">
+        <h2 class="grid-cell title is-caption is-txtMainTextColor">
+          Variables
+        </h2>
+        <span class="is-txtMidGrey text is-small u-pr--10">{{numberColumns}} variables</span>
+      </div>
 
       <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
         <li class="grid title is-txtMidGrey header-row">
