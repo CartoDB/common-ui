@@ -1,74 +1,35 @@
 <template>
   <div class="grid grid-cell">
-    <div
-      class="dataset-actions-bar grid grid-cell grid--space grid-cell--col12"
-    >
-      <ul
-        class="actions grid grid-cell--col8 grid--align-center text is-caption"
-      >
-        <li>
-          <a
-            :href="
-              user
-                ? `${user.base_url}/dashboard/datasets/?id=${subscription.sync_table}&create=true`
-                : ''
-            "
-            >Create map</a
-          >
-        </li>
-        <li>
-          <a
-            :href="
-              user ? `${user.base_url}/dataset/${subscription.sync_table}` : ''
-            "
-            >View dataset</a
-          >
-        </li>
-        <li class="disabled">Build App</li>
-        <li class="disabled">Explore Notebook</li>
-      </ul>
-      <div
-        class="status grid grid-cell--col4 grid--align-center grid--justify-end text is-small"
-      >
-        <p class="expiration">Expires at {{ subscriptionExpirationLabel }}</p>
-        <p class="subscription is-semibold" :class="subscription.status">
-          {{ subscriptionStatusLabel }}
-        </p>
+    <div class="dataset-actions-bar grid grid-cell grid-cell--col12 u-flex__justify--between">
+      <div class="u-flex u-flex__align--center">
+        <div class="subscription-actions">
+          <SubscriptionActions :dataset="subscription" :mode="'row'"></SubscriptionActions>
+        </div>
+        <div class="white-separator u-ml--12 u-mr--12"></div>
+        <SlugCopy v-if="slug" :slug="slug"></SlugCopy>
       </div>
+      <SubscriptionStatus :status="subscription.status" :expiresDate="subscription.expires_at" class="u-flex__align--center"></SubscriptionStatus>
     </div>
   </div>
 </template>
-
 <script>
-import { mapState } from 'vuex';
-import { format } from 'date-fns';
+
+import SubscriptionStatus from '../subscriptions/SubscriptionStatus';
+import SubscriptionActions from '../subscriptions/SubscriptionActions';
+import SlugCopy from '../subscriptions/SlugCopy';
 
 export default {
   name: 'DatasetActionsBar',
-  props: {
-    subscription: Object
+  components: {
+    SubscriptionStatus,
+    SubscriptionActions,
+    SlugCopy
   },
-  computed: {
-    ...mapState({
-      user: state => state.user
-    }),
-    subscriptionStatusLabel: function() {
-      switch (this.subscription.status) {
-        case 'requested':
-          return 'In progress subscription';
-        case 'active':
-          return 'Active subscription';
-        case 'expired':
-          return 'Expired subscription';
-        default:
-          return 'Unknown status';
-      }
-    },
-    subscriptionExpirationLabel: function() {
-      const expirationDate = new Date(this.subscription.expires_at);
-      return format(expirationDate, 'MMM dd, yyyy');
-    }
-  }
+  props: {
+    subscription: Object,
+    slug: String
+  },
+  computed: {}
 };
 </script>
 
@@ -80,65 +41,46 @@ export default {
   border-radius: 4px;
 
   &.grid-cell {
-    padding: 8px 16px;
+    padding: 0 16px 0 8px;
   }
 
-  .actions {
-    li {
-      color: $color-primary;
+  .white-separator {
+    width: 2px;
+    height: 40px;
+    background-color: $white;
+  }
 
-      & + li::before {
-        content: '|';
-        color: $neutral--600;
-        margin: 0 8px;
+  .subscription-status-container {
+    padding: 0;
+  }
+
+  &::v-deep {
+    button .tooltip {
+      top: 100%;
+      transform: translate(-50%, 0);
+      &:before {
+        bottom: initial;
+        top: -6px;
       }
-
-      &.disabled {
-        opacity: 0.4;
+    }
+    button:hover .tooltip {
+      transform: translate(-50%, 12px);
+    }
+  }
+  .subscription-actions {
+    &::v-deep {
+      button .tooltip {
+        transform: translate(0, 0);
+        &:before {
+          left: 14px;
+        }
+      }
+      button:hover .tooltip {
+        left: 0px;
+        transform: translate(0, 12px);
       }
     }
   }
 
-  .status {
-    color: $navy-blue;
-
-    .subscription {
-      margin-left: 12px;
-
-      &::after {
-        content: '';
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        margin-left: 4px;
-        border-radius: 50%;
-        background-color: $navy-blue;
-      }
-
-      &.active {
-        color: $green--400;
-
-        &::after {
-          background-color: $green--400;
-        }
-      }
-
-      &.requested {
-        color: $yellow--800;
-
-        &::after {
-          background-color: $yellow--800;
-        }
-      }
-
-      &.expired {
-        color: $red--600;
-
-        &::after {
-          background-color: $red--600;
-        }
-      }
-    }
-  }
 }
 </style>

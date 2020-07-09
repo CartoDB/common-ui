@@ -14,6 +14,7 @@
     <DatasetActionsBar
       v-if="subscription"
       :subscription="subscription"
+      :slug="dataset.slug"
       class="u-mt--12"
     ></DatasetActionsBar>
     <DatasetHeader></DatasetHeader>
@@ -64,8 +65,7 @@ export default {
     }
   },
   mounted() {
-    // TODO: commented for DO Catalog soft-release
-    // this.$store.dispatch('doCatalog/fetchSubscriptionsList');
+    this.$store.dispatch('doCatalog/fetchSubscriptionsList');
     this.fetchDataset();
   },
   destroyed() {

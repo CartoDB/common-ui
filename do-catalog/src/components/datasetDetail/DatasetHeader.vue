@@ -79,13 +79,14 @@
       :type="getDatasetType()"
       :mode="modalMode"
     ></ModalSubscription>
+
   </header>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import Button from '../Button';
-import ModalSubscription from '../ModalSubscription';
+import ModalSubscription from '../subscriptions/ModalSubscription';
 import { formURL } from '../../utils/form-url';
 
 export default {
@@ -116,9 +117,6 @@ export default {
       return this.$route.params.type === 'geography';
     },
     getSubscriptionStatus() {
-      // TODO: return always "interesed" for DO Catalog soft-release
-      return 'interested';
-
       const possibleLicenceStates = ['requested', 'active', 'expired'];
       if (
         !this.isPublicWebsite &&
