@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="u-pb--72">
     <div class="grid grid-cell u-flex__justify--center">
       <div class="grid-cell--col12 navigation-header">
         <router-link
