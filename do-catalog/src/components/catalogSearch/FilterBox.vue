@@ -114,7 +114,7 @@ export default {
     filteredOptions() {
       const lowercaseFilter = this.filterText.toLowerCase();
       return [...this.options.values()]
-        .filter(opt => opt.name.toLowerCase().includes(lowercaseFilter))
+        .filter(opt => opt.entity_count > 0 && opt.name.toLowerCase().includes(lowercaseFilter))
         .sort((a, b) => {
           if (a.highlighted === b.highlighted) {
             if (a.entity_count !== b.entity_count) {
