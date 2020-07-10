@@ -195,6 +195,8 @@ header {
   hr {
     width: 78px;
     border: 1px solid $neutral--400;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

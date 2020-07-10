@@ -267,6 +267,7 @@ export default {
 .clear-button {
   color: $color-primary;
   cursor: pointer;
+  padding-left: 6px;
 }
 
 .filter-input {
