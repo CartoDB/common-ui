@@ -115,7 +115,7 @@ export default {
   color: $navy-blue;
 
   &:hover {
-    background-color: transparentize($color: $blue--100, $amount: 0.52);
+    background-color: $blue--100;
   }
 
   .category {

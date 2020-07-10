@@ -18,7 +18,8 @@ export const catalog = {
       page: 0,
       categories: {}
     },
-    subscriptionsList: []
+    subscriptionsList: [],
+    interestedSubscriptions: localStorage.getItem('interestedSubscriptions') ? localStorage.getItem('interestedSubscriptions').split(',') : []
   },
   computed: {},
   mutations: {
@@ -38,7 +39,8 @@ export const catalog = {
     resetDataset: CatalogMutations.resetDataset,
     setSubscriptionsList: CatalogMutations.setSubscriptionsList,
     setSubscriptionInfo: CatalogMutations.setSubscriptionInfo,
-    resetSubscriptionsList: CatalogMutations.resetSubscriptionsList
+    resetSubscriptionsList: CatalogMutations.resetSubscriptionsList,
+    addInterestedSubscriptions: CatalogMutations.addInterestedSubscriptions
   },
   actions: {
     initFilter: CatalogActions.initFilter,
@@ -52,6 +54,7 @@ export const catalog = {
     fetchSubscriptionsList: CatalogActions.fetchSubscriptionsList,
     fetchSubscribe: CatalogActions.fetchSubscribe,
     fetchUnSubscribe: CatalogActions.fetchUnSubscribe,
+    downloadNotebook: CatalogActions.downloadNotebook,
     requestDataset: CatalogActions.requestDataset
   },
   getters: {

@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 import { setUrlParameters } from '../../utils/url-parameters';
 
-const baseUrl = 'https://public.carto.com/api/v4/';
+const baseUrl = ' https://cmonteserin-do-st.carto-staging.com/api/v4/';
 // const baseUrl = 'https://jarroyo.carto-staging.com/api/v4/';
 const entitiesEndpoint = 'data/observatory/metadata/entities';
 const datasetsEndpoint = 'data/observatory/metadata/datasets';
@@ -200,7 +200,14 @@ export async function fetchUnSubscribe(context, { id, type }) {
   }
 }
 
-export function requestDataset(context, { user, dataset }) {
+export async function downloadNotebook(context, slug) {
+  const url = baseUrl + `data/observatory/templates/notebooks/explore?slug_id=${slug}`;
+  var link = document.createElement('a');
+  link.href = url;
+  link.click();
+}
+
+export function requestDataset (context, { user, dataset }) {
   /* Using V3 hubspot API
   https://api.hsforms.com/submissions/v3/integration/submit/:portalId/:formGuid */
   const hubspot_id = '474999';
@@ -214,16 +221,15 @@ export function requestDataset(context, { user, dataset }) {
     baseUrl: 'https://api.hsforms.com'
   };
 
-  debugger;
-
-  // return new Promise((resolve, reject) => {
-  //   context.rootState.client.post([CONFIG_PATH], opts, function (err, _, data) {
-  //     if (err) {
-  //       return reject(err);
-  //     }
-  //     resolve();
-  //   });
-  // });
+  return new Promise((resolve, reject) => {
+    context.rootState.client.post([CONFIG_PATH], opts, err => {
+      if (err) {
+        return reject(err);
+      }
+      context.commit('addInterestedSubscriptions', dataset.id);
+      resolve();
+    });
+  });
 }
 
 function filtersToPayload(filter) {
@@ -248,7 +254,7 @@ function filtersToPayload(filter) {
   return `?${params.join('&')}`;
 }
 
-function getFormData (user, dataset) {
+function getFormData(user, dataset) {
   return JSON.stringify({
     fields: [
       {
@@ -280,15 +286,23 @@ function getFormData (user, dataset) {
       },
       {
         name: 'country_data',
-        value: dataset.country
+        value: dataset.country_name
       },
       {
         name: 'data_category',
-        value: dataset.category
+        value: dataset.category_name
       },
       {
         name: 'datastream_name',
-        value: dataset.name
+        value: dataset.data_source_name
+      },
+      {
+        name: 'provider',
+        value: dataset.provider_name
+      },
+      {
+        name: 'datastream_license',
+        value: dataset.license_name
       },
       {
         name: 'data_purpose',

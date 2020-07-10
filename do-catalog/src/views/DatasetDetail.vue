@@ -11,19 +11,22 @@
         </router-link>
       </div>
     </div>
-    <DatasetActionsBar
-      v-if="subscription"
-      :subscription="subscription"
-      class="u-mt--12"
-    ></DatasetActionsBar>
-    <DatasetHeader></DatasetHeader>
-    <div class="grid grid-cell u-flex__justify--center">
-      <NavigationTabs class="grid-cell--col12">
-        <router-link :to="{ name: 'do-dataset-summary' }">Summary</router-link>
-        <router-link :to="{ name: 'do-dataset-data' }">Data</router-link>
-      </NavigationTabs>
-    </div>
-    <router-view :key="$route.fullPath"></router-view>
+    <template v-if="!loading">
+      <DatasetActionsBar
+        v-if="subscription"
+        :subscription="subscription"
+        :slug="dataset.slug"
+        class="u-mt--12"
+      ></DatasetActionsBar>
+      <DatasetHeader></DatasetHeader>
+      <div class="grid grid-cell u-flex__justify--center">
+        <NavigationTabs class="grid-cell--col12">
+          <router-link :to="{ name: 'do-dataset-summary' }">Summary</router-link>
+          <router-link :to="{ name: 'do-dataset-data' }">Data</router-link>
+        </NavigationTabs>
+      </div>
+      <router-view></router-view>
+    </template>
   </div>
 </template>
 
@@ -40,6 +43,11 @@ export default {
     DatasetHeader,
     NavigationTabs
   },
+  data() {
+    return {
+      loading: true
+    };
+  },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset
@@ -53,20 +61,17 @@ export default {
       return this.$route.params.type === 'geography';
     }
   },
-  methods: {
-    fetchDataset() {
-      if (!this.dataset || this.dataset.slug !== this.$route.params.datasetId) {
-        this.$store.dispatch('doCatalog/fetchDataset', {
-          id: this.$route.params.datasetId,
-          type: this.$route.params.type
-        });
-      }
-    }
-  },
+  methods: {},
   mounted() {
-    // TODO: commented for DO Catalog soft-release
-    // this.$store.dispatch('doCatalog/fetchSubscriptionsList');
-    this.fetchDataset();
+    Promise.all([
+      this.$store.dispatch('doCatalog/fetchSubscriptionsList'),
+      this.$store.dispatch('doCatalog/fetchDataset', {
+        id: this.$route.params.datasetId,
+        type: this.$route.params.type
+      })
+    ]).then(() => {
+      this.loading = false;
+    });
   },
   destroyed() {
     this.$store.commit('doCatalog/resetDataset');
