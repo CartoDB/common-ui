@@ -3,7 +3,7 @@
     <div class="dataset-actions-bar grid grid-cell grid-cell--col12 u-flex__justify--between">
       <div class="u-flex u-flex__align--center">
         <div class="subscription-actions">
-          <SubscriptionActions :dataset="subscription" :mode="'row'"></SubscriptionActions>
+          <SubscriptionActions v-if="subscriptionWithSlug.slug" :dataset="subscriptionWithSlug" :mode="'row'"></SubscriptionActions>
         </div>
         <div class="white-separator u-ml--12 u-mr--12"></div>
         <SlugCopy v-if="slug" :slug="slug"></SlugCopy>
@@ -29,7 +29,11 @@ export default {
     subscription: Object,
     slug: String
   },
-  computed: {}
+  computed: {
+    subscriptionWithSlug() {
+      return { ...this.subscription, slug: this.slug };
+    }
+  }
 };
 </script>
 

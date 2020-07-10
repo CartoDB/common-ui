@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 import { setUrlParameters } from '../../utils/url-parameters';
 
-const baseUrl = 'https://public.carto.com/api/v4/';
+const baseUrl = ' https://cmonteserin-do-st.carto-staging.com/api/v4/';
 // const baseUrl = 'https://jarroyo.carto-staging.com/api/v4/';
 const entitiesEndpoint = 'data/observatory/metadata/entities';
 const datasetsEndpoint = 'data/observatory/metadata/datasets';
@@ -198,6 +198,13 @@ export async function fetchUnSubscribe(context, { id, type }) {
   } catch (error) {
     return false;
   }
+}
+
+export async function downloadNotebook(context, slug) {
+  const url = baseUrl + `data/observatory/templates/notebooks/explore?slug_id=${slug}`;
+  var link = document.createElement('a');
+  link.href = url;
+  link.click();
 }
 
 function filtersToPayload(filter) {
