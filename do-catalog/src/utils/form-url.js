@@ -1,5 +1,5 @@
 export function formURL(dataset) {
-  const url = 'https://carto.com/platform/spatial-data-catalog/form/';
+  const url = 'https://carto.com/spatial-data-catalog/form/';
   const urlParams = [];
 
   const params = {

@@ -25,19 +25,25 @@
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">License</h4>
           <p class="text is-caption is-txtMainTextColor">
-            {{ datasetPrivacy }}
+            {{ dataset.license_name }}
           </p>
         </li>
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Country</h4>
           <p class="text is-caption is-txtMainTextColor">
-            {{ dataset.country_name || '-' }}
+            {{ dataset.country_name }}
           </p>
         </li>
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Source</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ dataset.provider_name }}
+          </p>
+        </li>
+        <li class="u-mb--32 u-mb--12--tablet">
+          <h4 class="text is-small is-txtSoftGrey u-mb--10">Placetype</h4>
+          <p class="text is-caption is-txtMainTextColor">
+            {{ dataset.placetype_name }}
           </p>
         </li>
         <li class="u-mb--32 u-mb--12--tablet" v-if="isGeography">
@@ -54,14 +60,6 @@
             {{ temporalAggregation }}
           </p>
         </li>
-        <!-- <li class="u-mb--32 u-mb--12--tablet" v-else>
-          <h4 class="text is-small is-txtSoftGrey u-mb--10">
-            Spatial aggregation
-          </h4>
-          <p class="text is-caption is-txtMainTextColor">
-            {{ spatialAggregation }}
-          </p>
-        </li> -->
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Update Frequency
@@ -129,23 +127,13 @@ export default {
       return temporalAggregationName(this.dataset.temporal_aggregation);
     },
     updateFrequency() {
-      return this.dataset.update_frequency
-        ? updateFrequencyName(this.dataset.update_frequency)
-        : '-';
-    },
-    datasetPrivacy() {
-      return this.dataset.is_public_data ? 'Public Data' : 'Premium Data';
+      return updateFrequencyName(this.dataset.update_frequency);
     },
     isGeography() {
       return this.$route.params.type === 'geography';
     },
     geometryType() {
       return geometryTypeName(this.dataset.geom_type);
-    },
-    spatialAggregation() {
-      return this.dataset.spatial_aggregation_name
-        ? this.dataset.spatial_aggregation_name
-        : '-';
     }
   },
   methods: {
