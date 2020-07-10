@@ -51,7 +51,8 @@ export const catalog = {
     clearTagFilters: CatalogActions.clearTagFilters,
     fetchSubscriptionsList: CatalogActions.fetchSubscriptionsList,
     fetchSubscribe: CatalogActions.fetchSubscribe,
-    fetchUnSubscribe: CatalogActions.fetchUnSubscribe
+    fetchUnSubscribe: CatalogActions.fetchUnSubscribe,
+    requestDataset: CatalogActions.requestDataset
   },
   getters: {
     getSubscriptionByDataset: state => datasetId => {

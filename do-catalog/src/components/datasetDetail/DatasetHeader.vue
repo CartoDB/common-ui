@@ -24,9 +24,15 @@
 
     <div class="u-ml--auto grid-cell grid-cell--col3 grid-cell--col4--tablet">
       <div class="u-flex u-flex__justify--end">
-        <Button
+        <!-- <Button
           v-if="getSubscriptionStatus === 'interested'"
           :url="getFormURL()"
+        >
+          I’m interested
+        </Button> -->
+        <Button
+          v-if="getSubscriptionStatus === 'interested'"
+          @click.native="interesed"
         >
           I’m interested
         </Button>
@@ -144,6 +150,9 @@ export default {
   methods: {
     getFormURL() {
       return formURL(this.dataset);
+    },
+    interesed() {
+      this.$store.dispatch('doCatalog/requestDataset', { user: this.$store.state.user, dataset: this.dataset })
     },
     showModal(mode) {
       this.modalMode = mode;
