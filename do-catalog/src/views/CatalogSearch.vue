@@ -205,7 +205,7 @@ header {
 @media (max-width: $layout-tablet) {
   .dynamic-filtering {
     position: fixed;
-    z-index: 1;
+    z-index: 11;
     top: 100%;
     width: 100%;
     height: 100%;
