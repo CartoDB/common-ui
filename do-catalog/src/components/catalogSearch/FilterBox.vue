@@ -156,6 +156,15 @@ export default {
     toggleVisibility() {
       this.isCompressed = !this.isCompressed;
     }
+  },
+  watch: {
+    filteredOptions: function(newValue, oldValue) {
+      if (!newValue.length && !this.loading) {
+        this.isCompressed = true;
+      } else if (!oldValue.length && newValue.length && !this.loading) {
+        this.isCompressed = false;
+      }
+    }
   }
 };
 </script>
