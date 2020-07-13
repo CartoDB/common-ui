@@ -4,12 +4,14 @@
       <div class="u-flex u-flex__justify--between">
         <h2 class="title is-caption is-txtMainTextColor">
           Data sample
-          <a
-            v-if="variables && variables.length > 0"
-            @click="scrollToVariables()"
-            class="is-small"
-            >View {{ numberColumns }} variables list</a
-          >
+          <transition name="fade">
+            <a
+              v-if="variables && variables.length > 0"
+              @click="scrollToVariables()"
+              class="is-small"
+              >View {{ numberColumns }} variables list</a
+            >
+          </transition>
         </h2>
         <div class="is-small text txtMainTextColor">
           <span class="source u-flex u-flex__align--center" v-if="source"
@@ -82,54 +84,56 @@
       ></NotAvailable>
     </div>
 
-    <div
-      v-if="variables && variables.length > 0"
-      class="grid-cell--col12 u-mt--60"
-      ref="variablesSection"
-    >
-      <div class="u-flex u-flex__align--center u-flex__justify--between">
-        <h2 class="grid-cell title is-caption is-txtMainTextColor">
-          Variables
-        </h2>
-        <span class="is-txtMidGrey text is-small u-pr--10">{{numberColumns}} variables</span>
+    <transition name="fade">
+      <div
+        v-if="variables && variables.length > 0"
+        class="grid-cell--col12 u-mt--60"
+        ref="variablesSection"
+      >
+        <div class="u-flex u-flex__align--center u-flex__justify--between">
+          <h2 class="grid-cell title is-caption is-txtMainTextColor">
+            Variables
+          </h2>
+          <span class="is-txtMidGrey text is-small u-pr--10">{{numberColumns}} variables</span>
+        </div>
+
+        <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
+          <li class="grid title is-txtMidGrey header-row">
+            <div class="grid-cell grid-cell--col4">Column Name</div>
+            <div
+              class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile"
+            >
+              Description
+            </div>
+            <div
+              class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile"
+            >
+              Type
+            </div>
+          </li>
+
+          <li
+            class="grid info-row"
+            v-for="variable in variables"
+            :key="variable.slug"
+          >
+            <div class="grid-cell grid-cell--col4 is-semibold name-cell">
+              {{ variable.column_name }}
+            </div>
+            <div
+              class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile"
+            >
+              {{ variable.description }}
+            </div>
+            <div
+              class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile"
+            >
+              {{ variable.db_type }}
+            </div>
+          </li>
+        </ul>
       </div>
-
-      <ul class="u-mt--24 text f12 is-small is-txtMainTextColor">
-        <li class="grid title is-txtMidGrey header-row">
-          <div class="grid-cell grid-cell--col4">Column Name</div>
-          <div
-            class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile"
-          >
-            Description
-          </div>
-          <div
-            class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile"
-          >
-            Type
-          </div>
-        </li>
-
-        <li
-          class="grid info-row"
-          v-for="variable in variables"
-          :key="variable.slug"
-        >
-          <div class="grid-cell grid-cell--col4 is-semibold name-cell">
-            {{ variable.column_name }}
-          </div>
-          <div
-            class="grid-cell grid-cell--col7 grid-cell--col6--tablet grid-cell--col5--mobile"
-          >
-            {{ variable.description }}
-          </div>
-          <div
-            class="grid-cell grid-cell--col1 grid-cell--col2--tablet grid-cell--col3--mobile"
-          >
-            {{ variable.db_type }}
-          </div>
-        </li>
-      </ul>
-    </div>
+    </transition>
   </div>
 </template>
 
