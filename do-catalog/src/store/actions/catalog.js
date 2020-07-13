@@ -310,8 +310,8 @@ function getFormData(user, dataset) {
       }
     ],
     context: {
-      pageUri: 'www.carto.com/dashboard/catalog',
-      pageName: 'Catalog page in Dashboard'
+      pageUri: 'www.carto.com/dashboard/spatial-data-catalog',
+      pageName: 'Spatial Data Catalog page in Dashboard'
     }
   });
 }
