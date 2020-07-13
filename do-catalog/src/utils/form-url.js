@@ -7,7 +7,7 @@ export function formURL(dataset) {
     country: dataset.country_name,
     datastream: dataset.data_source_name,
     provider: dataset.provider_name,
-    license: dataset.is_public_data ? 'Public' : 'Premium'
+    license: dataset.license_name
   };
 
   for (let key in params) {
