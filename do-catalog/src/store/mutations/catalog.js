@@ -110,3 +110,11 @@ export function setSubscriptionInfo(state, data) {
 export function resetSubscriptionsList(state) {
   state.subscriptionsList = [];
 }
+
+export function addInterestedSubscriptions(state, id) {
+  state.interestedSubscriptions.push(id);
+  localStorage.setItem(
+    'interestedSubscriptions',
+    state.interestedSubscriptions
+  );
+}

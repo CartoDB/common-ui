@@ -25,11 +25,14 @@
     <div class="u-ml--auto grid-cell grid-cell--col3 grid-cell--col4--tablet buttons-actions">
       <div class="u-flex u-flex__justify--end">
         <Button
-          v-if="getSubscriptionStatus === 'interested'"
-          :url="getFormURL()"
+          v-if="getSubscriptionStatus === 'interested' && !interesedInSubscription"
+          @click.native="interesed"
         >
           I’m interested
         </Button>
+        <CatalogRequestSuccess
+          v-else-if="getSubscriptionStatus === 'interested' && interesedInSubscription"
+        ></CatalogRequestSuccess>
         <Button
           v-else-if="getSubscriptionStatus === 'free_subscription'"
           @click.native="showModal('subscribe')"
@@ -79,13 +82,15 @@
       :type="getDatasetType()"
       :mode="modalMode"
     ></ModalSubscription>
+
   </header>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import Button from '../Button';
-import ModalSubscription from '../ModalSubscription';
+import ModalSubscription from '../subscriptions/ModalSubscription';
+import CatalogRequestSuccess from '../subscriptions/CatalogRequestSuccess';
 import { formURL } from '../../utils/form-url';
 
 export default {
@@ -98,11 +103,13 @@ export default {
   },
   components: {
     Button,
-    ModalSubscription
+    ModalSubscription,
+    CatalogRequestSuccess
   },
   computed: {
     ...mapState({
-      dataset: state => state.doCatalog.dataset
+      dataset: state => state.doCatalog.dataset,
+      interestedSubscriptions: state => state.doCatalog.interestedSubscriptions
     }),
     subscriptionInfo() {
       return this.$store.getters['doCatalog/getSubscriptionByDataset'](
@@ -116,9 +123,6 @@ export default {
       return this.$route.params.type === 'geography';
     },
     getSubscriptionStatus() {
-      // TODO: return always "interesed" for DO Catalog soft-release
-      return 'interested';
-
       const possibleLicenceStates = ['requested', 'active', 'expired'];
       if (
         !this.isPublicWebsite &&
@@ -139,11 +143,21 @@ export default {
           : 'request_subscription';
       }
       return null;
+    },
+    interesedInSubscription() {
+      return this.interestedSubscriptions.indexOf(this.dataset.id) >= 0;
     }
   },
   methods: {
     getFormURL() {
       return formURL(this.dataset);
+    },
+    interesed() {
+      if (this.isPublicWebsite) {
+        window.location.replace(this.getFormURL());
+      } else {
+        this.$store.dispatch('doCatalog/requestDataset', { user: this.$store.state.user, dataset: this.dataset })
+      }
     },
     showModal(mode) {
       this.modalMode = mode;

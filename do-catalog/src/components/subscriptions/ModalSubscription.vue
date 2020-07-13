@@ -4,7 +4,7 @@
     class="modal u-flex u-flex__justify--center u-flex__align--center"
   >
     <div @click="closeModal()" class="close-modal">
-      <img src="../assets/modal/close.svg" alt="close" />
+      <img src="../../assets/modal/close.svg" alt="close" />
     </div>
 
     <div class="grid u-flex__justify--center">
@@ -12,7 +12,7 @@
         <div class="u-align--center">
           <img
             v-if="getHeaderIcon"
-            :src="require('../assets/modal/' + getHeaderIcon)"
+            :src="require('../../assets/modal/' + getHeaderIcon)"
             alt="Request data"
           />
           <h2 class="title is-sectiontitle is-txtNavyBlue u-mt--24">
@@ -42,7 +42,7 @@
           <p v-if="currentMode === 'subscribed' || currentMode === 'requested'"
             class="text u-mt--16 is-caption-small is-txtNavyBlue u-flex"
           >
-            <img class="u-mr--12" src="../assets/check.svg" alt="check" />
+            <img class="u-mr--12" src="../../assets/check.svg" alt="check" />
             I accepted the License
           </p>
 
@@ -112,7 +112,7 @@
           v-else-if="currentMode === 'requested'"
           class="text is-caption is-txtNavyBlue u-mt--40 u-flex u-flex__justify--center u-flex__align-cen"
         >
-          <img class="u-mr--12" src="../assets/check.svg" alt="check" />
+          <img class="u-mr--12" src="../../assets/check.svg" alt="check" />
           Your subscription request has been added to your subscriptions.
         </p>
 
@@ -162,7 +162,7 @@
                 class="u-ml--16"
                 :color="'green'"
               >
-                <img class="u-mr--12" src="../assets/check_white.svg" alt="check" />
+                <img class="u-mr--12" src="../../assets/check_white.svg" alt="check" />
                 Check your subscriptions
               </Button>
           </router-link>
@@ -174,8 +174,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import Button from './Button.vue';
-import DatasetListItem from './catalogSearch/DatasetListItem';
+import Button from '../Button.vue';
+import DatasetListItem from '../catalogSearch/DatasetListItem';
 
 export default {
   name: 'ModalSubscription',
@@ -334,7 +334,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables';
+@import '../../styles/variables';
 
 .modal {
   position: fixed;
