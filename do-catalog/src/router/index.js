@@ -9,14 +9,6 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '',
-    name: 'do-catalog',
-    component: CatalogSearch,
-    meta: {
-      title: () => 'Spatial Data Catalog | CARTO'
-    }
-  },
-  {
     path: ':type/:datasetId',
     component: DatasetDetail,
     meta: {
@@ -40,6 +32,14 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    path: '',
+    name: 'do-catalog',
+    component: CatalogSearch,
+    meta: {
+      title: () => 'Spatial Data Catalog | CARTO'
+    }
   }
 ];
 
