@@ -113,7 +113,7 @@ export default {
     },
     filteredOptions() {
       const lowercaseFilter = this.filterText.toLowerCase();
-      return [...this.options.values()]
+      const filteredOptions = [...this.options.values()]
         .filter(opt => opt.entity_count > 0 && opt.name.toLowerCase().includes(lowercaseFilter))
         .sort((a, b) => {
           if (a.highlighted === b.highlighted) {
@@ -132,6 +132,12 @@ export default {
             return 1;
           }
         });
+
+       if (!filteredOptions.length && !this.loading) {
+        this.isCompressed = true;
+      }
+
+      return filteredOptions;
     }
   },
   methods: {
@@ -155,6 +161,15 @@ export default {
     },
     toggleVisibility() {
       this.isCompressed = !this.isCompressed;
+    }
+  },
+  watch: {
+    filteredOptions(newValue, oldValue) {
+      if (!newValue.length && !this.loading) {
+        this.isCompressed = true;
+      } else if (!oldValue.length && newValue.length && !this.loading) {
+        this.isCompressed = false;
+      }
     }
   }
 };
