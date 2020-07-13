@@ -81,7 +81,7 @@ export default {
   methods: {},
   mounted() {
     Promise.all([
-      this.$store.dispatch('doCatalog/fetchSubscriptionsList'),
+      // this.$store.dispatch('doCatalog/fetchSubscriptionsList'),
       this.$store.dispatch('doCatalog/fetchDataset', {
         id: this.$route.params.datasetId,
         type: this.$route.params.type
