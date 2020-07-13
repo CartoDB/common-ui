@@ -4,20 +4,21 @@
       <p class="text is-caption is-txtMainTextColor u-mt--32 u-mt--12--tablet">
         {{ dataset.description || 'No description available.' }}
       </p>
-
-      <div class="key-variables u-mt--32" v-if="keyVariables.length">
-        <h5 class="title is-caption is-txtMainTextColor">
-          Key variables
-          <router-link :to="{ name: 'do-dataset-data' }" class="is-small"
-            >(View all)</router-link
-          >
-        </h5>
-        <ul class="text is-caption column-list u-mt--24">
-          <li v-for="variable in keyVariables" :key="variable.id">
-            <span>{{ variable.name }}</span>
-          </li>
-        </ul>
-      </div>
+      <transition name="fade">
+        <div class="key-variables u-mt--32" v-if="keyVariables.length">
+          <h5 class="title is-caption is-txtMainTextColor">
+            Key variables
+            <router-link :to="{ name: 'do-dataset-data' }" class="is-small"
+              >(View all)</router-link
+            >
+          </h5>
+          <ul class="text is-caption column-list u-mt--24">
+            <li v-for="variable in keyVariables" :key="variable.id">
+              <span>{{ variable.name }}</span>
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
     <div class="grid-cell--col1 grid-cell--col0--tablet"></div>
     <div class="grid-cell grid-cell--col2 grid-cell--col12--tablet sidebar">

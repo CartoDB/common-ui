@@ -11,22 +11,39 @@
         </router-link>
       </div>
     </div>
-    <template v-if="!loading">
-      <DatasetActionsBar
-        v-if="subscription"
-        :subscription="subscription"
-        :slug="dataset.slug"
-        class="u-mt--12"
-      ></DatasetActionsBar>
-      <DatasetHeader></DatasetHeader>
-      <div class="grid grid-cell u-flex__justify--center">
-        <NavigationTabs class="grid-cell--col12">
-          <router-link :to="{ name: 'do-dataset-summary' }">Summary</router-link>
-          <router-link :to="{ name: 'do-dataset-data' }">Data</router-link>
-        </NavigationTabs>
+    <div v-if="loading" class="u-flex u-flex__align--center u-flex__direction--column u-mt--120">
+      <span class="loading u-mr--12">
+        <svg viewBox="0 0 38 38">
+          <g transform="translate(1 1)" fill="none" fill-rule="evenodd">
+            <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+            <path d="M36 18c0-9.94-8.06-18-18-18">
+              <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="1s" repeatCount="indefinite"/>
+            </path>
+          </g>
+        </svg>
+      </span>
+      <span class="text is-txtSoftGrey is-caption u-mt--12">
+        Loading dataset details…
+      </span>
+    </div>
+    <transition name="fade">
+      <div v-if="!loading">
+        <DatasetActionsBar
+          v-if="subscription"
+          :subscription="subscription"
+          :slug="dataset.slug"
+          class="u-mt--12"
+        ></DatasetActionsBar>
+        <DatasetHeader></DatasetHeader>
+        <div class="grid grid-cell u-flex__justify--center">
+          <NavigationTabs class="grid-cell--col12">
+            <router-link :to="{ name: 'do-dataset-summary' }">Summary</router-link>
+            <router-link :to="{ name: 'do-dataset-data' }">Data</router-link>
+          </NavigationTabs>
+        </div>
+        <router-view></router-view>
       </div>
-      <router-view></router-view>
-    </template>
+    </transition>
   </div>
 </template>
 
@@ -88,6 +105,19 @@ export default {
 
   .back-link {
     display: flex;
+  }
+}
+
+.loading {
+  svg {
+    width: 40px;
+    stroke: $blue--500;
+    g {
+      stroke-width: 2px;
+      circle {
+        stroke-opacity: 0.25;
+      }
+    }
   }
 }
 </style>
