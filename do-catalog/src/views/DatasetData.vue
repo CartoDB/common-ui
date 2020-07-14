@@ -55,7 +55,6 @@
             <tr v-for="n in numberRows" :key="n">
               <td class="is-semibold">{{ n - 1 }}</td>
               <td v-for="sample of tableSample" :key="sample.column_name">
-                <!-- {{sample.values[n - 1]}} -->
                 <template v-if="sample.column_name !== 'geom'">
                   <span
                     v-if="
