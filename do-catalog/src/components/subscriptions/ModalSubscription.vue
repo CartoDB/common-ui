@@ -34,7 +34,7 @@
           v-if="dataset.licenses && dataset.licenses !== ''"
         >
 
-          <p class="text is-small is-txtBaseGrey">
+          <p class="text is-small is-txtBaseGrey license-description">
             {{dataset.licenses}}
             <a v-if="dataset.licenses_link" class="text is-small" :href="dataset.licenses_link" target="_blank">More info.</a>
           </p>
@@ -131,8 +131,11 @@
             v-if="currentMode === 'subscribe'"
             @click.native="subscribe()"
             class="u-ml--16"
-            :class="{ 'require-licence': !licenseAccepted }"
+            :class="{ 'require-licence': !licenseAccepted, 'is-loading': loading }"
           >
+          <span class="loading u-flex u-flex__align-center u-mr--12">
+            <img svg-inline src="../../assets/loading_white.svg" class="loading__svg"/>
+          </span>
             Confirm subscription
           </Button>
 
@@ -140,8 +143,12 @@
             v-else-if="currentMode === 'unsubscribe'"
             @click.native="unsubscribe()"
             class="u-ml--16"
+            :class="{ 'is-loading': loading }"
             :color="'red'"
           >
+          <span class="loading u-flex u-flex__align-center u-mr--12">
+            <img svg-inline src="../../assets/loading_white.svg" class="loading__svg"/>
+          </span>
             Confirm unsubscription
           </Button>
 
@@ -149,8 +156,11 @@
             v-else-if="currentMode === 'request'"
             @click.native="request()"
             class="u-ml--16"
-            :class="{ 'require-licence': !licenseAccepted }"
+            :class="{ 'require-licence': !licenseAccepted, 'is-loading': loading  }"
           >
+          <span class="loading u-flex u-flex__align-center u-mr--12">
+            <img svg-inline src="../../assets/loading_white.svg" class="loading__svg"/>
+          </span>
             Confirm request
           </Button>
 
@@ -204,7 +214,8 @@ export default {
   data() {
     return {
       currentMode: null,
-      licenseStatus: false
+      licenseStatus: false,
+      loading: false
     };
   },
   computed: {
@@ -292,6 +303,7 @@ export default {
       window.dataLayer.push({ event: 'requestDataset' });
     },
     async subscribe() {
+      this.loading = true;
       if (
         await this.$store.dispatch('doCatalog/fetchSubscribe', {
           id: this.dataset.id,
@@ -300,9 +312,11 @@ export default {
       ) {
         await this.$store.dispatch('doCatalog/fetchSubscriptionsList');
         this.currentMode = 'subscribed';
+        this.loading = false;
       }
     },
     async unsubscribe() {
+      this.loading = true;
       if (
         await this.$store.dispatch('doCatalog/fetchUnSubscribe', {
           id: this.dataset.id,
@@ -310,10 +324,12 @@ export default {
         })
       ) {
         await this.$store.dispatch('doCatalog/fetchSubscriptionsList');
+        this.loading = false;
         this.closeModal();
       }
     },
     async request() {
+      this.loading = true;
       if (
         await this.$store.dispatch('doCatalog/fetchSubscribe', {
           id: this.dataset.id,
@@ -322,6 +338,7 @@ export default {
       ) {
         await this.$store.dispatch('doCatalog/fetchSubscriptionsList');
         this.currentMode = 'requested';
+        this.loading = false;
       }
     }
   },
@@ -384,4 +401,27 @@ export default {
   pointer-events: none;
   opacity: 0.4;
 }
+
+.license-description {
+  max-height: 88px;
+  overflow-y: scroll;
+}
+
+.loading {
+  &__svg {
+    width: 16px;
+  }
+}
+
+.button {
+  &:not(.is-loading) {
+    .loading {
+      display: none;
+    }
+  }
+  &.is-loading {
+    pointer-events: none;
+  }
+}
+
 </style>

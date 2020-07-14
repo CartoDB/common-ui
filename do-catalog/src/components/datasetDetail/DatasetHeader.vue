@@ -146,10 +146,12 @@ export default {
     showModal(mode) {
       this.modalMode = mode;
       this.modalOpen = true;
+      document.body.classList.add('u-overflow-hidden');
     },
     hideModal() {
       this.modalMode = null;
       this.modalOpen = false;
+      document.body.classList.remove('u-overflow-hidden');
     },
     getDatasetType() {
       return this.isGeography ? 'geography' : 'dataset';
