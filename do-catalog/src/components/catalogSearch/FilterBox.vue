@@ -158,12 +158,12 @@ export default {
     }
   },
   watch: {
-    filteredOptions: {
+    options: {
       immediate: true,
       handler(newValue, oldValue) {
-        if (!newValue.length && !this.loading) {
+        if (!newValue.size && !this.loading) {
           this.isCompressed = true;
-        } else if (oldValue && !oldValue.length && newValue.length && !this.loading) {
+        } else if (oldValue && !oldValue.size && newValue.size && !this.loading) {
           this.isCompressed = false;
         }
       }
