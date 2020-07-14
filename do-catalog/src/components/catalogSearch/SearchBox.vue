@@ -85,10 +85,19 @@ export default {
     border: 0;
     color: $navy-blue;
 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
     &:focus {
       border: 0;
       margin: 0;
       outline: none;
+      @media (max-width: $layout-tablet) {
+        &::placeholder {
+          color: transparent;
+        }
+      }
     }
 
     &::placeholder {

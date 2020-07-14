@@ -345,5 +345,8 @@ $animationFunc: ease;
   .extra-container {
     display: none;
   }
+  .detail-button {
+    padding: 0;
+  }
 }
 </style>

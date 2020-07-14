@@ -8,4 +8,13 @@
     font-size: 36px;
     line-height: 44px;
   }
+  input::-ms-clear {
+    display: none;
+  }
+  .fade-enter-active {
+    transition: opacity .5s;
+  }
+  .fade-enter {
+    opacity: 0;
+  }
 }

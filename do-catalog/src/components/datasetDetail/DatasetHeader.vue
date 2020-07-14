@@ -2,7 +2,7 @@
   <header
     class="grid u-flex__justify--center u-mb--36 u-mb--20--tablet u-mt--36"
   >
-    <div class="grid-cell grid-cell--col9 grid-cell--col8--tablet">
+    <div class="grid-cell grid-cell--col9 grid-cell--col8--tablet tilte-container">
       <nav class="breadcrumbs">
         <p class="text is-caption is-txtMainTextColor" v-if="!isGeography">
           <span class="title is-txtMainTextColor">{{
@@ -22,14 +22,17 @@
       </h1>
     </div>
 
-    <div class="u-ml--auto grid-cell grid-cell--col3 grid-cell--col4--tablet">
+    <div class="u-ml--auto grid-cell grid-cell--col3 grid-cell--col4--tablet buttons-actions">
       <div class="u-flex u-flex__justify--end">
         <Button
-          v-if="getSubscriptionStatus === 'interested'"
-          :url="getFormURL()"
+          v-if="getSubscriptionStatus === 'interested' && !interesedInSubscription"
+          @click.native="interesed"
         >
           I’m interested
         </Button>
+        <CatalogRequestSuccess
+          v-else-if="getSubscriptionStatus === 'interested' && interesedInSubscription"
+        ></CatalogRequestSuccess>
         <Button
           v-else-if="getSubscriptionStatus === 'free_subscription'"
           @click.native="showModal('subscribe')"
@@ -87,6 +90,7 @@
 import { mapState } from 'vuex';
 import Button from '../Button';
 import ModalSubscription from '../subscriptions/ModalSubscription';
+import CatalogRequestSuccess from '../subscriptions/CatalogRequestSuccess';
 import { formURL } from '../../utils/form-url';
 
 export default {
@@ -99,11 +103,13 @@ export default {
   },
   components: {
     Button,
-    ModalSubscription
+    ModalSubscription,
+    CatalogRequestSuccess
   },
   computed: {
     ...mapState({
-      dataset: state => state.doCatalog.dataset
+      dataset: state => state.doCatalog.dataset,
+      interestedSubscriptions: state => state.doCatalog.interestedSubscriptions
     }),
     subscriptionInfo() {
       return this.$store.getters['doCatalog/getSubscriptionByDataset'](
@@ -137,11 +143,21 @@ export default {
           : 'request_subscription';
       }
       return null;
+    },
+    interesedInSubscription() {
+      return this.interestedSubscriptions.indexOf(this.dataset.id) >= 0;
     }
   },
   methods: {
     getFormURL() {
       return formURL(this.dataset);
+    },
+    interesed() {
+      if (this.isPublicWebsite) {
+        window.location.replace(this.getFormURL());
+      } else {
+        this.$store.dispatch('doCatalog/requestDataset', { user: this.$store.state.user, dataset: this.dataset })
+      }
     },
     showModal(mode) {
       this.modalMode = mode;
@@ -173,5 +189,25 @@ export default {
 .underline {
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media (max-width: $layout-mobile) {
+  .tilte-container.grid-cell--col8--tablet {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+  .buttons-actions {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    min-width: 100%;
+    background-color: $white;
+    box-shadow: 0 4px 16px 0 rgba($neutral--800, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 68px;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="u-pb--72">
     <div class="grid grid-cell u-flex__justify--center">
       <div class="grid-cell--col12 navigation-header">
         <router-link
@@ -11,20 +11,39 @@
         </router-link>
       </div>
     </div>
-    <DatasetActionsBar
-      v-if="subscription"
-      :subscription="subscription"
-      :slug="dataset.slug"
-      class="u-mt--12"
-    ></DatasetActionsBar>
-    <DatasetHeader></DatasetHeader>
-    <div class="grid grid-cell u-flex__justify--center">
-      <NavigationTabs class="grid-cell--col12">
-        <router-link :to="{ name: 'do-dataset-summary' }">Summary</router-link>
-        <router-link :to="{ name: 'do-dataset-data' }">Data</router-link>
-      </NavigationTabs>
+    <div v-if="loading" class="u-flex u-flex__align--center u-flex__direction--column u-mt--120">
+      <span class="loading u-mr--12">
+        <svg viewBox="0 0 38 38">
+          <g transform="translate(1 1)" fill="none" fill-rule="evenodd">
+            <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+            <path d="M36 18c0-9.94-8.06-18-18-18">
+              <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="1s" repeatCount="indefinite"/>
+            </path>
+          </g>
+        </svg>
+      </span>
+      <span class="text is-txtSoftGrey is-caption u-mt--12">
+        Loading dataset details…
+      </span>
     </div>
-    <router-view :key="$route.fullPath"></router-view>
+    <transition name="fade">
+      <div v-if="!loading">
+        <DatasetActionsBar
+          v-if="subscription"
+          :subscription="subscription"
+          :slug="dataset.slug"
+          class="u-mt--12"
+        ></DatasetActionsBar>
+        <DatasetHeader></DatasetHeader>
+        <div class="grid grid-cell u-flex__justify--center">
+          <NavigationTabs class="grid-cell--col12">
+            <router-link :to="{ name: 'do-dataset-summary' }">Summary</router-link>
+            <router-link :to="{ name: 'do-dataset-data' }">Data</router-link>
+          </NavigationTabs>
+        </div>
+        <router-view :key="$route.fullPath"></router-view>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -41,6 +60,11 @@ export default {
     DatasetHeader,
     NavigationTabs
   },
+  data() {
+    return {
+      loading: false
+    };
+  },
   computed: {
     ...mapState({
       dataset: state => state.doCatalog.dataset
@@ -54,22 +78,25 @@ export default {
       return this.$route.params.type === 'geography';
     }
   },
-  methods: {
-    fetchDataset() {
-      if (!this.dataset || this.dataset.slug !== this.$route.params.datasetId) {
+  methods: {},
+  mounted() {
+    if (!this.dataset || this.dataset.slug !== this.$route.params.datasetId) {
+      this.loading = true;
+      Promise.all([
+        this.$store.dispatch('doCatalog/fetchSubscriptionsList'),
         this.$store.dispatch('doCatalog/fetchDataset', {
           id: this.$route.params.datasetId,
           type: this.$route.params.type
-        });
-      }
+        })
+      ]).then(() => {
+        this.loading = false;
+      });
     }
   },
-  mounted() {
-    this.$store.dispatch('doCatalog/fetchSubscriptionsList');
-    this.fetchDataset();
-  },
   destroyed() {
-    this.$store.commit('doCatalog/resetDataset');
+    if (this.dataset.slug !== this.$route.params.datasetId) {
+      this.$store.commit('doCatalog/resetDataset');
+    }
   }
 };
 </script>
@@ -83,6 +110,19 @@ export default {
 
   .back-link {
     display: flex;
+  }
+}
+
+.loading {
+  svg {
+    width: 40px;
+    stroke: $blue--500;
+    g {
+      stroke-width: 2px;
+      circle {
+        stroke-opacity: 0.25;
+      }
+    }
   }
 }
 </style>
