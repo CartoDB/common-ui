@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="do-catalog">
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
