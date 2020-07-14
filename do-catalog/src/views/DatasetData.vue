@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isFetching" class="grid grid-cell u-flex__justify--center">
     <div class="grid-cell grid-cell--col12 u-mt--28">
-      <div class="u-flex u-flex__justify--between">
+      <div class="u-flex u-flex__justify--between title-container">
         <h2 class="title is-caption is-txtMainTextColor">
           Data sample
           <transition name="fade">
@@ -387,4 +387,21 @@ a {
     margin-left: 12px;
   }
 }
+
+@media (max-width: $layout-mobile) {
+  .title-container {
+    flex-wrap: wrap;
+    >h2 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    >div {
+      width: 100%;
+      text-align: right;
+    }
+  }
+}
+
 </style>
