@@ -186,8 +186,12 @@ export default {
     },
     tableKey() {
       if (this.dataset && this.dataset.summary_json) {
-        if (this.dataset.summary_json.glimpses) {
+        if (this.dataset.summary_json.ordered_glimpses) {
+          return 'ordered_glimpses';
+        } else if (this.dataset.summary_json.glimpses) {
           return 'glimpses';
+        } else if (this.dataset.summary_json.default_ordered_glimpses) {
+          return 'default_ordered_glimpses';
         } else if (this.dataset.summary_json.default_glimpses) {
           return 'default_glimpses';
         }
@@ -195,14 +199,21 @@ export default {
       return null;
     },
     source() {
-      if (this.tableKey === 'default_glimpses') {
+      if (this.tableKey === 'default_glimpses' || this.tableKey === 'default_ordered_glimpses') {
         return this.dataset.summary_json[this.tableKey].source;
       }
       return null;
     },
     tableSample() {
       if (this.tableKey) {
-        return this.dataset.summary_json[this.tableKey].tail;
+        const sample = this.dataset.summary_json[this.tableKey].tail;
+        if (Array.isArray(sample)) {
+          return sample.reduce((acum, current) => {
+            acum[current.column_name] = current.values;
+            return acum;
+          }, {});
+        }
+        return sample;
       }
       return {};
     },
