@@ -41,7 +41,7 @@
             <router-link :to="{ name: 'do-dataset-data' }">Data</router-link>
           </NavigationTabs>
         </div>
-        <router-view></router-view>
+        <router-view :key="$route.fullPath"></router-view>
       </div>
     </transition>
   </div>
@@ -62,7 +62,7 @@ export default {
   },
   data() {
     return {
-      loading: true
+      loading: false
     };
   },
   computed: {
@@ -80,18 +80,23 @@ export default {
   },
   methods: {},
   mounted() {
-    Promise.all([
-      // this.$store.dispatch('doCatalog/fetchSubscriptionsList'),
-      this.$store.dispatch('doCatalog/fetchDataset', {
-        id: this.$route.params.datasetId,
-        type: this.$route.params.type
-      })
-    ]).then(() => {
-      this.loading = false;
-    });
+    if (!this.dataset || this.dataset.slug !== this.$route.params.datasetId) {
+      this.loading = true;
+      Promise.all([
+        // this.$store.dispatch('doCatalog/fetchSubscriptionsList'),
+        this.$store.dispatch('doCatalog/fetchDataset', {
+          id: this.$route.params.datasetId,
+          type: this.$route.params.type
+        })
+      ]).then(() => {
+        this.loading = false;
+      });
+    }
   },
   destroyed() {
-    this.$store.commit('doCatalog/resetDataset');
+    if (this.dataset.slug !== this.$route.params.datasetId) {
+      this.$store.commit('doCatalog/resetDataset');
+    }
   }
 };
 </script>
