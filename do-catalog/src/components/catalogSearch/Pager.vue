@@ -1,5 +1,5 @@
 <template>
-  <ul class="pager text is-caption">
+  <ul v-if="totalPages > 1" class="pager text is-caption">
     <li @click="goToPage(0)" :class="{ active: currentPage === 0 }">1</li>
     <li v-if="middlePages[0] > 1" class="disabled">...</li>
     <li

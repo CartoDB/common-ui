@@ -114,7 +114,7 @@ export default {
     filteredOptions() {
       const lowercaseFilter = this.filterText.toLowerCase();
       return [...this.options.values()]
-        .filter(opt => opt.name.toLowerCase().includes(lowercaseFilter))
+        .filter(opt => opt.entity_count > 0 && opt.name.toLowerCase().includes(lowercaseFilter))
         .sort((a, b) => {
           if (a.highlighted === b.highlighted) {
             if (a.entity_count !== b.entity_count) {
@@ -155,6 +155,18 @@ export default {
     },
     toggleVisibility() {
       this.isCompressed = !this.isCompressed;
+    }
+  },
+  watch: {
+    filteredOptions: {
+      immediate: true,
+      handler(newValue, oldValue) {
+        if (!newValue.length && !this.loading) {
+          this.isCompressed = true;
+        } else if (oldValue && !oldValue.length && newValue.length && !this.loading) {
+          this.isCompressed = false;
+        }
+      }
     }
   }
 };
@@ -267,6 +279,7 @@ export default {
 .clear-button {
   color: $color-primary;
   cursor: pointer;
+  padding-left: 6px;
 }
 
 .filter-input {

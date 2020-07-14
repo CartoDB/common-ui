@@ -4,20 +4,21 @@
       <p class="text is-caption is-txtMainTextColor u-mt--32 u-mt--12--tablet">
         {{ dataset.description || 'No description available.' }}
       </p>
-
-      <div class="key-variables u-mt--32" v-if="keyVariables.length">
-        <h5 class="title is-caption is-txtMainTextColor">
-          Key variables
-          <router-link :to="{ name: 'do-dataset-data' }" class="is-small"
-            >(View all)</router-link
-          >
-        </h5>
-        <ul class="text is-caption column-list u-mt--24">
-          <li v-for="variable in keyVariables" :key="variable.id">
-            <span>{{ variable.name }}</span>
-          </li>
-        </ul>
-      </div>
+      <transition name="fade">
+        <div class="key-variables u-mt--32" v-if="keyVariables.length">
+          <h5 class="title is-caption is-txtMainTextColor">
+            Key variables
+            <router-link :to="{ name: 'do-dataset-data' }" class="is-small"
+              >(View all)</router-link
+            >
+          </h5>
+          <ul class="text is-caption column-list u-mt--24">
+            <li v-for="variable in keyVariables" :key="variable.id">
+              <span>{{ variable.name }}</span>
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
     <div class="grid-cell--col1 grid-cell--col0--tablet"></div>
     <div class="grid-cell grid-cell--col2 grid-cell--col12--tablet sidebar">
@@ -25,19 +26,25 @@
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">License</h4>
           <p class="text is-caption is-txtMainTextColor">
-            {{ datasetPrivacy }}
+            {{ dataset.license_name }}
           </p>
         </li>
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Country</h4>
           <p class="text is-caption is-txtMainTextColor">
-            {{ dataset.country_name || '-' }}
+            {{ dataset.country_name }}
           </p>
         </li>
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">Source</h4>
           <p class="text is-caption is-txtMainTextColor">
             {{ dataset.provider_name }}
+          </p>
+        </li>
+        <li class="u-mb--32 u-mb--12--tablet">
+          <h4 class="text is-small is-txtSoftGrey u-mb--10">Placetype</h4>
+          <p class="text is-caption is-txtMainTextColor">
+            {{ dataset.placetype_name }}
           </p>
         </li>
         <li class="u-mb--32 u-mb--12--tablet" v-if="isGeography">
@@ -54,14 +61,6 @@
             {{ temporalAggregation }}
           </p>
         </li>
-        <!-- <li class="u-mb--32 u-mb--12--tablet" v-else>
-          <h4 class="text is-small is-txtSoftGrey u-mb--10">
-            Spatial aggregation
-          </h4>
-          <p class="text is-caption is-txtMainTextColor">
-            {{ spatialAggregation }}
-          </p>
-        </li> -->
         <li class="u-mb--32 u-mb--12--tablet">
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Update Frequency
@@ -129,23 +128,13 @@ export default {
       return temporalAggregationName(this.dataset.temporal_aggregation);
     },
     updateFrequency() {
-      return this.dataset.update_frequency
-        ? updateFrequencyName(this.dataset.update_frequency)
-        : '-';
-    },
-    datasetPrivacy() {
-      return this.dataset.is_public_data ? 'Public Data' : 'Premium Data';
+      return updateFrequencyName(this.dataset.update_frequency);
     },
     isGeography() {
       return this.$route.params.type === 'geography';
     },
     geometryType() {
       return geometryTypeName(this.dataset.geom_type);
-    },
-    spatialAggregation() {
-      return this.dataset.spatial_aggregation_name
-        ? this.dataset.spatial_aggregation_name
-        : '-';
     }
   },
   methods: {

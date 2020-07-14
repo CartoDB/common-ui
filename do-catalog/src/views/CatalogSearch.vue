@@ -33,7 +33,7 @@
         <div v-if="loading">
           <LoadingBar></LoadingBar>
         </div>
-        <div v-if="datasetsList.length > 0" class="results-container">
+        <div v-if="datasetsList.length > 0" class="results-container u-mb--48">
           <ul class="datasets-list">
             <DatasetListItem
               v-for="dataset in datasetsList"
@@ -41,7 +41,7 @@
               :dataset="dataset"
             ></DatasetListItem>
           </ul>
-          <Pager class="pager u-mt--48 u-mb--48"></Pager>
+          <Pager class="pager u-mt--48"></Pager>
         </div>
         <div v-else-if="!loading">
           <div class="empty-result u-mt--36">
@@ -195,6 +195,8 @@ header {
   hr {
     width: 78px;
     border: 1px solid $neutral--400;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -205,7 +207,7 @@ header {
 @media (max-width: $layout-tablet) {
   .dynamic-filtering {
     position: fixed;
-    z-index: 1;
+    z-index: 11;
     top: 100%;
     width: 100%;
     height: 100%;

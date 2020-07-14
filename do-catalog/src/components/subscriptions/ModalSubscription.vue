@@ -222,9 +222,6 @@ export default {
     ...mapState({
       user: state => state.user
     }),
-    datasetPrivacy() {
-      return this.dataset.is_public_data ? 'Public data' : 'Premium';
-    },
     getHeaderIcon() {
       if (this.currentMode === 'subscribe') {
         return 'subsc-add-icon.svg';

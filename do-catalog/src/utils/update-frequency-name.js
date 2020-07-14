@@ -8,5 +8,5 @@ const updateFrequency = {
 };
 
 export function updateFrequencyName(frequencyId) {
-  return frequencyId ? updateFrequency[frequencyId] : 'None';
+  return frequencyId ? updateFrequency[frequencyId] : '-';
 }
