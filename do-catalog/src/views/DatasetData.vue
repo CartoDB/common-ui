@@ -54,14 +54,15 @@
             </tr>
             <tr v-for="n in numberRows" :key="n">
               <td class="is-semibold">{{ n - 1 }}</td>
-              <td v-for="value in columns" :key="value">
-                <template v-if="value !== 'geom'">
+              <td v-for="sample of tableSample" :key="sample.column_name">
+                <!-- {{sample.values[n - 1]}} -->
+                <template v-if="sample.column_name !== 'geom'">
                   <span
                     v-if="
-                      tableSample[value][n - 1] !== null &&
-                        tableSample[value][n - 1] !== undefined
+                      sample.values[n - 1] !== null &&
+                        sample.values[n - 1] !== undefined
                     "
-                    >{{ tableSample[value][n - 1] }}</span
+                    >{{ sample.values[n - 1] }}</span
                   >
                   <span v-else class="is-txtLightGrey is-italic">null</span>
                 </template>
@@ -188,40 +189,30 @@ export default {
       if (this.dataset && this.dataset.summary_json) {
         if (this.dataset.summary_json.ordered_glimpses) {
           return 'ordered_glimpses';
-        } else if (this.dataset.summary_json.glimpses) {
-          return 'glimpses';
         } else if (this.dataset.summary_json.default_ordered_glimpses) {
           return 'default_ordered_glimpses';
-        } else if (this.dataset.summary_json.default_glimpses) {
-          return 'default_glimpses';
         }
       }
       return null;
     },
     source() {
-      if (this.tableKey === 'default_glimpses' || this.tableKey === 'default_ordered_glimpses') {
+      if (this.tableKey === 'default_ordered_glimpses') {
         return this.dataset.summary_json[this.tableKey].source;
       }
       return null;
     },
     tableSample() {
       if (this.tableKey) {
-        const sample = this.dataset.summary_json[this.tableKey].tail;
-        if (Array.isArray(sample)) {
-          return sample.reduce((acum, current) => {
-            acum[current.column_name] = current.values;
-            return acum;
-          }, {});
-        }
-        return sample;
+        return this.dataset.summary_json[this.tableKey].tail;
       }
-      return {};
+      return [];
     },
     columns() {
-      return this.tableSample ? Object.keys(this.tableSample) : [];
+      return this.tableSample ? this.tableSample.map(t => t.column_name) : [];
     },
     numberRows() {
-      return this.columns.length ? this.tableSample[this.columns[0]].length : 0;
+      // return this.columns.length ? this.tableSample[this.columns[0]].length : 0;
+      return this.tableSample && this.tableSample.length > 0 ? this.tableSample[0].values.length : 0;
     },
     numberColumns() {
       return this.variables ? this.variables.length : this.columns.length;
