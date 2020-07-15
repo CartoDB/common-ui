@@ -83,6 +83,7 @@ export default {
     if (!this.dataset || this.dataset.slug !== this.$route.params.datasetId) {
       this.loading = true;
       Promise.all([
+        // TODO: disable subscriptions fetch for DO Catalog soft-release
         // this.$store.dispatch('doCatalog/fetchSubscriptionsList'),
         this.$store.dispatch('doCatalog/fetchDataset', {
           id: this.$route.params.datasetId,
