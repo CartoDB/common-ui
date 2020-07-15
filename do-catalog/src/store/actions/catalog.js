@@ -4,7 +4,6 @@ import { setUrlParameters } from '../../utils/url-parameters';
 
 // const baseUrl = ' https://public.carto.com/api/v4/';
 const baseUrl = 'https://jarroyo.carto-staging.com/api/v4/';
-// const baseUrl = ' https://cmonteserin-do-st.carto-staging.com/api/v4/';
 const entitiesEndpoint = 'data/observatory/metadata/entities';
 const datasetsEndpoint = 'data/observatory/metadata/datasets';
 const geographiesEndpoint = 'data/observatory/metadata/geographies';
