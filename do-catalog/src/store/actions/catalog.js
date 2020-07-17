@@ -146,27 +146,6 @@ export async function fetchSubscriptionsList(context) {
     let response = await fetch(url);
     const data = await response.json();
     context.commit('setSubscriptionsList', data.subscriptions || []);
-    // if (details && data.subscriptions && data.subscriptions.length > 0) {
-    //   url =
-    //     baseUrl +
-    //     entitiesEndpoint +
-    //     `?id=${data.subscriptions.map(s => s.id).join('&id=')}`;
-    //   try {
-    //     response = await fetch(url);
-    //     const detailData = await response.json();
-    //     const mergedData = data.subscriptions.map(s => {
-    //       return {
-    //         ...s,
-    //         ...detailData.results.find(r => r.id === s.id)
-    //       };
-    //     });
-    //     context.commit('setSubscriptionsList', mergedData);
-    //   } catch (error) {
-    //     console.error(`ERROR: ${error}`);
-    //   }
-    // } else {
-    //   context.commit('setSubscriptionsList', data.subscriptions || []);
-    // }
   } catch (error) {
     console.error(`ERROR: ${error}`);
   }
