@@ -42,6 +42,7 @@
           </NavigationTabs>
         </div>
         <router-view :key="$route.fullPath"></router-view>
+        <GoUpButton></GoUpButton>
       </div>
     </transition>
   </div>
@@ -52,13 +53,15 @@ import { mapState } from 'vuex';
 import DatasetActionsBar from '../components/datasetDetail/DatasetActionsBar';
 import DatasetHeader from '../components/datasetDetail/DatasetHeader';
 import NavigationTabs from '../components/datasetDetail/NavigationTabs';
+import GoUpButton from '../components/GoUpButton';
 
 export default {
   name: 'DatasetDetail',
   components: {
     DatasetActionsBar,
     DatasetHeader,
-    NavigationTabs
+    NavigationTabs,
+    GoUpButton
   },
   data() {
     return {
@@ -124,5 +127,12 @@ export default {
       }
     }
   }
+}
+
+.go-up-button {
+  position: fixed;
+  z-index: 1;
+  right: 24px;
+  bottom: 64px;
 }
 </style>
