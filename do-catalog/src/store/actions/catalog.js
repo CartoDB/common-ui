@@ -140,32 +140,50 @@ export function clearTagFilters(context) {
   context.commit('resetTagFilters');
 }
 
-export async function fetchSubscriptionsList(context, details = false) {
+export async function fetchSubscriptionsList(context) {
   let url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}?api_key=${context.rootState.user.api_key}`;
   try {
     let response = await fetch(url);
     const data = await response.json();
-    if (details && data.subscriptions && data.subscriptions.length > 0) {
-      url =
-        baseUrl +
-        entitiesEndpoint +
-        `?id=${data.subscriptions.map(s => s.id).join('&id=')}`;
-      try {
-        response = await fetch(url);
-        const detailData = await response.json();
-        const mergedData = data.subscriptions.map(s => {
-          return {
-            ...s,
-            ...detailData.results.find(r => r.id === s.id)
-          };
-        });
-        context.commit('setSubscriptionsList', mergedData);
-      } catch (error) {
-        console.error(`ERROR: ${error}`);
-      }
-    } else {
-      context.commit('setSubscriptionsList', data.subscriptions || []);
-    }
+    context.commit('setSubscriptionsList', data.subscriptions || []);
+    // if (details && data.subscriptions && data.subscriptions.length > 0) {
+    //   url =
+    //     baseUrl +
+    //     entitiesEndpoint +
+    //     `?id=${data.subscriptions.map(s => s.id).join('&id=')}`;
+    //   try {
+    //     response = await fetch(url);
+    //     const detailData = await response.json();
+    //     const mergedData = data.subscriptions.map(s => {
+    //       return {
+    //         ...s,
+    //         ...detailData.results.find(r => r.id === s.id)
+    //       };
+    //     });
+    //     context.commit('setSubscriptionsList', mergedData);
+    //   } catch (error) {
+    //     console.error(`ERROR: ${error}`);
+    //   }
+    // } else {
+    //   context.commit('setSubscriptionsList', data.subscriptions || []);
+    // }
+  } catch (error) {
+    console.error(`ERROR: ${error}`);
+  }
+}
+
+export async function fetchSubscriptionsDetailsList(context, subscriptions_ids) {
+  const url = baseUrl + entitiesEndpoint + `?id=${subscriptions_ids.join('&id=')}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const mergedData = context.state.subscriptionsList.map(s => {
+      return {
+        ...s,
+        ...data.results.find(r => r.id === s.id)
+      };
+    });
+    context.commit('setSubscriptionsList', mergedData);
   } catch (error) {
     console.error(`ERROR: ${error}`);
   }

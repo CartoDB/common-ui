@@ -41,7 +41,7 @@
               :dataset="dataset"
             ></DatasetListItem>
           </ul>
-          <Pager class="pager u-mt--48"></Pager>
+          <Pager :count="count" :currentPage="currentPage" @goToPage="goToPage" class="pager u-mt--48"></Pager>
         </div>
         <div v-else-if="!loading">
           <div class="empty-result u-mt--36">
@@ -152,6 +152,9 @@ export default {
     },
     navigateToContact() {
       window.open('https://carto.com/contact/', '_blank');
+    },
+    goToPage(pageNum) {
+      this.$store.dispatch('doCatalog/setPage', pageNum);
     }
   },
   mounted() {

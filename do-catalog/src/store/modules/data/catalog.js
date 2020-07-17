@@ -52,6 +52,7 @@ export const catalog = {
     setPage: CatalogActions.setPage,
     clearTagFilters: CatalogActions.clearTagFilters,
     fetchSubscriptionsList: CatalogActions.fetchSubscriptionsList,
+    fetchSubscriptionsDetailsList: CatalogActions.fetchSubscriptionsDetailsList,
     fetchSubscribe: CatalogActions.fetchSubscribe,
     fetchUnSubscribe: CatalogActions.fetchUnSubscribe,
     downloadNotebook: CatalogActions.downloadNotebook,
