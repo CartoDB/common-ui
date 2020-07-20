@@ -27,14 +27,19 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 export default {
   name: 'Pager',
+  props: {
+    count: {
+      type: Number,
+      required: true
+    },
+    currentPage: {
+      type: Number,
+      required: true
+    }
+  },
   computed: {
-    ...mapState({
-      count: state => state.doCatalog.datasetsListCount,
-      currentPage: state => state.doCatalog.filter.page
-    }),
     pageSize() {
       return process.env.VUE_APP_PAGE_SIZE || 10;
     },
@@ -59,7 +64,7 @@ export default {
   },
   methods: {
     goToPage(pageNum) {
-      this.$store.dispatch('doCatalog/setPage', pageNum);
+      this.$emit('goToPage', pageNum);
     }
   }
 };
