@@ -1,14 +1,14 @@
 <template>
   <div class="u-flex" :class="{'u-flex__direction--column': mode === 'column', 'u-flex__align--center': mode !== 'column'}">
     <div v-if="dataset.sync_status !== 'syncing'" class="u-flex u-flex__align--center" :class="{ disabled: dataset.sync_status !== 'synced' }">
-      <SubscriptionButtonTooltip v-if="dataset.sync_status === 'synced'">
+      <!-- <SubscriptionButtonTooltip v-if="dataset.sync_status === 'synced'">
         <button type="button" class="u-mr--8 connect" @click="unconnect">
           <div class="tooltip text is-small is-txtWhite">
             Disconnect from Dashboard
           </div>
         </button>
-      </SubscriptionButtonTooltip>
-      <SubscriptionButtonTooltip v-else-if="dataset.sync_status === 'unsynced' && (!dataset.unsynced_errors || dataset.unsynced_errors === '')">
+      </SubscriptionButtonTooltip> -->
+      <SubscriptionButtonTooltip v-if="dataset.sync_status === 'unsynced' && (!dataset.unsynced_errors || dataset.unsynced_errors === '')">
         <button type="button" class="u-mr--8 unconnect" @click="connect">
           <div class="tooltip text is-small is-txtWhite">
             Connect to Dashboard
