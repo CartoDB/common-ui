@@ -62,7 +62,8 @@ export default {
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      id_interval: null
     };
   },
   computed: {
@@ -76,6 +77,9 @@ export default {
     },
     isGeography() {
       return this.$route.params.type === 'geography';
+    },
+    isSubscriptionSyncing() {
+      return this.subscription && this.subscription.sync_status === 'syncing';
     }
   },
   methods: {},
@@ -93,10 +97,24 @@ export default {
       });
     }
   },
+  watch: {
+    isSubscriptionSyncing: {
+      immediate: true,
+      handler() {
+        clearInterval(this.id_interval);
+        if (this.isSubscriptionSyncing) {
+          this.id_interval = setInterval(() => {
+            this.$store.dispatch('doCatalog/fetchSubscriptionsList');
+          }, 3000);
+        }
+      }
+    }
+  },
   destroyed() {
     if (this.dataset.slug !== this.$route.params.datasetId) {
       this.$store.commit('doCatalog/resetDataset');
     }
+    clearInterval(this.id_interval);
   }
 };
 </script>

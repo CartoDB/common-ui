@@ -54,6 +54,8 @@ export const catalog = {
     fetchSubscriptionsList: CatalogActions.fetchSubscriptionsList,
     fetchSubscribe: CatalogActions.fetchSubscribe,
     fetchUnSubscribe: CatalogActions.fetchUnSubscribe,
+    fetchSubscriptionSync: CatalogActions.fetchSubscriptionSync,
+    fetchSubscriptionUnSync: CatalogActions.fetchSubscriptionUnSync,
     downloadNotebook: CatalogActions.downloadNotebook,
     requestDataset: CatalogActions.requestDataset
   },

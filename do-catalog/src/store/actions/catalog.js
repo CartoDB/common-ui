@@ -191,6 +191,26 @@ export async function fetchUnSubscribe(context, { id, type }) {
   }
 }
 
+export async function fetchSubscriptionSync(context, id) {
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}/${id}/sync/?api_key=${context.rootState.user.api_key}`;
+  try {
+    const response = await fetch(url, { method: 'POST' });
+    return response.status === 200 || response.status === 204;
+  } catch (error) {
+    return false;
+  }
+}
+
+export async function fetchSubscriptionUnSync(context, id) {
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}/${id}/sync/?api_key=${context.rootState.user.api_key}`;
+  try {
+    const response = await fetch(url, { method: 'DELETE' });
+    return response.status === 200 || response.status === 204;
+  } catch (error) {
+    return false;
+  }
+}
+
 export async function downloadNotebook(context, slug) {
   const url = baseUrl + `data/observatory/templates/notebooks/explore?slug_id=${slug}`;
   var link = document.createElement('a');

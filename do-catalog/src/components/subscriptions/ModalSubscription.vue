@@ -305,7 +305,8 @@ export default {
         await this.$store.dispatch('doCatalog/fetchSubscribe', {
           id: this.dataset.id,
           type: this.type
-        })
+        }) &&
+        await this.$store.dispatch('doCatalog/fetchSubscriptionSync', this.dataset.id)
       ) {
         await this.$store.dispatch('doCatalog/fetchSubscriptionsList');
         this.currentMode = 'subscribed';
@@ -318,7 +319,8 @@ export default {
         await this.$store.dispatch('doCatalog/fetchUnSubscribe', {
           id: this.dataset.id,
           type: this.type
-        })
+        }) &&
+        await this.$store.dispatch('doCatalog/fetchSubscriptionUnSync', this.dataset.id)
       ) {
         await this.$store.dispatch('doCatalog/fetchSubscriptionsList');
         this.loading = false;

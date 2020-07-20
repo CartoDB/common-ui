@@ -2,14 +2,14 @@
   <div class="u-flex" :class="{'u-flex__direction--column': mode === 'column', 'u-flex__align--center': mode !== 'column'}">
     <div v-if="dataset.sync_status !== 'syncing'" class="u-flex u-flex__align--center" :class="{ disabled: dataset.sync_status !== 'synced' }">
       <SubscriptionButtonTooltip v-if="dataset.sync_status === 'synced'">
-        <button type="button" class="u-mr--8 connect">
+        <button type="button" class="u-mr--8 connect" @click="unconnect">
           <div class="tooltip text is-small is-txtWhite">
             Disconnect from Dashboard
           </div>
         </button>
       </SubscriptionButtonTooltip>
       <SubscriptionButtonTooltip v-else-if="dataset.sync_status === 'unsynced' && (!dataset.unsynced_errors || dataset.unsynced_errors === '')">
-        <button type="button" class="u-mr--8 unconnect">
+        <button type="button" class="u-mr--8 unconnect" @click="connect">
           <div class="tooltip text is-small is-txtWhite">
             Connect to Dashboard
           </div>
@@ -35,7 +35,7 @@
       <a class="is-caption text" :href="`${user.base_url}/dataset/${dataset.sync_table}`">View dataset</a>
     </div>
     <div v-if="dataset.sync_status === 'syncing'" class="u-flex u-flex__align--center">
-      <span class="loading u-mr--12">
+      <span class="loading u-mr--12 u-flex u-flex__align--center">
         <img svg-inline src="../../assets/loading.svg" class="loading__svg"/>
       </span>
       <span class="text is-txtSoftGrey is-caption">
@@ -67,7 +67,7 @@ export default {
       required: true
     }
   },
-  data: function () {
+  data: function() {
     return {};
   },
   computed: {
@@ -77,8 +77,15 @@ export default {
   },
   methods: {
     downloadNotebook(e) {
-      e.preventDefault()
-      this.$store.dispatch('doCatalog/downloadNotebook', this.dataset.slug)
+      e.preventDefault();
+      this.$store.dispatch('doCatalog/downloadNotebook', this.dataset.slug);
+    },
+    connect() {
+      this.$store.dispatch('doCatalog/fetchSubscriptionSync', this.dataset.id);
+    },
+    async unconnect() {
+      await this.$store.dispatch('doCatalog/fetchSubscriptionUnSync', this.dataset.id);
+      this.$store.dispatch('doCatalog/fetchSubscriptionsList');
     }
   }
 };
