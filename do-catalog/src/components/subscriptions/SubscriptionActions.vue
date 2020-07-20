@@ -80,8 +80,9 @@ export default {
       e.preventDefault();
       this.$store.dispatch('doCatalog/downloadNotebook', this.dataset.slug);
     },
-    connect() {
-      this.$store.dispatch('doCatalog/fetchSubscriptionSync', this.dataset.id);
+    async connect() {
+      await this.$store.dispatch('doCatalog/fetchSubscriptionSync', this.dataset.id);
+      this.$store.dispatch('doCatalog/fetchSubscriptionsList');
     },
     async unconnect() {
       await this.$store.dispatch('doCatalog/fetchSubscriptionUnSync', this.dataset.id);

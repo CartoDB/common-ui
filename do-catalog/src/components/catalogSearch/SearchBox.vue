@@ -59,8 +59,11 @@ export default {
     }
   },
   watch: {
-    searchText(newValue) {
-      this.filterText = newValue;
+    searchText: {
+      immediate: true,
+      handler(newValue) {
+        this.filterText = newValue;
+      }
     }
   }
 };

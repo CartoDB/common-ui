@@ -105,7 +105,7 @@ export default {
         if (this.isSubscriptionSyncing) {
           this.id_interval = setInterval(() => {
             this.$store.dispatch('doCatalog/fetchSubscriptionsList');
-          }, 3000);
+          }, 5000);
         }
       }
     }

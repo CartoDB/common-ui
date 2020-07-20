@@ -31,7 +31,7 @@
 
         <div
           class="license u-mt--24"
-          v-if="dataset.licenses && dataset.licenses !== ''"
+          v-if="currentMode !== 'unsubscribe' && dataset.licenses && dataset.licenses !== ''"
         >
 
           <p class="text is-small is-txtBaseGrey license-description">
@@ -316,11 +316,11 @@ export default {
     async unsubscribe() {
       this.loading = true;
       if (
+        await this.$store.dispatch('doCatalog/fetchSubscriptionUnSync', this.dataset.id) &&
         await this.$store.dispatch('doCatalog/fetchUnSubscribe', {
           id: this.dataset.id,
           type: this.type
-        }) &&
-        await this.$store.dispatch('doCatalog/fetchSubscriptionUnSync', this.dataset.id)
+        })
       ) {
         await this.$store.dispatch('doCatalog/fetchSubscriptionsList');
         this.loading = false;
