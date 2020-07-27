@@ -71,7 +71,7 @@
         </li>
         <li
           class="u-mb--32 u-mb--12--tablet"
-          v-if="!isGeography && dataset.geography_id"
+          v-if="!isGeography && (dataset.geography_slug || dataset.geography_id)"
         >
           <h4 class="text is-small is-txtSoftGrey u-mb--10">
             Associated Geography
@@ -81,7 +81,7 @@
               :to="{
                 name: 'do-dataset-summary',
                 params: {
-                  datasetId: dataset.geography_id,
+                  datasetId: (dataset.geography_slug || dataset.geography_id),
                   type: 'geography'
                 }
               }"

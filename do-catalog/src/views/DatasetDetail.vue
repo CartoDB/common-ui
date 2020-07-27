@@ -42,6 +42,7 @@
           </NavigationTabs>
         </div>
         <router-view :key="$route.fullPath"></router-view>
+        <GoUpButton></GoUpButton>
       </div>
     </transition>
   </div>
@@ -52,17 +53,20 @@ import { mapState } from 'vuex';
 import DatasetActionsBar from '../components/datasetDetail/DatasetActionsBar';
 import DatasetHeader from '../components/datasetDetail/DatasetHeader';
 import NavigationTabs from '../components/datasetDetail/NavigationTabs';
+import GoUpButton from '../components/GoUpButton';
 
 export default {
   name: 'DatasetDetail',
   components: {
     DatasetActionsBar,
     DatasetHeader,
-    NavigationTabs
+    NavigationTabs,
+    GoUpButton
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      id_interval: null
     };
   },
   computed: {
@@ -76,6 +80,9 @@ export default {
     },
     isGeography() {
       return this.$route.params.type === 'geography';
+    },
+    isSubscriptionSyncing() {
+      return this.subscription && this.subscription.sync_status === 'syncing';
     }
   },
   methods: {},
@@ -93,10 +100,24 @@ export default {
       });
     }
   },
+  watch: {
+    isSubscriptionSyncing: {
+      immediate: true,
+      handler() {
+        clearInterval(this.id_interval);
+        if (this.isSubscriptionSyncing) {
+          this.id_interval = setInterval(() => {
+            this.$store.dispatch('doCatalog/fetchSubscriptionsList');
+          }, 5000);
+        }
+      }
+    }
+  },
   destroyed() {
     if (this.dataset.slug !== this.$route.params.datasetId) {
       this.$store.commit('doCatalog/resetDataset');
     }
+    clearInterval(this.id_interval);
   }
 };
 </script>
@@ -124,5 +145,12 @@ export default {
       }
     }
   }
+}
+
+.go-up-button {
+  position: fixed;
+  z-index: 1;
+  right: 24px;
+  bottom: 64px;
 }
 </style>

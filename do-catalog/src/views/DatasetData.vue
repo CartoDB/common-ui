@@ -14,8 +14,8 @@
           </transition>
         </h2>
         <div class="is-small text txtMainTextColor">
-          <span class="source u-flex u-flex__align--center" v-if="source"
-            >(*) Sample not available: this preview is for
+          <span class="source u-flex u-flex__align--center" style="white-space:pre-wrap;" v-if="source"
+            >(*) Sample not available: this preview is for&nbsp;
             <i class="is-semibold is-italic">{{ source }}</i></span
           >
           <span class="grey" v-else-if="numberRows > 0"

@@ -1,13 +1,13 @@
 <template>
   <div class="u-flex u-flex__align--center copy-container">
-    <span class="text is-txtSoftGrey is-small">Slug-ID</span>
+    <span class="text is-txtSoftGrey is-small">ID</span>
     <input ref="inputCopy" class="text u-ml--12 is-small" type="text" readonly :value="slug">
     <SubscriptionButtonTooltip>
       <button type="button" class="u-flex u-flex__align--center u-flex__justify--center" @click="copy" @mouseleave="copied=false">
         <img svg-inline src="../../assets/copy.svg">
         <div class="text tooltip is-small is-txtWhite u-flex u-flex__align--center">
           <template v-if="!copied">
-            Copy slug-ID to use in CARTOframe
+            Copy ID to use in CARTOframe
           </template>
           <template v-else>
             <img width="12" class="u-mr--4" src="../../assets/check_white.svg">
