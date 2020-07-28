@@ -141,7 +141,7 @@ export function clearTagFilters(context) {
 }
 
 export async function fetchSubscriptionsList(context, merge = false) {
-  let url = `${'https://test-new-do-staging.carto-staging.com/u/do-test'}/api/v4/${subscriptionsEndpoint}?api_key=${'e3ad4b91c63643b68169a78ec5f52177b435f3a3'}`;
+  let url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}?api_key=${context.rootState.user.api_key}`;
   try {
     let response = await fetch(url);
     const data = await response.json();
@@ -179,7 +179,7 @@ export async function fetchSubscriptionsDetailsList(context, subscriptions_ids) 
 }
 
 export async function fetchSubscribe(context, { id, type }) {
-  const url = `${'https://test-new-do-staging.carto-staging.com/u/do-test'}/api/v4/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${'e3ad4b91c63643b68169a78ec5f52177b435f3a3'}`;
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
   try {
     const response = await fetch(url, { method: 'POST' });
     return response.status === 200 || response.status === 204;
@@ -189,7 +189,7 @@ export async function fetchSubscribe(context, { id, type }) {
 }
 
 export async function fetchUnSubscribe(context, { id, type }) {
-  const url = `${'https://test-new-do-staging.carto-staging.com/u/do-test'}/api/v4/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${'e3ad4b91c63643b68169a78ec5f52177b435f3a3'}`;
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}?id=${id}&type=${type}&api_key=${context.rootState.user.api_key}`;
   try {
     const response = await fetch(url, { method: 'DELETE' });
     return response.status === 200 || response.status === 204;
@@ -199,7 +199,7 @@ export async function fetchUnSubscribe(context, { id, type }) {
 }
 
 export async function fetchSubscriptionSync(context, id) {
-  const url = `${'https://test-new-do-staging.carto-staging.com/u/do-test'}/api/v4/${subscriptionsEndpoint}/${id}/sync/?api_key=${'e3ad4b91c63643b68169a78ec5f52177b435f3a3'}`;
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}/${id}/sync/?api_key=${context.rootState.user.api_key}`;
   try {
     const response = await fetch(url, { method: 'POST' });
     return response.status === 200 || response.status === 204;
@@ -209,7 +209,7 @@ export async function fetchSubscriptionSync(context, id) {
 }
 
 export async function fetchSubscriptionUnSync(context, id) {
-  const url = `${'https://test-new-do-staging.carto-staging.com/u/do-test'}/api/v4/${subscriptionsEndpoint}/${id}/sync/?api_key=${'e3ad4b91c63643b68169a78ec5f52177b435f3a3'}`;
+  const url = `${context.rootState.user.base_url}/api/v4/${subscriptionsEndpoint}/${id}/sync/?api_key=${context.rootState.user.api_key}`;
   try {
     const response = await fetch(url, { method: 'DELETE' });
     return response.status === 200 || response.status === 204;
@@ -219,7 +219,7 @@ export async function fetchSubscriptionUnSync(context, id) {
 }
 
 export async function downloadNotebook(context, slug) {
-  const url = baseUrl + `data/observatory/templates/notebooks/explore?slug_id=${slug}&api_key=${'e3ad4b91c63643b68169a78ec5f52177b435f3a3'}&username=${context.rootState.user.username}`;
+  const url = baseUrl + `data/observatory/templates/notebooks/explore?slug_id=${slug}&api_key=${context.rootState.user.api_key}&username=${context.rootState.user.username}`;
   var link = document.createElement('a');
   link.href = url;
   link.click();
