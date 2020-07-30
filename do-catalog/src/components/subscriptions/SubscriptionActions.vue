@@ -82,7 +82,7 @@ export default {
     },
     async connect() {
       await this.$store.dispatch('doCatalog/fetchSubscriptionSync', this.dataset.id);
-      this.$store.dispatch('doCatalog/fetchSubscriptionsList');
+      this.$store.dispatch('doCatalog/fetchSubscriptionsList', true);
     },
     async unconnect() {
       await this.$store.dispatch('doCatalog/fetchSubscriptionUnSync', this.dataset.id);
