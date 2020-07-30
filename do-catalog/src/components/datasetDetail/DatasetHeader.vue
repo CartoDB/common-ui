@@ -53,7 +53,7 @@
             Subscribed
             <img class="u-ml--12" src="../../assets/check.svg" alt="check" />
           </Button>
-          <span
+          <span v-if="dataset && dataset.is_public_data"
             @click="showModal('unsubscribe')"
             class="text is-small is-txtSoftGrey u-mt--8 underline"
             >Unsubscribe</span

@@ -97,6 +97,9 @@ export default {
         })
       ]).then(() => {
         this.loading = false;
+        this.$router.replace({
+          params: { datasetId: this.dataset.slug }
+        });
       });
     }
   },

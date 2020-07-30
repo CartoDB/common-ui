@@ -219,7 +219,7 @@ export async function fetchSubscriptionUnSync(context, id) {
 }
 
 export async function downloadNotebook(context, slug) {
-  const url = baseUrl + `data/observatory/templates/notebooks/explore?slug_id=${slug}`;
+  const url = baseUrl + `data/observatory/templates/notebooks/explore?slug_id=${slug}&api_key=${context.rootState.user.api_key}&username=${context.rootState.user.username}`;
   var link = document.createElement('a');
   link.href = url;
   link.click();

@@ -7,7 +7,7 @@
         <img svg-inline src="../../assets/copy.svg">
         <div class="text tooltip is-small is-txtWhite u-flex u-flex__align--center">
           <template v-if="!copied">
-            Copy ID to use in CARTOframe
+            Copy ID to use in CARTOframes
           </template>
           <template v-else>
             <img width="12" class="u-mr--4" src="../../assets/check_white.svg">
