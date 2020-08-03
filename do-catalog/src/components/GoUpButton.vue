@@ -31,7 +31,6 @@ export default {
     },
     handleScroll() {
       this.active = window.pageYOffset > 100;
-      console.log('ENTRO');
     }
   },
   destroyed() {
