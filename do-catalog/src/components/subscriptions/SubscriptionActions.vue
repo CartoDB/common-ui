@@ -67,7 +67,7 @@ export default {
       required: true
     }
   },
-  data: function() {
+  data() {
     return {};
   },
   computed: {
@@ -78,7 +78,7 @@ export default {
   methods: {
     downloadNotebook(e) {
       e.preventDefault();
-      this.$store.dispatch('doCatalog/downloadNotebook', this.dataset.slug);
+      this.$store.dispatch('doCatalog/downloadNotebook', this.dataset.slug, this.dataset.type);
     },
     async connect() {
       await this.$store.dispatch('doCatalog/fetchSubscriptionSync', this.dataset.id);

@@ -218,9 +218,15 @@ export async function fetchSubscriptionUnSync(context, id) {
   }
 }
 
-export async function downloadNotebook(context, slug) {
-  const url = baseUrl + `data/observatory/templates/notebooks/explore?slug_id=${slug}&api_key=${context.rootState.user.api_key}&username=${context.rootState.user.username}`;
-  var link = document.createElement('a');
+export async function downloadNotebook(context, id, type) {
+  const params = [
+    `id=${id}`,
+    `type=${type}`,
+    `api_key=${context.rootState.user.api_key}`,
+    `username=${context.rootState.user.username}`
+  ]
+  const url = baseUrl + `data/observatory/templates/notebooks/explore?${params.join('&')}`;
+  const link = document.createElement('a');
   link.href = url;
   link.click();
 }
