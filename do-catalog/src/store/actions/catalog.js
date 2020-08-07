@@ -277,23 +277,23 @@ function getFormData(user, dataset) {
       },
       {
         name: 'country_data',
-        value: dataset.country_name
+        value: dataset.country_name || ''
       },
       {
         name: 'data_category',
-        value: dataset.category_name
+        value: dataset.category_name || 'Geography'
       },
       {
         name: 'datastream_name',
-        value: dataset.data_source_name
+        value: dataset.data_source_name || ''
       },
       {
         name: 'provider',
-        value: dataset.provider_name
+        value: dataset.provider_name || ''
       },
       {
         name: 'datastream_license',
-        value: dataset.license_name
+        value: dataset.license_name || ''
       },
       {
         name: 'data_purpose',
