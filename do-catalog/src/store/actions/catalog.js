@@ -267,9 +267,10 @@ function getFormData(user, dataset) {
       {
         name: 'company',
         value:
-          user.company || user.organization
+          user.company ||
+          (user.organization
             ? user.organization.display_name || user.organization.name
-            : 'no_company'
+            : 'no_company')
       },
       {
         name: 'phone',
