@@ -73,6 +73,12 @@
       >
         Any questions? <a href="https://carto.com/request-live-demo/" target="_blank">Contact</a>
       </p>
+      <p
+        v-else-if="!subscriptionInfo && !isEnterprise"
+        class="text is-small is-txtMainTextColor u-mt--16 right-align"
+      >
+        Only available for <a href="https://carto.com/pricing/" target="_blank">Enterprise plans</a>
+      </p>
     </div>
 
     <ModalSubscription
@@ -134,10 +140,10 @@ export default {
       ) {
         return this.subscriptionInfo.status;
       }
-      if (this.isPublicWebsite || !this.$store.state.user.is_enterprise) {
+      if (this.isPublicWebsite || !this.isEnterprise) {
         return 'interested';
       } else if (
-        this.$store.state.user.is_enterprise &&
+        this.isEnterprise &&
         this.dataset.is_public_data !== undefined
       ) {
         return this.dataset.is_public_data
@@ -148,6 +154,9 @@ export default {
     },
     interesedInSubscription() {
       return this.interestedSubscriptions.indexOf(this.dataset.id) >= 0;
+    },
+    isEnterprise () {
+      return this.$store.state.user.is_enterprise;
     }
   },
   methods: {
