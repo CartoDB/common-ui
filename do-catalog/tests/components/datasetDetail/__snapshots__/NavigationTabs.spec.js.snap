@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`NavigationTabs.vue Renders view properly 1`] = `<div id="nav" class="nav-tabs u-mb--12"></div>`;
