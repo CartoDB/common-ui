@@ -8,4 +8,4 @@ This project has been integrated into [CartoDB/cartodb](https://github.com/Carto
 Please add new issues or pull requests in that repository:
 
 * [New issues](https://github.com/CartoDB/cartodb/issues)
-* [New pull requests](https://github.com/CartoDB/cartodb/pulls)
+* [New pull requests](https://github.com/CartoDB/cartodb/pulls) 
